@@ -1,0 +1,30 @@
+body{
+	background-color:#18175B;
+}
+#nav{
+	background-color:#000000;
+}
+div.stripe{
+	background-color:#000000;
+}
+div.content{
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+}
+@font-face{
+	font-family: BebasNeue;
+	src:url('bebasneue_basic.eot');
+}
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 300;
+	src: url("roboto300_basic.eot");
+}
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: url("roboto400_basic.eot");
+}

