@@ -9,7 +9,7 @@ Made with love, really!
 [AdolfIntel.com](http://adolfintel.com/)
  
 ## Compatibility
-Full HTML5: Internet Explorer 10, Firefox 5.0, Chrome 8.0
+Full HTML5: Internet Explorer 10, Firefox 12, Chrome 30
 
 Basic HTML: Internet Explorer 6, Firefox 1.0, Chrome 1.0
 

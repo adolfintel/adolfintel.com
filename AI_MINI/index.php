@@ -61,19 +61,19 @@ var b=getBrowser();
 if(b.n=="i"){	//IE 10+
 	if(b.v<10) gotoBasic();
 }else
-if(b.n=="f"){	//FF 5+
-	if(b.v<5) gotoBasic();
+if(b.n=="f"){	//FF 12+
+	if(b.v<12) gotoBasic();
 }else
-if(b.n=="c"){	//Chrome 8+
-	if(b.v<8) gotoBasic();
+if(b.n=="c"){	//Chrome 30+
+	if(b.v<30) gotoBasic();
 }else
-if(b.n=="o"){	//Opera 15+
-	if(b.v<15) gotoBasic();
+if(b.n=="o"){	//Opera 17+
+	if(b.v<17) gotoBasic();
 }else
 if(b.n=="s"){	//Safari 8+ (not tested)
 	if(b.v<8) gotoBasic();
 }else
-if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined)){ //unknown browser. check XHR, localStorage, Canvas and CSS Animation support
+if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer)){ //unknown browser. check XHR, localStorage, Canvas, CSS Animation support, XMLSerializer support
 	gotoBasic();
 }
 	
@@ -332,6 +332,12 @@ function autoLoad(){
 	}
 }
 
+function toggleNavExp(){
+	//in mobile view, toggles the menu
+	var nav=document.getElementById("nav");
+	if(nav.className.isBlank()) nav.className='expanded'; else nav.className='';
+}
+
 setInterval(function(){
 	try{
 		var iframes=document.getElementById("fragment").getElementsByTagName("iframe");
@@ -370,7 +376,7 @@ setInterval(function(){
 	</script>
 </div>
 <div id="page">
-	<div id="nav">
+	<div id="nav" onClick="toggleNavExp()">
 		<?php
 			ob_start();
 			include($NavFrag);

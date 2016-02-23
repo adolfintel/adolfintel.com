@@ -85,6 +85,11 @@ iframe{
 	width:100%;
 	margin-bottom:4em;
 	text-align:right;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none !important;
 }
 #logo{
 	font-size:2.5em;
@@ -226,14 +231,14 @@ span.bold{
 	#nav a{
 		display:none;
 	}
-	#nav:hover, #nav:active{
+	#nav.expanded{
 		max-height:70%;
 		overflow-y:auto;
 	}
-	#nav:hover a, #nav:active a{
+	#nav.expanded a, #nav.expanded a{
 		display:block !important;
 	}
-	#nav:hover #logo, #nav:active #logo{
+	#nav.expanded #logo, #nav.expanded #logo{
 		background:none;
 	}
 	#fragment{
