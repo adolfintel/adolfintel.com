@@ -213,13 +213,42 @@ span.bold{
 	}
 	#nav{
 		text-align:center;
+		font-size:0.8em;
 		margin-bottom:1em;
+		position:fixed;
+		top:0;
+		width:100%;
+		overflow:hidden;
+		z-index:999;
+		background-color:#000000;
+		box-shadow:0 0 5em rgba(0,0,0,0.3);
+	}
+	#nav a{
+		display:none;
+	}
+	#nav:hover, #nav:active{
+		max-height:70%;
+		overflow-y:auto;
+	}
+	#nav:hover a, #nav:active a{
+		display:block !important;
+	}
+	#nav:hover #logo, #nav:active #logo{
+		background:none;
+	}
+	#fragment{
+		margin-top:6em;
 	}
 	#nav a, #logo{
-		display:block;
 		width:100%;
 		height:auto;
 		padding:0;
+	}
+	#logo{
+		background:url('menu.png');
+		background-repeat:no-repeat;
+		background-size: auto 1.6em;
+		background-attachment: fixed;
 	}
 	#nav a{
 		border-top:1px solid rgba(255,255,255,0.3);
@@ -244,5 +273,8 @@ span.bold{
 @media all and (max-width: 30em){
 	body{
 		font-size:1em;
+	}
+	#nav{
+		font-size:0.95em;
 	}
 }

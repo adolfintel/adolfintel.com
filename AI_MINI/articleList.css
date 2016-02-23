@@ -31,4 +31,7 @@ h2{
 		height:4em;
 		width:auto;
 	}
+	div.clickOverlay{
+		height:0 !important;
+	}
 }

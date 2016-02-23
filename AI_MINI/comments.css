@@ -1,0 +1,43 @@
+#_comments_ textarea{
+	background-color:rgba(255,255,255,0.7);
+	width:100%;
+	border:none;
+	margin:0;
+	padding:0;
+}
+
+#_comments_ textarea:focus, #_comments_ textarea:active{
+	background-color:#FFFFFF;
+}
+#_comments_ input[type="button"]{
+	display:block;
+	min-width:8em;
+	margin:0.5em 0 0 auto;
+}
+#_comments_ img.loading{
+	animation: load 1s infinite linear;
+	width:2em;
+	height:2em;
+}
+#_comments_ div.commentsArea{
+	margin-top:0.2em;
+}
+#_comments_ div.comment{
+	border-bottom:1px solid rgba(255,255,255,0.4);
+	font-size:0.9em;
+	padding:0;
+	color:#FFFFFF;
+}
+#_comments_ div.comment p{
+	margin:0.8em 0;
+	padding:0;
+}
+#_comments_ div.comment br{
+	display:block;
+	height:0;
+	padding:0;
+	margin:0;
+	line-height:0;
+	font-size:0;
+	content: "";
+}

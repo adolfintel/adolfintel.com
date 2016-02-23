@@ -5,6 +5,8 @@
 	header('Content-type: application/xml; charset=utf-8');
 	require_once 'HTMLPurif/HTMLPurifier.standalone.php';
 	$config = HTMLPurifier_Config::createDefault();
+	$config->set('AutoFormat','AutoParagraph',true);
+	$config->set('Core','NormalizeNewlines',true);
 	$purifier = new HTMLPurifier($config);
 	include '_config.php';
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die("1");   
@@ -15,7 +17,7 @@
 	echo '<comments>';
 	$q->bind_result($text);
 	while($q->fetch()){
-		echo "<comment>".$purifier->purify($text)."</comment>";
+		echo "<comment>".preg_replace('#<br />(\s*<br />)+#', '<br />', nl2br($purifier->purify($text)))."</comment>";
 	}
 	echo '</comments>';
 ?>

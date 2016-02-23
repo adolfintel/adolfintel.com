@@ -162,6 +162,80 @@ function showError(err){
 	frag.innerHTML="";
 	frag.appendChild(stripe);
 }
+function createCommentsForm(id,container){
+	var f=document.createElement("form");
+	var t=document.createElement("textarea");
+	t.name="text";
+	t.rows=4;
+	t.setAttribute("placeholder","Type a comment here...");
+	f.appendChild(t);
+	var b=document.createElement("input");
+	b.type="button";
+	b.value="Post";
+	f.appendChild(b);
+	container.appendChild(f);
+	var c=document.createElement("div");
+	c.className="commentsArea";
+	container.appendChild(c);
+	b.onclick=function(){sendComment(id,t,c);};
+	loadComments(id,c);
+}
+function loadComments(id,container){
+	container.innerHTML="";
+	var img=document.createElement("img");
+	img.className="loading";
+	img.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAn1BMVEUAAAD29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29va4jzlsAAAANXRSTlMACwUHDyIbFPiSgEkpF+bPx3hFNuq9illRLSbw27OedWhkPzoy1cKtqKOXYVZOHt+5hXBtXcMn7YcAAAFVSURBVDjLfZHnlsIgEEaHBMimV9N7T9RY3//ZNqvHdV3B788cuPfAwMAzeDdbhhcCJ7FsJF9rejZGipEkN8FmcrLxPC/xxrMaM3lkGobXlRg4IebBMGQuBpSlh0PFAIJwr3aaplsmvxvE7FIfmIIo/lSl63r2/SJCq4Et07wCMwJCCEA1TQvz2sdYANuyfOALCHLLCniCKEkYsr5vPggSbDYbjScIuq7D8YMgUkphOB5dbpPLQkHOspAnYEJ0uGSDzRN0QiSoh2FCnB7jOMaApnFU2YKkabEAUI6TjJgHaFFE10rzKd+yBNK20W3eQZ7PzjunrtvS+3co8yzXb7xp3OjxGl+W/R16uT9y6toVH8vlJPsnuxF/MXFUx2nQnwcV/klRirAluk61Ogz3quOil7GoiqLYxflSVttrsFsFTfj/K/viKexbxBqu5gRVWQWqu4jP3W9sCxnRJWJdQQAAAABJRU5ErkJggg==";
+	container.appendChild(img);
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4){
+			if(xhr.status==200){
+				container.innerHTML="";
+				try{
+					if(parseInt(xhr.responseText)==1){container.innerHTML="Server error"; return;}
+				}catch(e){}
+				try{
+					container.innerHTML="";
+					var comments=xhr.responseXML.documentElement.getElementsByTagName("comment");
+					while(comments.length>0){
+						var c=document.createElement("div");
+						c.className="comment";
+						var comment=document.adoptNode(comments[0]); //adoptNode will remove the current node from comments.childNodes
+						c.innerHTML=new XMLSerializer().serializeToString(comment);
+						container.appendChild(c);
+					}
+				}catch(e){
+					container.innerHTML="Couldn't load comments ("+e+")";
+				}
+			}
+		}
+	}
+	xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
+	xhr.send();
+}
+function sendComment(id,t,commentsArea){
+	if(t.value.isBlank()){ return;}
+	var text=t.value;
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4){
+			if(xhr.status==200){
+				try{
+					if(parseInt(xhr.responseText)==1){return;}
+				}catch(e){alert("An error occurred, please try again"); return;}
+				t.value="";
+				loadComments(id,commentsArea);
+			}
+		}
+	}
+	var params="";
+	params+="id="+encodeURIComponent(id)+"&text="+encodeURIComponent(text)+"&r="+Math.random();
+	xhr.open("POST","postComment.php",true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-length", params.length);
+	xhr.setRequestHeader("Connection", "close");
+	xhr.send(params);
+}
 var loading=false;
 function loadFragment(url,pushState){
 	if(loading) return;
@@ -179,7 +253,7 @@ function loadFragment(url,pushState){
 				frag.innerHTML=xhr.responseText;
 				var scripts=frag.getElementsByTagName("script");
 				for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
-				try{frag.scrollIntoView({block: "start", behavior: "smooth"});}catch(e){}
+				//try{frag.scrollIntoView({block: "start", behavior: "smooth"});}catch(e){}
 				document.title="<?=$Site_Title?>";
 				var xhr2=new XMLHttpRequest();
 				xhr2.onreadystatechange=function(){
@@ -192,13 +266,7 @@ function loadFragment(url,pushState){
 				xhr2.open("POST","fetch_frag_title.php?p="+url);
 				xhr2.send("random="+Math.random());
 				var commentsArea=document.getElementById("_comments_");
-				if(commentsArea){
-					var iframe=document.createElement("iframe");
-					iframe.src="comments.html?p="+document.location.search.substring(1);
-					iframe.style.width="100%";
-					commentsArea.innerHTML="";
-					commentsArea.appendChild(iframe);
-				}
+				if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
 				var latest=document.getElementById("_latestPost_");
 				if(latest){
 					var xhr3=new XMLHttpRequest();
@@ -276,6 +344,7 @@ setInterval(function(){
 
 </script>
 <link rel="stylesheet" type="text/css" href="main.css"/>
+<link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
 <style type="text/css">
 .basic_only{
