@@ -116,6 +116,7 @@ iframe{
 	font-size:1.1em;
 	font-weight:400;
 	text-decoration:none !important;
+	transition: background-color 0.2s;
 }
 #nav a:hover{
 	background-color:rgba(255,255,255,0.4);
@@ -127,10 +128,11 @@ iframe{
 div.stripe{
 	width:100%;
 	display:block;
-	margin:0.7em 0 0.7em 0;
-	padding:1.5em 0 1.5em 0;
+	margin:0.8em 0;
+	padding:1.8em 0 1.8em 0;
 	clear:both;
 	position:relative;
+	box-shadow: 0 -0.5em 0.5em -0.5em rgba(0,0,0,0.2) inset, 0 0.5em 0.5em -0.5em rgba(0,0,0,0.2) inset;
 }
 div.content{
 	width:100%;
@@ -172,9 +174,8 @@ div.stripe, #nav{
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
-	width:20%;
-	max-width:20em;
-	height:auto;
+	width:20vh;
+	height:20vh;
 }
 @keyframes load {
 	from {transform: rotate(0deg);}
@@ -192,6 +193,7 @@ div.clickOverlay{
 	margin:0;
 	padding:0;
 	cursor:pointer;
+	z-index:999;
 }
 img.icon{
 	float:left;
@@ -204,17 +206,20 @@ img.icon{
 span.bold{
 	font-weight:400;
 }
-@media all and (max-width:72em){
+@media all and (max-width:72em) and (min-width:50em){
 	div.content{
 		width:95%;
 	}
 	#nav div.content{
 		width:100%;
 	}
+	#logo{
+		margin-left:0.5em;
+	}
 }
 @media all and (max-width: 50em){
 	body{
-		font-size:1.45em;
+		font-size:1.2em;
 	}
 	#nav{
 		text-align:center;
@@ -226,7 +231,9 @@ span.bold{
 		overflow:hidden;
 		z-index:999;
 		background-color:#000000;
-		box-shadow:0 0 5em rgba(0,0,0,0.3);
+	}
+	#nav,div.stripe{
+		box-shadow:none; //lighter on mobile devices
 	}
 	#nav a{
 		display:none;
@@ -237,9 +244,6 @@ span.bold{
 	}
 	#nav.expanded a, #nav.expanded a{
 		display:block !important;
-	}
-	#nav.expanded #logo, #nav.expanded #logo{
-		background:none;
 	}
 	#fragment{
 		margin-top:6em;

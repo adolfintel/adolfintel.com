@@ -10,12 +10,12 @@
 			</p>
 		</div>
 		<h4>Screenshots</h4>
-		<div class="section">
+		<div class="section"><div class="gallery">
 			<img class="thumbnail" src="example_project/screen1.thumb.png" onClick="openLightbox('example_project/screen1.png')"/>
 			<img class="thumbnail" src="example_project/screen2.thumb.png" onClick="openLightbox('example_project/screen2.png')"/>
 			<img class="thumbnail" src="example_project/screen3.thumb.png" onClick="openLightbox('example_project/screen3.png')"/>
 			<img class="thumbnail" src="example_project/wp.thumb.png" onClick="openLightbox('example_project/wp.png')"/>
-		</div>
+		</div></div>
 		<h4>Compatibility</h4>
 		<div class="section">
 			<p>
