@@ -58,7 +58,7 @@ div.clear{
 }
 #background{
 	position:fixed;
-	z-index:0;
+	z-index:1;
 	top:0;
 	left:0;
 	width:100%;
@@ -73,7 +73,7 @@ iframe{
 }
 #page{
 	position:fixed;
-	z-index:1;
+	z-index:2;
 	top:0;
 	left:0;
 	width:100%;
@@ -206,6 +206,11 @@ img.icon{
 span.bold{
 	font-weight:400;
 }
+#resp_test{
+	width:0;
+	position:fixed;
+	z-index:0;
+}
 @media all and (max-width:72em) and (min-width:50em){
 	div.content{
 		width:95%;
@@ -272,6 +277,9 @@ span.bold{
 	}
 	.resp_hidden{
 		display:none !important;
+	}
+	#resp_test{
+		width:1em;
 	}
 }
 @media all and (min-width:50em){

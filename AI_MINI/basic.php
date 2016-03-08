@@ -86,10 +86,19 @@ if(b.n=="s"){	//Safari 8+ (not tested)
 if(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer){ //unknown browser. check XHR, localStorage, Canvas, CSS Animation support, XMLSerializer support
 	gotoFull();
 }
+
+function isMobile(){
+	return document.getElementById("resp_test").offsetWidth>0;
+}
+function isDesktop(){
+	return document.getElementById("resp_test").offsetWidth==0;
+}
 function isBasicMode(){
 	return true;
 }
+function onFragUnload(){}
 function loadFragment(url,pushState){
+	onFragUnload();
 	document.location.href="basic.php?p="+url;
 }
 function showNav(){
@@ -107,17 +116,14 @@ function hidePage(){
 function openLightbox(imgUrl){
 	window.open(imgUrl,"_blank");
 }
-function closeLightbox(){
-}
+function closeLightbox(){}
 function showLoading(){
 	document.getElementById("fragment").innerHTML="";
 }
 function showError(err){
 	alert("Error "+err);
 }
-function setBackgroundCfg(cfg){
-	alert("Operation not supported when in Basic HTML mode");
-}
+function setBackgroundCfg(cfg){}
 function toggleNavExp(){
 	//in mobile view, toggles the menu
 	var nav=document.getElementById("nav");
@@ -180,6 +186,7 @@ setInterval(function(){
 			?>
 		</div>
 	</div>
+	<div id="resp_test">&nbsp;</div>
 </body>
 </html>
 <?php 

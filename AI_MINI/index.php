@@ -76,7 +76,13 @@ if(b.n=="s"){	//Safari 8+ (not tested)
 if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer)){ //unknown browser. check XHR, localStorage, Canvas, CSS Animation support, XMLSerializer support
 	gotoBasic();
 }
-	
+
+function isMobile(){
+	return document.getElementById("resp_test").offsetWidth>0;
+}
+function isDesktop(){
+	return document.getElementById("resp_test").offsetWidth==0;
+}
 function isBasicMode(){
 	return false;
 }
@@ -236,6 +242,7 @@ function sendComment(id,t,commentsArea){
 	xhr.setRequestHeader("Connection", "close");
 	xhr.send(params);
 }
+function onFragUnload(){}
 var loading=false;
 function loadFragment(url,pushState){
 	if(loading) return;
@@ -399,5 +406,6 @@ setInterval(function(){
 <div id="lightbox" onClick="closeLightbox()">
 	<img id="lbimg" onClick="closeLightbox()" src="null.png"/>
 </div>
+<div id="resp_test">&nbsp;</div>
 </body>
 </html>
