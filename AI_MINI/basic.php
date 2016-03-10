@@ -138,6 +138,23 @@ setInterval(function(){
 		}
 	}catch(e){}
 },50);
+if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
+	setInterval(function(){
+	//this apparently useless piece of code fixes image stretching on IE6/7
+		try{
+			var imgs=document.getElementById("fragment").getElementsByTagName("img");
+			for(var i=0;i<imgs.length;i++){
+				var x=imgs[i];
+				if(!x.complete) continue;
+				var p=x.parentNode;
+				var d=document.createElement("div");
+				p.replaceChild(d,x);
+				p.replaceChild(x,d);
+			}
+		}catch(e){}
+	},1000);
+}
+
 </script>
 <style type="text/css">
 .basic_hide{
@@ -186,6 +203,10 @@ setInterval(function(){
 			?>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var c=document.getElementById("_comments_");
+		if(c)c.innerHTML="This function requires a modern browser";
+	</script>
 	<div id="resp_test">&nbsp;</div>
 </body>
 </html>
