@@ -250,6 +250,8 @@ function loadFragment(url,pushState){
 	showNav();
 	showPage();
 	closeLightbox();
+	onFragUnload();
+	onFragUnload=function(){}
 	try{if(pushState)window.history.pushState(url, document.title, '?p='+url);}catch(e){}
 	showLoading();
 	var xhr=new XMLHttpRequest();
