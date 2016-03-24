@@ -1,5 +1,7 @@
 DirectoryIndex basic.php index.php index.html
 Redirect /index.html /index.php
+Redirect /projects /?p=articles.php?s=1
+Redirect /blog /?p=articles.php?s=4
 RewriteEngine On
-RewriteCond %{HTTP_USER_AGENT} (googlebot|InfoSeek|msnbot|bingbot|Slurp|DuckDuckBot|facebook|LinkedIn|GooglePlus|Google) [NC]
+RewriteCond %{HTTP_USER_AGENT} (googlebot|InfoSeek|msnbot|bingbot|Slurp|DuckDuckBot|facebook|LinkedIn|GooglePlus|Google|Facebot|facebookexternalhit) [NC]
 RewriteRule ^index\.php$ /basic.php [L,R]

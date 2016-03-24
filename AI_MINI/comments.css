@@ -4,6 +4,8 @@
 	border:none;
 	margin:0;
 	padding:0;
+	resize: vertical;
+	overflow:auto;
 }
 
 #_comments_ textarea:focus, #_comments_ textarea:active{

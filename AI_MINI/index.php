@@ -19,6 +19,7 @@
 String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
+window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to basic mode if incompatible. browser check code is a modified version of https://browser-update.org/
 function gotoBasic(){
 	document.location.href="basic.php"+(document.location.search.isBlank()?"":document.location.search);
@@ -78,37 +79,37 @@ if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.c
 }
 
 function isMobile(){
-	return document.getElementById("resp_test").offsetWidth>0;
+	return I("resp_test").offsetWidth>0;
 }
 function isDesktop(){
-	return document.getElementById("resp_test").offsetWidth==0;
+	return I("resp_test").offsetWidth==0;
 }
 function isBasicMode(){
 	return false;
 }
 function showNav(){
-	document.getElementById("nav").style.display='';
+	I("nav").style.display='';
 }
 function hideNav(){
-	document.getElementById("nav").style.display='none';
+	I("nav").style.display='none';
 }
 function showPage(){
-	document.getElementById("fragment").style.display='';
+	I("fragment").style.display='';
 }
 function hidePage(){
-	document.getElementById("fragment").style.display='none';
+	I("fragment").style.display='none';
 }
 function openLightbox(imgUrl){
-	document.getElementById("lbimg").src=imgUrl;
-	document.getElementById("lightbox").style.display='';
+	I("lbimg").src=imgUrl;
+	I("lightbox").style.display='';
 }
 function closeLightbox(){
-	document.getElementById("lightbox").style.display='none';
-	document.getElementById("lbimg").src="";
+	I("lightbox").style.display='none';
+	I("lbimg").src="";
 }
 
 setInterval(function(){
-	var lb=document.getElementById("lightbox"), img=document.getElementById("lbimg");
+	var lb=I("lightbox"), img=I("lbimg");
 	if(lb!=null&&lb.style.display.isBlank()){
 		if(img.naturalWidth<=lb.clientWidth&&img.naturalHeight<=lb.clientHeight) img.className=""; else{
 			var ir=img.naturalWidth/img.naturalHeight, lr=lb.clientWidth/lb.clientHeight;
@@ -121,7 +122,7 @@ var loadingStatuses=["","Loading...","Loading...","Still loading...","Loady load
 var lStatus=0;
 var lStatTimer=setInterval(function(){
 	try{
-		document.getElementById("loadStatus").innerHTML=lStatus>=loadingStatuses.length?loadingStatuses[loadingStatuses.length-1]:loadingStatuses[lStatus++];
+		I("loadStatus").innerHTML=lStatus>=loadingStatuses.length?loadingStatuses[loadingStatuses.length-1]:loadingStatuses[lStatus++];
 	}catch(e){
 		lStatus=0;
 	}
@@ -143,17 +144,17 @@ function showLoading(){
 		lStatus=0;
 		var stripe=document.createElement("div");
 		stripe.className="stripe";
-		var frag=document.getElementById("fragment");
+		var frag=I("fragment");
 		stripe.appendChild(c);
 		stripe.appendChild(d);
 		frag.innerHTML="";
 		frag.appendChild(stripe);
 	}catch(e){
-		document.getElementById("fragment").innerHTML="";
+		I("fragment").innerHTML="";
 	}
 }
 function showError(err){
-	var frag=document.getElementById("fragment");
+	var frag=I("fragment");
 	var stripe=document.createElement("div");
 	stripe.className="stripe";
 	var c=document.createElement("div");
@@ -252,13 +253,14 @@ function loadFragment(url,pushState){
 	closeLightbox();
 	onFragUnload();
 	onFragUnload=function(){}
+	url=unescape(url);
 	try{if(pushState)window.history.pushState(url, document.title, '?p='+url);}catch(e){}
 	showLoading();
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
 			if(xhr.status==200){
-				var frag=document.getElementById("fragment");
+				var frag=I("fragment");
 				frag.innerHTML=xhr.responseText;
 				var scripts=frag.getElementsByTagName("script");
 				for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
@@ -274,9 +276,9 @@ function loadFragment(url,pushState){
 				}
 				xhr2.open("POST","fetch_frag_title.php?p="+url);
 				xhr2.send("random="+Math.random());
-				var commentsArea=document.getElementById("_comments_");
+				var commentsArea=I("_comments_");
 				if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
-				var latest=document.getElementById("_latestPost_");
+				var latest=I("_latestPost_");
 				if(latest){
 					var xhr3=new XMLHttpRequest();
 					xhr3.onreadystatechange=function(){
@@ -326,7 +328,7 @@ window.onpopstate = function(e){
 
 function setBackgroundCfg(cfg){
 	localStorage.backgroundCfg=cfg;
-	var c=document.getElementById("bkFrame");
+	var c=I("bkFrame");
 	c.contentWindow.location.replace("<?=$Background_Page?>?"+cfg);
 }
 	
@@ -343,13 +345,13 @@ function autoLoad(){
 
 function toggleNavExp(){
 	//in mobile view, toggles the menu
-	var nav=document.getElementById("nav");
+	var nav=I("nav");
 	if(nav.className.isBlank()) nav.className='expanded'; else nav.className='';
 }
 
 setInterval(function(){
 	try{
-		var iframes=document.getElementById("fragment").getElementsByTagName("iframe");
+		var iframes=I("fragment").getElementsByTagName("iframe");
 		for(var i=0;i<iframes.length;i++){
 			var x=iframes[i];
 			x.style.height=x.contentDocument.getElementsByTagName("body")[0].clientHeight+"px";
@@ -378,7 +380,7 @@ setInterval(function(){
 	<iframe id="bkFrame" src="" style="width:100%; height:100%;" scrolling="no"></iframe>
 	<script type="text/javascript">
 		if(localStorage.backgroundCfg){
-			document.getElementById("bkFrame").src="<?=$Background_Page?>?"+localStorage.backgroundCfg;
+			I("bkFrame").src="<?=$Background_Page?>?"+localStorage.backgroundCfg;
 		}else{
 			setBackgroundCfg("<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
 		}
@@ -399,8 +401,8 @@ setInterval(function(){
 		</div>
 	</div>
 	<script type="text/javascript">
-		document.getElementById("requiresJS").style.display="none";
-		document.getElementById("campaign-icon").style.display="none";
+		I("requiresJS").style.display="none";
+		I("campaign-icon").style.display="none";
 	</script>
 	<div id="fragment">
 	</div>

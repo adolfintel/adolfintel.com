@@ -9,6 +9,7 @@
 <head>
 <?php
 	include '_config.php';
+	$_GET["p"]=urldecode($_GET["p"]);
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename);
 	$q = $conn->prepare("select description,title,kwords,campaignIcon from articles where frag=?");
 	$q->bind_param("s",$_GET["p"]);
@@ -29,6 +30,7 @@
 String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
+window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to full mode if compatible. browser check code is a modified version of https://browser-update.org/
 function gotoFull(){
 	document.location.href="index.php"+(document.location.search.isBlank()?"":document.location.search);
@@ -88,10 +90,10 @@ if(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.cre
 }
 
 function isMobile(){
-	return document.getElementById("resp_test").offsetWidth>0;
+	return I("resp_test").offsetWidth>0;
 }
 function isDesktop(){
-	return document.getElementById("resp_test").offsetWidth==0;
+	return I("resp_test").offsetWidth==0;
 }
 function isBasicMode(){
 	return true;
@@ -99,26 +101,27 @@ function isBasicMode(){
 function onFragUnload(){}
 function loadFragment(url,pushState){
 	onFragUnload();
+	url=unescape(url);
 	document.location.href="basic.php?p="+url;
 }
 function showNav(){
-	document.getElementById("nav").style.display='';
+	I("nav").style.display='';
 }
 function hideNav(){
-	document.getElementById("nav").style.display='none';
+	I("nav").style.display='none';
 }
 function showPage(){
-	document.getElementById("fragment").style.display='';
+	I("fragment").style.display='';
 }
 function hidePage(){
-	document.getElementById("fragment").style.display='none';
+	I("fragment").style.display='none';
 }
 function openLightbox(imgUrl){
 	window.open(imgUrl,"_blank");
 }
 function closeLightbox(){}
 function showLoading(){
-	document.getElementById("fragment").innerHTML="";
+	I("fragment").innerHTML="";
 }
 function showError(err){
 	alert("Error "+err);
@@ -126,12 +129,12 @@ function showError(err){
 function setBackgroundCfg(cfg){}
 function toggleNavExp(){
 	//in mobile view, toggles the menu
-	var nav=document.getElementById("nav");
+	var nav=I("nav");
 	if(nav.className.isBlank()) nav.className='expanded'; else nav.className='';
 }
 setInterval(function(){
 	try{
-		var iframes=document.getElementById("fragment").getElementsByTagName("iframe");
+		var iframes=I("fragment").getElementsByTagName("iframe");
 		for(var i=0;i<iframes.length;i++){
 			var x=iframes[i];
 			x.style.height=x.contentDocument.getElementsByTagName("body")[0].clientHeight+"px";
@@ -142,7 +145,7 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 	setInterval(function(){
 	//this apparently useless piece of code fixes image stretching on IE6/7
 		try{
-			var imgs=document.getElementById("fragment").getElementsByTagName("img");
+			var imgs=I("fragment").getElementsByTagName("img");
 			for(var i=0;i<imgs.length;i++){
 				var x=imgs[i];
 				if(!x.complete) continue;
@@ -178,8 +181,8 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 		</div>
 	</div>
 	<script type="text/javascript">
-		document.getElementById("requiresJS").style.display="none";
-		document.getElementById("campaign-icon").style.display="none";
+		I("requiresJS").style.display="none";
+		I("campaign-icon").style.display="none";
 	</script>
 	<div id="fragment">
 		<div class="basic">
@@ -204,7 +207,7 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 		</div>
 	</div>
 	<script type="text/javascript">
-		var c=document.getElementById("_comments_");
+		var c=I("_comments_");
 		if(c)c.innerHTML="This function requires a modern browser";
 	</script>
 	<div id="resp_test">&nbsp;</div>
