@@ -367,7 +367,7 @@ setInterval(function(){
 },100);
 
 </script>
-<link rel="stylesheet" type="text/css" href="main1.css"/>
+<link rel="stylesheet" type="text/css" href="main.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
 <style type="text/css">
