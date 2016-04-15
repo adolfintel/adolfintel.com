@@ -140,6 +140,17 @@ div.content{
 	margin-left:auto;
 	margin-right:auto;
 	clear:both;
+	position:relative;
+	visibility:hidden;
+}
+div.content.slide{
+	animation:slide 0.3s linear;
+	visibility:visible;
+}
+@keyframes slide{
+	0%{opacity:0; top:1.2em;}
+	60%{opacity:0.8; top:0.3em;}
+	100%{opacity:1; top:0em;}
 }
 div.section{
 	margin-bottom:1.8em;

@@ -358,9 +358,16 @@ setInterval(function(){
 		}
 	}catch(e){}
 },50);
+setInterval(function(){
+	var d=document.getElementsByClassName("content");
+	for(var i=0;i<d.length;i++){
+		var r = d[i].getBoundingClientRect();
+		if(r.top+r.height >= 0 &&r.left+r.width >= 0 &&r.bottom-r.height <= (window.innerHeight || document.documentElement.clientHeight) && r.right-r.width <= (window.innerWidth || document.documentElement.clientWidth)){if(d[i].className.indexOf(" slide")==-1) d[i].className+=" slide";}
+	}
+},100);
 
 </script>
-<link rel="stylesheet" type="text/css" href="main.css"/>
+<link rel="stylesheet" type="text/css" href="main1.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
 <style type="text/css">
