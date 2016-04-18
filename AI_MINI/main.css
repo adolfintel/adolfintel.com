@@ -85,6 +85,7 @@ iframe{
 	width:100%;
 	margin-bottom:4em;
 	text-align:right;
+	z-index:999;
 	-webkit-touch-callout:none;
 	-webkit-user-select:none;
 	-moz-user-select:none;
@@ -204,7 +205,7 @@ div.clickOverlay{
 	margin:0;
 	padding:0;
 	cursor:pointer;
-	z-index:999;
+	z-index:99;
 }
 img.icon{
 	float:left;

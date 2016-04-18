@@ -254,6 +254,7 @@ function loadFragment(url,pushState){
 	onFragUnload();
 	onFragUnload=function(){}
 	url=unescape(url);
+	if(typeof pushState == 'undefined') pushState=true;
 	try{if(pushState)window.history.pushState(url, document.title, '?p='+url);}catch(e){}
 	showLoading();
 	var xhr=new XMLHttpRequest();
@@ -365,7 +366,14 @@ setInterval(function(){
 		if(r.top+r.height >= 0 &&r.left+r.width >= 0 &&r.bottom-r.height <= (window.innerHeight || document.documentElement.clientHeight) && r.right-r.width <= (window.innerWidth || document.documentElement.clientWidth)){if(d[i].className.indexOf(" slide")==-1) d[i].className+=" slide";}
 	}
 },100);
-
+if(b.n=="c"){
+	//fix for some webkit browsers changing the bkFrame URL when back is pressed after setBackgroundCfg is used
+	setInterval(function(){
+		var c=I("bkFrame").contentWindow.location.href;
+		c=decodeURI(c.substring(c.indexOf('?')));
+		if(c.indexOf(localStorage.backgroundCfg)==-1) setBackgroundCfg(localStorage.backgroundCfg);
+	},300);
+}
 </script>
 <link rel="stylesheet" type="text/css" href="main.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
