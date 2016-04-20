@@ -1,22 +1,42 @@
 <div>
-<style type="text/css" scoped="scoped">
-	h2.bigass{
-		font-size:8.2em;
-		text-align:center;
-	}
-	@media all and (max-width:50em){
-		h2.bigass{
-			font-size:4em;
-		}
-	}
-</style>
+<link rel="stylesheet" href="home.css" />
 <div class="stripe">
 	<div class="content">
-		<h2 class="bigass">Home Page</h2>
-		<p style="text-align:center">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sollicitudin commodo est eget iaculis. Vivamus vel eros a turpis rhoncus faucibus eget eget urna. Vivamus faucibus ipsum augue, in ullamcorper justo sollicitudin mattis. Quisque ac dolor quis nisi blandit lacinia. Nulla porttitor hendrerit tempor. Pellentesque suscipit dolor libero, ut pulvinar tellus dapibus id. Ut tristique et diam vel pharetra. Praesent gravida nec turpis nec pulvinar. Nunc ut viverra ligula. Aliquam ligula nisi, varius in dignissim ut, malesuada et mi. Mauris vitae tellus faucibus, maximus leo ac, fringilla nibh. Aliquam rutrum sapien id condimentum pretium. Phasellus dictum tempor suscipit. Quisque elementum non quam non fringilla. 
+		<div id="bigass">Hello!</div>
+		<p id="intro">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dignissim tellus eget mauris facilisis, ut gravida leo lacinia. Fusce vel pulvinar ante. Nullam eget condimentum nisl, ut consequat ante. Integer faucibus ultricies eleifend. Vivamus laoreet id ipsum vitae viverra. Vivamus orci metus, iaculis egestas lobortis ac, tincidunt sit amet orci. Aliquam venenatis euismod aliquet. Suspendisse ornare faucibus magna, a facilisis nisi aliquet eget. Fusce sit amet fermentum ipsum. Duis sodales bibendum augue ut fringilla. In euismod turpis justo. Etiam luctus ipsum in fringilla consectetur. 
 		</p>
+		<div class="basic_hide">
+				<div id="buttons">
+					<a onclick="loadFragment('articles.php?s=1')" class="button blue">Projects</a>
+					<a onclick="loadFragment('articles.php?s=2')" class="button red">Blog</a>
+					<a onclick="loadFragment('about.frag')" class="button green">About me</a>
+				</div>
+		</div>
+		<script type="text/javascript">
+			if(!isBasicMode()){
+				window.greets=["Hello","Hi","Greetings","Welcome","Benvenuto","Ciao","Namaste","Hola","Salut","Hallo","God dag","Shalom","Love"];
+				window.currentGreet=parseInt(Math.random()*greets.length);
+				window.areaText=greets[0];
+				window._home_t=setInterval(function(){
+					var c=parseInt(Math.random()*Math.max(greets[currentGreet].length,areaText.length));
+					var s=greets[currentGreet][c];
+					if(typeof s == 'undefined') s=" ";
+					while(areaText.length<c) areaText+=" ";
+					areaText=areaText.slice(0,c)+s+areaText.slice(c+1);
+					I("bigass").innerHTML=areaText.isBlank()?"&nbsp;":areaText;
+				},50);
+				window._home_t2=setInterval(function(){
+					window.currentGreet=parseInt(Math.random()*greets.length);
+				},4000);
+				window.onFragUnload=function(){
+					clearInterval(_home_t);
+					clearInterval(_home_t2);
+				}
+			}
+		</script>
 	</div>
+	
 </div>
 <div class="basic_only">
 	<div class="stripe">
@@ -38,13 +58,18 @@
 	</div>
 </div>
 <div class="basic_hide">
+	<div style="height:120vh">
+		<!-- space waster so the user can admire the background -->
+		&nbsp;
+	</div>
 	<div class="stripe">
 		<div class="content">
 			<h2>Enjoying the view?</h2>
 			<p>
-				You can <a onClick="loadFragment('empty.frag',true)">hide the page</a> to enjoy the background.
+				You can <a onClick="loadFragment('empty.frag')">hide the page</a> to enjoy the background. Press back to come back.
 			</p>
 		</div>
 	</div>
 </div>
+
 </div>

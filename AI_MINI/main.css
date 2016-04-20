@@ -82,6 +82,8 @@ iframe{
 	overflow-x:hidden;
 }
 #nav{
+	background-color:#7abbd6;
+	box-shadow:0 0 1em rgba(0,0,0,0.6);
 	width:100%;
 	margin-bottom:4em;
 	text-align:right;
@@ -96,7 +98,8 @@ iframe{
 	font-size:2.5em;
 	line-height:1.72em;
 	font-family:'BebasNeue', sans-serif;
-	color:#FFFFFF;
+	color:#000000;
+	opacity:0.77;
 	display:inline-block;
 	width:auto;
 	margin-right:2em;
@@ -109,7 +112,7 @@ iframe{
 	line-height:3.91em;
 	display:inline-block;
 	text-align:center;
-	color:#FFFFFF !important;
+	color:#000000 !important;
 	padding-left:1em;
 	padding-right:1em;
 	text-decoration:none !important;
@@ -120,10 +123,10 @@ iframe{
 	transition: background-color 0.2s;
 }
 #nav a:hover{
-	background-color:rgba(255,255,255,0.4);
+	background-color:rgba(0,5,20,0.3);
 }
 #nav a:active{
-	background-color:rgba(255,255,255,0.2);
+	background-color:rgba(0,5,20,0.4);
 }
 
 div.stripe{
@@ -133,7 +136,6 @@ div.stripe{
 	padding:1.8em 0 1.8em 0;
 	clear:both;
 	position:relative;
-	box-shadow: 0 -0.5em 0.5em -0.5em rgba(0,0,0,0.2) inset, 0 0.5em 0.5em -0.5em rgba(0,0,0,0.2) inset;
 }
 div.content{
 	width:100%;
@@ -177,8 +179,9 @@ h2 a:hover, h2 a:active{
 	text-decoration:underline;
 }
 
-div.stripe, #nav{
-	background-color:rgba(0,0,0,0.4);
+div.stripe > div.content{
+	padding-bottom:1.6em;
+	border-bottom: 0.15em solid rgba(89,168,201,0.3);
 }
 
 .loading {
@@ -239,6 +242,7 @@ span.bold{
 		font-size:1.2em;
 	}
 	#nav{
+		box-shadow:0 0 0.5em rgba(0,0,0,0.4);
 		text-align:center;
 		font-size:0.8em;
 		margin-bottom:1em;
@@ -246,11 +250,6 @@ span.bold{
 		top:0;
 		width:100%;
 		overflow:hidden;
-		z-index:999;
-		background-color:#000000;
-	}
-	#nav,div.stripe{
-		box-shadow:none; //lighter on mobile devices
 	}
 	#nav a{
 		display:none;
@@ -277,7 +276,7 @@ span.bold{
 		background-attachment: fixed;
 	}
 	#nav a{
-		border-top:1px solid rgba(255,255,255,0.3);
+		border-top:1px solid rgba(0,0,0,0.3);
 		clear:both;
 		line-height:2em;
 	}

@@ -1,12 +1,11 @@
 body{
-	background-color:#18175B;
+	background-color:#061d26;
+}
+#fragment{
 	font-size:0.9em;
 }
 #nav{
-	background-color:#000000;
-}
-div.stripe{
-	background-color:#000000;
+	background-color:#7abbd6;
 }
 div.content{
 	width:95%;
@@ -14,6 +13,10 @@ div.content{
 	margin-right:auto;
 	opacity:1 !important;
 	visibility:visible !important;
+}
+div.stripe div.content{
+	padding-bottom:1.6em;
+	border-bottom: 0.1em solid #2e5869;
 }
 @font-face{
 	font-family: BebasNeue;

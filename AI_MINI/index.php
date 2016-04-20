@@ -329,8 +329,7 @@ window.onpopstate = function(e){
 
 function setBackgroundCfg(cfg){
 	localStorage.backgroundCfg=cfg;
-	var c=I("bkFrame");
-	c.contentWindow.location.replace("<?=$Background_Page?>?"+cfg);
+	new MuhTriangles("bkFrame",cfg);
 }
 	
 function autoLoad(){
@@ -366,15 +365,8 @@ setInterval(function(){
 		if(r.top+r.height >= 0 &&r.left+r.width >= 0 &&r.bottom-r.height <= (window.innerHeight || document.documentElement.clientHeight) && r.right-r.width <= (window.innerWidth || document.documentElement.clientWidth)){if(d[i].className.indexOf(" slide")==-1) d[i].className+=" slide";}
 	}
 },100);
-if(b.n=="c"){
-	//fix for some webkit browsers changing the bkFrame URL when back is pressed after setBackgroundCfg is used
-	setInterval(function(){
-		var c=I("bkFrame").contentWindow.location.href;
-		c=decodeURI(c.substring(c.indexOf('?')));
-		if(c.indexOf(localStorage.backgroundCfg)==-1) setBackgroundCfg(localStorage.backgroundCfg);
-	},300);
-}
 </script>
+<script src="muhTriangles.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="main.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
@@ -392,13 +384,9 @@ if(b.n=="c"){
 </head>
 <body onLoad="autoLoad()">
 <div id="background">
-	<iframe id="bkFrame" src="" style="width:100%; height:100%;" scrolling="no"></iframe>
+	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
 	<script type="text/javascript">
-		if(localStorage.backgroundCfg){
-			I("bkFrame").src="<?=$Background_Page?>?"+localStorage.backgroundCfg;
-		}else{
-			setBackgroundCfg("<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
-		}
+		setBackgroundCfg(localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
 	</script>
 </div>
 <div id="page">

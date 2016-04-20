@@ -22,9 +22,9 @@ include '_config.php';
 		<div class="content">
 			<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="icon" onClick="loadFragment('<?=$a->frag?>',true)"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>',true)"><?=$a->title?></a></h2>
 			<?=$a->description?>
+			<div class="clear">&nbsp;</div>
+			<div class="clickOverlay" onClick="loadFragment('<?=$a->frag?>',true)">&nbsp;</div>
 		</div>
-		<div class="clear">&nbsp;</div>
-		<div class="clickOverlay" onClick="loadFragment('<?=$a->frag?>',true)">&nbsp;</div>
 	</div>
 <?php
    }
