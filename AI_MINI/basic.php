@@ -30,6 +30,15 @@
 String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
+if(!Function.prototype.bind){
+  Function.prototype.bind=function(oThis){
+    if (typeof this !== "function") throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+    var aArgs=Array.prototype.slice.call(arguments,1),fToBind=this,fNOP=function(){},fBound=function(){return fToBind.apply(this instanceof fNOP && oThis? this: oThis,aArgs.concat(Array.prototype.slice.call(arguments)));};
+    fNOP.prototype=this.prototype;
+    fBound.prototype=new fNOP();
+    return fBound;
+  };
+}
 window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to full mode if compatible. browser check code is a modified version of https://browser-update.org/
 function gotoFull(){
@@ -70,22 +79,7 @@ function getBrowser() {
 	return {n:n,v:v};
 }
 var b=getBrowser();
-if(b.n=="i"){	//IE 10+
-	if(b.v>=10) gotoFull();
-}else
-if(b.n=="f"){	//FF 12+
-	if(b.v>=12) gotoFull();
-}else
-if(b.n=="c"){	//Chrome 30+
-	if(b.v>=30) gotoFull();
-}else
-if(b.n=="o"){	//Opera 17+
-	if(b.v>=17) gotoFull();
-}else
-if(b.n=="s"){	//Safari 8+ (not tested)
-	if(b.v>=8) gotoFull();
-}else
-if(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer){ //unknown browser. check XHR, localStorage, Canvas, CSS Animation support, XMLSerializer support
+if(!((b.n=="i" && b.v<10)||(b.n=="f" && b.v<12)||(b.n=="c" && b.v<30)||(b.n=="o" && b.v<17)||(b.n=="s"&&b.v<8)||(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer)))){	//IE 10+; FF 12+; Chrome 30+; Opera 17+; Safari 8+; any browser with XHR, localStorage, Canvas, CSS Animation, XMLSerializer
 	gotoFull();
 }
 
@@ -120,6 +114,32 @@ function openLightbox(imgUrl){
 	window.open(imgUrl,"_blank");
 }
 function closeLightbox(){}
+
+function loadText(target,url,onDone){
+	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			target.innerHTML=xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+			try{if(onDone)onDone();}catch(e){}
+		}
+	}.bind(this);
+	xhr.open("GET",url,true);
+	xhr.send();
+}
+function highlight(target,lang){
+	target.className="code hljs lang-"+lang;
+	if(!I("hljs_load")){
+		setTimeout(function(){ //delay loading so ie6 doesn't crash
+			var d=document.createElement("link");
+			d.id="hljs_load"
+			d.rel="stylesheet";
+			d.href="HLJS/ai.css";
+			I("fragment").appendChild(d);}
+		,100);
+	}
+	//hljs not applied, just basic styling
+}
+
 function showLoading(){
 	I("fragment").innerHTML="";
 }

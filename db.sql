@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
 INSERT INTO `articles` (`id`, `section`, `frag`, `description`, `icon`,`campaignIcon`, `title`, `date`, `relevance`, `kwords`, `updateFreq`) VALUES
 (1, 1, 'example_project/index.frag', 'Lorem ipsum dolor sit amet...', 'example_project/icon.png',NULL, 'Example Project', '2015-08-02', 0.9, 'example,app,keyword1,keyword2', 'never'),
 (4, 2, 'example_article_2/index.frag', 'Muh article 2 is goat', NULL,NULL, 'Example Article 2', '2015-08-02', 0.5, 'example,keyword1,keyword2', 'never');
+(3, 2, 'example_article_3/i.frag', 'Smooth scrolling', 'example_article_3/icon.png',NULL, 'Example Article 3', '2015-08-02', 0.9, 'example,keyword1,keyword2', 'never'),
 
 
 CREATE TABLE IF NOT EXISTS `comment` (

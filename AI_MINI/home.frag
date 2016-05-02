@@ -23,7 +23,7 @@
 					var s=greets[currentGreet][c];
 					if(typeof s == 'undefined') s=" ";
 					while(areaText.length<c) areaText+=" ";
-					areaText=areaText.slice(0,c)+s+areaText.slice(c+1);
+					areaText=(areaText.slice(0,c)+s+areaText.slice(c+1)).trim();
 					I("bigass").innerHTML=areaText.isBlank()?"&nbsp;":areaText;
 				},50);
 				window._home_t2=setInterval(function(){

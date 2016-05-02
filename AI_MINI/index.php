@@ -59,22 +59,7 @@ function getBrowser() {
     return {n:n,v:v};
 }
 var b=getBrowser();
-if(b.n=="i"){	//IE 10+
-	if(b.v<10) gotoBasic();
-}else
-if(b.n=="f"){	//FF 12+
-	if(b.v<12) gotoBasic();
-}else
-if(b.n=="c"){	//Chrome 30+
-	if(b.v<30) gotoBasic();
-}else
-if(b.n=="o"){	//Opera 17+
-	if(b.v<17) gotoBasic();
-}else
-if(b.n=="s"){	//Safari 8+ (not tested)
-	if(b.v<8) gotoBasic();
-}else
-if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer)){ //unknown browser. check XHR, localStorage, Canvas, CSS Animation support, XMLSerializer support
+if((b.n=="i" && b.v<10)||(b.n=="f" && b.v<12)||(b.n=="c" && b.v<30)||(b.n=="o" && b.v<17)||(b.n=="s"&&b.v<8)||(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer))){	//IE 10+; FF 12+; Chrome 30+; Opera 17+; Safari 8+; any browser with XHR, localStorage, Canvas, CSS Animation, XMLSerializer
 	gotoBasic();
 }
 
@@ -106,6 +91,52 @@ function openLightbox(imgUrl){
 function closeLightbox(){
 	I("lightbox").style.display='none';
 	I("lbimg").src="";
+}
+function loadText(target,url,onDone){
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			target.innerHTML=xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+			if(onDone)onDone();
+		}
+	}.bind(this);
+	xhr.open("GET",url,true);
+	xhr.send();
+}
+function highlight(target,lang){
+	lang=lang.toLowerCase();
+	if(!I("hljs_load")){
+		var d=document.createElement("script");
+		d.id="hljs_load";
+		d.type="text/javascript";
+		d.src="HLJS/highlight.min.js";
+		I("fragment").appendChild(d);
+		d=document.createElement("link");
+		d.rel="stylesheet";
+		d.href="HLJS/ai.css";
+		I("fragment").appendChild(d);
+	}
+	target.className="code lang-"+lang;
+	var applyF=function(){hljs.configure({useBR: true});hljs.highlightBlock(target);}.bind(this);
+	var t=setInterval(function(){
+		if(hljs){
+			clearInterval(t);
+			if(hljs.listLanguages().indexOf(lang)!=-1){
+				applyF();
+			}else{
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						eval("window.newLang="+xhr.responseText);
+						hljs.registerLanguage(lang,window.newLang);
+						applyF();
+					}
+				}.bind(this);
+				xhr.open("GET","HLJS/langs/"+lang+".js",true);
+				xhr.send();
+			}
+		}
+	}.bind(this),100);
 }
 
 setInterval(function(){
@@ -386,7 +417,8 @@ setInterval(function(){
 <div id="background">
 	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
 	<script type="text/javascript">
-		setBackgroundCfg(localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
+		setBackgroundCfg(localStorage.aiv4&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
+		localStorage.aiv4=true;
 	</script>
 </div>
 <div id="page">

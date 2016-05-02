@@ -25,10 +25,13 @@
 	margin-top:0.2em;
 }
 #_comments_ div.comment{
-	border-bottom:1px solid rgba(255,255,255,0.2);
+	border-bottom:1px solid rgba(255,255,255,0.12);
 	font-size:0.9em;
 	padding:0;
 	color:#FFFFFF;
+}
+#_comments_ div.comment:last-child{
+	border-bottom:none;
 }
 #_comments_ div.comment p{
 	margin:0.8em 0;
