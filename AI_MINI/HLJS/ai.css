@@ -1,7 +1,7 @@
 .code.hljs{
 	color:#FFFFFF !important;
 	background-color:rgba(0,0,0,0.3);
-	font-family:'Consolas',Monospaced;
+	font-family:'Consolas',Monospace;
 	font-size:0.85em;
 	text-align:left;
 }

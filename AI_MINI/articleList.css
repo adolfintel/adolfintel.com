@@ -4,6 +4,9 @@ span.date{
 	float:right;
 	color:#AAAAAA;
 }
+div.description{
+	display:inline-block;
+}
 h2{
 	margin-bottom:0.3em;
 }
@@ -31,6 +34,15 @@ h2{
 		height:4em;
 		width:auto;
 	}
+	<!--[if lt IE 8]>
+		img.icon{
+			float:none !important;
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+			height:4em;
+		}
+	<![endif]-->
 	div.clickOverlay{
 		height:0 !important;
 	}

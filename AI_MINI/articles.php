@@ -20,10 +20,10 @@ include '_config.php';
 ?>
 	<div class="stripe">
 		<div class="content">
-			<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="icon" onClick="loadFragment('<?=$a->frag?>',true)"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>',true)"><?=$a->title?></a></h2>
-			<?=$a->description?>
+			<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="icon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>')"><?=$a->title?></a></h2>
+			<div class="description"><?=$a->description?></div>
 			<div class="clear">&nbsp;</div>
-			<div class="clickOverlay" onClick="loadFragment('<?=$a->frag?>',true)">&nbsp;</div>
+			<div class="clickOverlay" onClick="loadFragment('<?=$a->frag?>')">&nbsp;</div>
 		</div>
 	</div>
 <?php
