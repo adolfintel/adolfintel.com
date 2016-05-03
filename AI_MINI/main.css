@@ -22,22 +22,22 @@ h1,h2,h3,h4,h5,h6{
 	line-height:1em;
 }
 h1{
-	font-size:3em;
+	font-size:2.5em;
 }
 h2{
-	font-size:2.7em;
+	font-size:2.1em;
 }
 h3{
-	font-size:2.4em;
-}
-h4{
 	font-size:2em;
 }
-h5{
+h4{
 	font-size:1.7em;
 }
-h6{
+h5{
 	font-size:1.5em;
+}
+h6{
+	font-size:1.3em;
 }
 html,body{
 	border:none;
@@ -82,7 +82,7 @@ iframe{
 	overflow-x:hidden;
 }
 #nav{
-	background-color:#7abbd6;
+	background-color:#99cce3;
 	box-shadow:0 0 1em rgba(0,0,0,0.6);
 	width:100%;
 	margin-bottom:4em;
@@ -238,9 +238,6 @@ span.bold{
 	}
 }
 @media all and (max-width: 50em){
-	body{
-		font-size:1.2em;
-	}
 	#nav{
 		box-shadow:0 0 0.5em rgba(0,0,0,0.4);
 		text-align:center;
@@ -299,9 +296,6 @@ span.bold{
 	}
 }
 @media all and (max-width: 30em){
-	body{
-		font-size:1em;
-	}
 	#nav{
 		font-size:0.95em;
 	}

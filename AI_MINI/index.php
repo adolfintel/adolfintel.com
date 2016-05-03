@@ -329,7 +329,7 @@ function loadFragment(url,pushState){
 									d=document.createElement("h4");
 									d.innerHTML=xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue;
 									latest.appendChild(d);
-									latest.innerHTML+=xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue;
+									latest.innerHTML+="<div style='display:inline-block'>"+xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue+"</div>";
 									d=document.createElement("div");
 									d.className="clear";
 									latest.appendChild(d);
