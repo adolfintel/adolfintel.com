@@ -6,12 +6,18 @@ span.date{
 }
 div.description{
 	display:inline-block;
+	width:calc(100% - 7em);
+}
+.basic div.description{
+	display:inline;
+	width:auto;
 }
 h2{
 	margin-bottom:0.3em;
 }
 @media all and (max-width: 50em){
 	div.content{
+		width:100%;
 		text-align:center;
 	}
 	h2{

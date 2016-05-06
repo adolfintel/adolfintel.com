@@ -1,7 +1,7 @@
 <div class="content">
 	<div id="logo"><?=$Site_Title?></div>
-	<a onClick="loadFragment('<?=$HomeFrag?>',true)">Home</a>
-	<a onClick="loadFragment('articles.php?s=1',true)">Projects</a>
-	<a onClick="loadFragment('articles.php?s=2',true)">Blog</a>
-	<a onClick="loadFragment('about.frag',true)">About me</a>
+	<ai_link frag='<?=$HomeFrag?>'>Home</ai_link>
+	<ai_link frag='articles.php?s=1'>Projects</ai_link>
+	<ai_link frag='articles.php?s=2'>Blog</ai_link>
+	<ai_link frag='about.frag'>About me</ai_link>
 </div>

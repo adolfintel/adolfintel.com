@@ -197,7 +197,8 @@ div.stripe > div.content{
 	to   {transform: rotate(359deg);}
 }
 
-div.clickOverlay{
+.clickOverlay{
+	display:block;
 	position:absolute;
 	top:0;
 	left:0;

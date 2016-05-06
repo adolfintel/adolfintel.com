@@ -8,9 +8,9 @@
 		</p>
 		<div class="basic_hide">
 				<div id="buttons">
-					<a onclick="loadFragment('articles.php?s=1')" class="button blue">Projects</a>
-					<a onclick="loadFragment('articles.php?s=2')" class="button red">Blog</a>
-					<a onclick="loadFragment('about.frag')" class="button green">About me</a>
+					<ai_link frag="articles.php?s=1" class="button blue">Projects</ai_link>
+					<ai_link frag="articles.php?s=2" class="button red">Blog</ai_link>
+					<ai_link frag="about.frag" class="button green">About me</ai_link>
 				</div>
 		</div>
 		<script type="text/javascript">
@@ -44,7 +44,7 @@
 			<h2>Unsupported browser!</h2>
 			<p>
 				You are using an old or unsupported browser, so the site is in Basic mode, which provides only limited functionality and doesn't look very good.<br/>
-				Consider updating it as soon as possible to something more modern like <a href="http://www.firefox.com">Mozilla Firefox</a>.
+				Consider updating it as soon as possible to something more modern like <ai_link ext="http://www.firefox.com">Mozilla Firefox</ai_link>.
 			</p>
 		</div>
 	</div>
@@ -66,7 +66,7 @@
 		<div class="content">
 			<h2>Enjoying the view?</h2>
 			<p>
-				You can <a onClick="loadFragment('empty.frag')">hide the page</a> to enjoy the background. Press back to come back.
+				You can <ai_link frag="muhTriangles.js/editor.frag">hide the page</ai_link> to enjoy the background. Press back to come back.
 			</p>
 		</div>
 	</div>

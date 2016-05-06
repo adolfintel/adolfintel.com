@@ -79,7 +79,7 @@
 		</div>
 		<div class="section">
 			<p>
-				You can also specify a callback function that will be executed at each frame, right after scrolling. This allows things like a <a onclick="loadFragment('html5cool/parallax/i.frag',true)">parallax effect</a> to be perfectly synchronized with the scroll.
+				You can also specify a callback function that will be executed at each frame, right after scrolling. This allows things like a <ai_link frag="example_article_2/index.frag">parallax effect</ai_link> to be perfectly synchronized with the scroll.
 				<div class="code" id="c3">
 					smoothScroll(element,function(){...code...});
 				</div>

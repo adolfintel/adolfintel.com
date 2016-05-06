@@ -5,7 +5,7 @@
    header('Content-type: text/html; charset=utf-8');
 ?>
 <div>
-<link rel="stylesheet" type="text/css" href="articleList.css" />
+<link rel="stylesheet" type="text/css" href="articleList_20160506.css" />
 <?php 
 include '_config.php';
    
@@ -20,10 +20,10 @@ include '_config.php';
 ?>
 	<div class="stripe">
 		<div class="content">
-			<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="icon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>')"><?=$a->title?></a></h2>
+			<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="icon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><ai_link frag="<?=$a->frag?>"><?=$a->title?></ai_link></h2>
 			<div class="description"><?=$a->description?></div>
 			<div class="clear">&nbsp;</div>
-			<div class="clickOverlay" onClick="loadFragment('<?=$a->frag?>')">&nbsp;</div>
+			<ai_link class="clickOverlay" frag="<?=$a->frag?>">&nbsp;</ai_link>
 		</div>
 	</div>
 <?php

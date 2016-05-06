@@ -3,6 +3,35 @@
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
 	header('Content-Type: text/html; charset=utf-8');
+	
+	function parseLinks($xml){
+		$dom = new DOMDocument();
+		@$dom->loadHTML(mb_convert_encoding($xml, 'HTML-ENTITIES', "UTF-8"));
+		$nodes = $dom->getElementsByTagName("ai_link");
+		while($nodes->length>0){
+			$node=$nodes->item(0);
+			$newNode = $dom->createElement("a");
+			foreach ($node->attributes as $attribute){
+				$newNode->setAttribute($attribute->name, $attribute->value);
+			}
+			if($newNode->hasAttribute("frag")){
+				$newNode->setAttribute("onclick","loadFragment('".$newNode->getAttribute("frag")."');return false;");
+				$newNode->setAttribute("href","/?p=".$newNode->getAttribute("frag"));
+				$newNode->removeAttribute("frag");
+			}else if($newNode->hasAttribute("ext")){
+				$newNode->setAttribute("href",$newNode->getAttribute("ext"));
+				$newNode->setAttribute("target","_blank");
+				$newNode->removeAttribute("ext");
+			}
+			foreach ($node->childNodes as $child){
+				$newNode->appendChild($node->removeChild($child));
+			}
+			$node->parentNode->replaceChild($newNode,$node);
+		}
+		return preg_replace(array("/^\<\!DOCTYPE.*?<html><body>/si","!</body></html>$!si"),"",$dom->saveHTML($dom->documentElement));
+	}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,7 +53,7 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main.css" />
+<link rel="stylesheet" type="text/css" href="main_20160506.css" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -184,24 +213,18 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css" />
+<link rel="stylesheet" type="text/css" href="basic_overrides_20160506.css" />
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
 		<?php
 			ob_start();
 			include($NavFrag);
-			echo ob_get_clean();
+			echo parseLinks(ob_get_clean());
 		?>
 	</div>
 	<img id="campaign-icon" src="<?=$socialImg?$socialImg:"campaign-icon.png" ?>" />
-	<div id="requiresJS" class="stripe">
-		<div class="content">
-			Sorry but this site requires Javascript.<br/>If you're paranoid and you're using NoScript or something, don't worry: there is no tracking, no iframes to external sites, nothing! The code is 100% open source, and you can check for yourself if you want!
-		</div>
-	</div>
 	<script type="text/javascript">
-		I("requiresJS").style.display="none";
 		I("campaign-icon").style.display="none";
 	</script>
 	<div id="fragment">
@@ -222,7 +245,7 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 					}
 				}
 				include($phpinclude);
-				echo ob_get_clean();
+				echo parseLinks(ob_get_clean());
 			?>
 		</div>
 	</div>

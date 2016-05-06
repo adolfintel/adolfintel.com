@@ -274,6 +274,27 @@ function sendComment(id,t,commentsArea){
 	xhr.setRequestHeader("Connection", "close");
 	xhr.send(params);
 }
+function parseLinks(){
+	var d=document.getElementsByTagName("ai_link");
+	while(d.length>0){
+		var n=document.createElement("a");
+		for(var j=0;j<d[0].attributes.length;j++){
+			try{n.setAttribute(d[0].attributes.item(j).nodeName,d[0].attributes.item(j).nodeValue);}catch(e){}
+		}
+		n.innerHTML=d[0].innerHTML;
+		if(n.hasAttribute("frag")){
+			n.onclick=function(e){e.preventDefault();loadFragment(this.getAttribute("frag"));}.bind(n);
+			n.href="/?p="+d[0].getAttribute("frag");
+		}else if(n.hasAttribute("ext")){
+			n.href=n.getAttribute("ext");
+			n.target="_blank";
+			n.removeAttribute("ext");
+		}
+		d[0].parentNode.replaceChild(n,d[0]);
+	}
+	
+}
+
 function onFragUnload(){}
 var loading=false;
 function loadFragment(url,pushState){
@@ -296,7 +317,7 @@ function loadFragment(url,pushState){
 				frag.innerHTML=xhr.responseText;
 				var scripts=frag.getElementsByTagName("script");
 				for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
-				//try{frag.scrollIntoView({block: "start", behavior: "smooth"});}catch(e){}
+				parseLinks();
 				document.title="<?=$Site_Title?>";
 				var xhr2=new XMLHttpRequest();
 				xhr2.onreadystatechange=function(){
@@ -327,18 +348,18 @@ function loadFragment(url,pushState){
 										latest.appendChild(d);
 									}
 									d=document.createElement("h4");
-									d.innerHTML=xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue;
+									var tfrag=xhr3.responseXML.getElementsByTagName("frag")[0].firstChild.nodeValue;
+									d.innerHTML="<ai_link frag='"+tfrag+"'style='text-decoration:none'>"+xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue+"</ai_link>";
 									latest.appendChild(d);
 									latest.innerHTML+="<div style='display:inline-block'>"+xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue+"</div>";
 									d=document.createElement("div");
 									d.className="clear";
 									latest.appendChild(d);
-									d=document.createElement("div");
+									d=document.createElement("ai_link");
 									d.className="clickOverlay";
-									d.onclick=function(){
-										loadFragment(xhr3.responseXML.getElementsByTagName("frag")[0].firstChild.nodeValue,true);
-									}
+									d.setAttribute('frag',tfrag);
 									latest.appendChild(d);
+									parseLinks();
 								}
 							}
 						}
@@ -364,6 +385,7 @@ function setBackgroundCfg(cfg){
 }
 	
 function autoLoad(){
+	parseLinks();
 	closeLightbox();
 	try{
 		var req=window.location.search;
@@ -398,7 +420,7 @@ setInterval(function(){
 },100);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css"/>
+<link rel="stylesheet" type="text/css" href="main_20160506.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
 <style type="text/css">
@@ -430,13 +452,7 @@ setInterval(function(){
 		?>
 	</div>
 	<img id="campaign-icon" src="campaign-icon.png" />
-	<div id="requiresJS" class="stripe">
-		<div class="content">
-			Sorry but this site requires Javascript.<br/>If you're paranoid and you're using NoScript or something, don't worry: there is no tracking, no iframes to external sites, nothing! The code is 100% open source, and you can check for yourself if you want!
-		</div>
-	</div>
 	<script type="text/javascript">
-		I("requiresJS").style.display="none";
 		I("campaign-icon").style.display="none";
 	</script>
 	<div id="fragment">
