@@ -53,7 +53,7 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main_20160506.css" />
+<link rel="stylesheet" type="text/css" href="main_20160629.css" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){

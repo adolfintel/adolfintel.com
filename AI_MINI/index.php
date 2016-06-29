@@ -168,7 +168,7 @@ function showLoading(){
 		ctx.beginPath();
 		ctx.arc(c.width/2,c.height/2,c.width/3,0,Math.PI/2,false);
 		ctx.strokeStyle="#FFFFFF";
-		ctx.lineWidth=c.width*0.02
+		ctx.lineWidth=c.width*0.02;
 		ctx.stroke();
 		var d=document.createElement("div");
 		d.id="loadStatus";
@@ -294,7 +294,14 @@ function parseLinks(){
 	}
 	
 }
-
+function fadeCurrentFrag(onDone){
+	var f=I("fragment");
+	f.id=""; f.className="oldFragment";
+	setTimeout(function(){f.parentElement.removeChild(f);if(onDone)onDone();}.bind(this),200); //0.2s is the duration of the fadeOut animation
+	var d=document.createElement("div");
+	d.id="fragment";
+	I("page").appendChild(d);
+}
 function onFragUnload(){}
 var loading=false;
 function loadFragment(url,pushState){
@@ -308,71 +315,76 @@ function loadFragment(url,pushState){
 	url=unescape(url);
 	if(typeof pushState == 'undefined') pushState=true;
 	try{if(pushState)window.history.pushState(url, document.title, '?p='+url);}catch(e){}
-	showLoading();
-	var xhr=new XMLHttpRequest();
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState==4){
-			if(xhr.status==200){
-				var frag=I("fragment");
-				frag.innerHTML=xhr.responseText;
-				var scripts=frag.getElementsByTagName("script");
-				for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
-				parseLinks();
-				document.title="<?=$Site_Title?>";
-				var xhr2=new XMLHttpRequest();
-				xhr2.onreadystatechange=function(){
-					if(xhr2.readyState==4){
-						if(xhr2.status==200){
-							if(!(xhr2.responseText.isBlank())) document.title=xhr2.responseText+" - <?=$Site_Title?>";
-						}
-					}
-				}
-				xhr2.open("POST","fetch_frag_title.php?p="+url);
-				xhr2.send("random="+Math.random());
-				var commentsArea=I("_comments_");
-				if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
-				var latest=I("_latestPost_");
-				if(latest){
-					var xhr3=new XMLHttpRequest();
-					xhr3.onreadystatechange=function(){
-						if(xhr3.readyState==4){
-							if(xhr3.status==200){
-								if(xhr3.responseXML){
-									latest.innerHTML="";
-									var d;
-									var iconNode=xhr3.responseXML.getElementsByTagName("icon")[0].firstChild;
-									if(iconNode){
-										d=document.createElement("img");
-										d.className="icon clickable";
-										d.src=iconNode.nodeValue;
-										latest.appendChild(d);
-									}
-									d=document.createElement("h4");
-									var tfrag=xhr3.responseXML.getElementsByTagName("frag")[0].firstChild.nodeValue;
-									d.innerHTML="<ai_link frag='"+tfrag+"'style='text-decoration:none'>"+xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue+"</ai_link>";
-									latest.appendChild(d);
-									latest.innerHTML+="<div style='display:inline-block'>"+xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue+"</div>";
-									d=document.createElement("div");
-									d.className="clear";
-									latest.appendChild(d);
-									d=document.createElement("ai_link");
-									d.className="clickOverlay";
-									d.setAttribute('frag',tfrag);
-									latest.appendChild(d);
-									parseLinks();
+	fadeCurrentFrag(function(){
+		showLoading();
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4){
+				if(xhr.status==200){
+					fadeCurrentFrag(function(){
+						var frag=I("fragment");
+						frag.innerHTML=xhr.responseText;
+						var scripts=frag.getElementsByTagName("script");
+						for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
+						parseLinks();
+						document.title="<?=$Site_Title?>";
+						var xhr2=new XMLHttpRequest();
+						xhr2.onreadystatechange=function(){
+							if(xhr2.readyState==4){
+								if(xhr2.status==200){
+									if(!(xhr2.responseText.isBlank())) document.title=xhr2.responseText+" - <?=$Site_Title?>";
 								}
 							}
 						}
-					}
-					xhr3.open("POST","fetch_recentPosts.php");
-					xhr3.send("random="+Math.random());
-				}
-			}else showError(xhr.status);
-			loading=false;
+						xhr2.open("POST","fetch_frag_title.php?p="+url);
+						xhr2.send("random="+Math.random());
+						var commentsArea=I("_comments_");
+						if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
+						var latest=I("_latestPost_");
+						if(latest){
+							var xhr3=new XMLHttpRequest();
+							xhr3.onreadystatechange=function(){
+								if(xhr3.readyState==4){
+									if(xhr3.status==200){
+										if(xhr3.responseXML){
+											latest.innerHTML="";
+											var d;
+											var iconNode=xhr3.responseXML.getElementsByTagName("icon")[0].firstChild;
+											if(iconNode){
+												d=document.createElement("img");
+												d.className="icon clickable";
+												d.src=iconNode.nodeValue;
+												latest.appendChild(d);
+											}
+											d=document.createElement("h4");
+											var tfrag=xhr3.responseXML.getElementsByTagName("frag")[0].firstChild.nodeValue;
+											d.innerHTML="<ai_link frag='"+tfrag+"'style='text-decoration:none'>"+xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue+"</ai_link>";
+											latest.appendChild(d);
+											latest.innerHTML+="<div style='display:inline-block'>"+xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue+"</div>";
+											d=document.createElement("div");
+											d.className="clear";
+											latest.appendChild(d);
+											d=document.createElement("ai_link");
+											d.className="clickOverlay";
+											d.setAttribute('frag',tfrag);
+											latest.appendChild(d);
+											parseLinks();
+										}
+									}
+								}
+							}
+							xhr3.open("POST","fetch_recentPosts.php");
+							xhr3.send("random="+Math.random());
+						}
+					});
+					
+				}else showError(xhr.status);
+				loading=false;
+			}
 		}
-	}
-	xhr.open("POST",url,true);
-	xhr.send("random="+Math.random());
+		xhr.open("POST",url,true);
+		xhr.send("random="+Math.random());
+	});
 }
 
 window.onpopstate = function(e){
@@ -420,18 +432,12 @@ setInterval(function(){
 },100);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main_20160506.css"/>
+<link rel="stylesheet" type="text/css" href="main_20160629.css"/>
 <link rel="stylesheet" type="text/css" href="comments.css"/>
 <link rel="stylesheet" type="text/css" href="lightbox.css"/>
 <style type="text/css">
 .basic_only{
 	display:none;
-}
-#loadStatus{
-	display:block;
-	width:100%;
-	color:rgba(255,255,255,0.5);
-	text-align:center;
 }
 </style>
 </head>
