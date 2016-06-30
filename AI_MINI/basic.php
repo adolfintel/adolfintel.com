@@ -252,6 +252,39 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 	<script type="text/javascript">
 		var c=I("_comments_");
 		if(c)c.innerHTML="This function requires a modern browser";
+		var s=I("_share_");
+		if(s){
+			url=document.location.href;
+			setTimeout(function(){
+				var d=document.createElement("link");
+				d.rel="stylesheet";
+				d.href="share.css";
+				I("fragment").appendChild(d);
+			},100)
+			s.innerHTML="";
+			var eurl=encodeURIComponent(url);
+			var a=document.createElement("a");
+			a.className="share share_fb";
+			a.target="_blank";
+			a.href="https://www.facebook.com/sharer/sharer.php?u="+eurl;
+			s.appendChild(a);
+			a=document.createElement("a");
+			a.className="share share_tw";
+			a.target="_blank";
+			a.href="https://twitter.com/home?status="+eurl;
+			s.appendChild(a);
+			a=document.createElement("a");
+			a.className="share share_gplus";
+			a.target="_blank";
+			a.href="https://plus.google.com/share?url="+eurl;
+			s.appendChild(a);
+			a=document.createElement("input");
+			a.type="text";
+			a.className="share share_link";
+			a.value=url;
+			a.onclick=a.select;
+			s.appendChild(a);
+		}
 	</script>
 	<div id="resp_test">&nbsp;</div>
 </body>

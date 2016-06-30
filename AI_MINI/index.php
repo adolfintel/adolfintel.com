@@ -218,6 +218,38 @@ function createCommentsForm(id,container){
 	b.onclick=function(){sendComment(id,t,c);};
 	loadComments(id,c);
 }
+function createShareLinks(url,container){
+	if(!I("share_load")){
+		var d=document.createElement("link");
+		d.id="share_load";
+		d.rel="stylesheet";
+		d.href="share.css";
+		I("fragment").appendChild(d);
+	}
+	container.innerHTML="";
+	var eurl=encodeURIComponent(url);
+	var a=document.createElement("a");
+	a.className="share share_fb";
+	a.target="_blank";
+	a.href="https://www.facebook.com/sharer/sharer.php?u="+eurl;
+	container.appendChild(a);
+	a=document.createElement("a");
+	a.className="share share_tw";
+	a.target="_blank";
+	a.href="https://twitter.com/home?status="+eurl;
+	container.appendChild(a);
+	a=document.createElement("a");
+	a.className="share share_gplus";
+	a.target="_blank";
+	a.href="https://plus.google.com/share?url="+eurl;
+	container.appendChild(a);
+	a=document.createElement("input");
+	a.type="text";
+	a.className="share share_link";
+	a.value=url;
+	a.onclick=a.select;
+	container.appendChild(a);
+}
 function loadComments(id,container){
 	container.innerHTML="";
 	var img=document.createElement("img");
@@ -297,7 +329,7 @@ function parseLinks(){
 function fadeCurrentFrag(onDone){
 	var f=I("fragment");
 	f.id=""; f.className="oldFragment";
-	setTimeout(function(){f.parentElement.removeChild(f);if(onDone)onDone();}.bind(this),200); //0.2s is the duration of the fadeOut animation
+	f.addEventListener('animationend',function(){f.parentElement.removeChild(f);if(onDone)onDone();}.bind(this));
 	var d=document.createElement("div");
 	d.id="fragment";
 	I("page").appendChild(d);
@@ -314,7 +346,7 @@ function loadFragment(url,pushState){
 	onFragUnload=function(){}
 	url=unescape(url);
 	if(typeof pushState == 'undefined') pushState=true;
-	try{if(pushState)window.history.pushState(url, document.title, '?p='+url);}catch(e){}
+	try{if(pushState)window.history.pushState(url, document.title, '/?p='+url);}catch(e){}
 	fadeCurrentFrag(function(){
 		showLoading();
 		var xhr=new XMLHttpRequest();
@@ -338,6 +370,8 @@ function loadFragment(url,pushState){
 						}
 						xhr2.open("POST","fetch_frag_title.php?p="+url);
 						xhr2.send("random="+Math.random());
+						var shareArea=I("_share_");
+						if(shareArea) createShareLinks(document.location.href,shareArea);
 						var commentsArea=I("_comments_");
 						if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
 						var latest=I("_latestPost_");
