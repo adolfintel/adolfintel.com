@@ -53,7 +53,7 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main_20160629.css" />
+<link rel="stylesheet" type="text/css" href="main_20160701.css" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -173,7 +173,7 @@ function showLoading(){
 	I("fragment").innerHTML="";
 }
 function showError(err){
-	alert("Error "+err);
+	loadFragment("error.frag?e="+err);
 }
 function setBackgroundCfg(cfg){}
 function toggleNavExp(){
@@ -255,12 +255,6 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 		var s=I("_share_");
 		if(s){
 			url=document.location.href;
-			setTimeout(function(){
-				var d=document.createElement("link");
-				d.rel="stylesheet";
-				d.href="share.css";
-				I("fragment").appendChild(d);
-			},100)
 			s.innerHTML="";
 			var eurl=encodeURIComponent(url);
 			var a=document.createElement("a");

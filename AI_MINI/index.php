@@ -149,56 +149,19 @@ setInterval(function(){
 	}
 },20);
 
-var loadingStatuses=["","Loading...","Loading...","Still loading...","Loady loady...","Oh look, a butterfly :)","Back to loading...","This is taking longer than it should","Maybe you should check your connection","Still trying to load...","Looooooooooad...","How relaxing...","Relaxing...","Going astral","Going astral.","Going astral..","Going astral...","Going astral... [FAIL]","Oh well I tried","Let's try again","Going astral.","Going astral..","Going astral...","Going astral... [SUCCESS]","Wow...","I can see the page from here","It's beautiful *_*","Maybe if you reload you will see it too","Maybe if you reload you will see it too","No? Well I guess I'll just stay here and look at the world from a new perspective"];
-var lStatus=0;
-var lStatTimer=setInterval(function(){
-	try{
-		I("loadStatus").innerHTML=lStatus>=loadingStatuses.length?loadingStatuses[loadingStatuses.length-1]:loadingStatuses[lStatus++];
-	}catch(e){
-		lStatus=0;
-	}
-},2000);
 function showLoading(){
-	try{
-		var c=document.createElement("canvas");
-		c.className="loading";
-		c.width=512;
-		c.height=512;
-		var ctx=c.getContext("2d");
-		ctx.beginPath();
-		ctx.arc(c.width/2,c.height/2,c.width/3,0,Math.PI/2,false);
-		ctx.strokeStyle="#FFFFFF";
-		ctx.lineWidth=c.width*0.02;
-		ctx.stroke();
-		var d=document.createElement("div");
-		d.id="loadStatus";
-		lStatus=0;
-		var stripe=document.createElement("div");
-		stripe.className="stripe";
-		var frag=I("fragment");
-		stripe.appendChild(c);
-		stripe.appendChild(d);
-		frag.innerHTML="";
-		frag.appendChild(stripe);
-	}catch(e){
-		I("fragment").innerHTML="";
-	}
-}
-function showError(err){
-	var frag=I("fragment");
+	var c=document.createElement("div");
+	c.className="loading";
 	var stripe=document.createElement("div");
 	stripe.className="stripe";
-	var c=document.createElement("div");
-	c.className="content";
-	var h=document.createElement("h2");
-	h.innerHTML="Oh crap...";
-	c.appendChild(h);
-	var p=document.createElement("p");
-	p.innerHTML="An error "+err+" has occurred";
-	c.appendChild(p);
+	var frag=I("fragment");
 	stripe.appendChild(c);
 	frag.innerHTML="";
 	frag.appendChild(stripe);
+}
+function showError(err){
+	window._err=err;
+	loadFragment('error.frag',false);
 }
 function createCommentsForm(id,container){
 	var f=document.createElement("form");
@@ -219,13 +182,6 @@ function createCommentsForm(id,container){
 	loadComments(id,c);
 }
 function createShareLinks(url,container){
-	if(!I("share_load")){
-		var d=document.createElement("link");
-		d.id="share_load";
-		d.rel="stylesheet";
-		d.href="share.css";
-		I("fragment").appendChild(d);
-	}
 	container.innerHTML="";
 	var eurl=encodeURIComponent(url);
 	var a=document.createElement("a");
@@ -252,10 +208,9 @@ function createShareLinks(url,container){
 }
 function loadComments(id,container){
 	container.innerHTML="";
-	var img=document.createElement("img");
-	img.className="loading";
-	img.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAn1BMVEUAAAD29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29vb29va4jzlsAAAANXRSTlMACwUHDyIbFPiSgEkpF+bPx3hFNuq9illRLSbw27OedWhkPzoy1cKtqKOXYVZOHt+5hXBtXcMn7YcAAAFVSURBVDjLfZHnlsIgEEaHBMimV9N7T9RY3//ZNqvHdV3B788cuPfAwMAzeDdbhhcCJ7FsJF9rejZGipEkN8FmcrLxPC/xxrMaM3lkGobXlRg4IebBMGQuBpSlh0PFAIJwr3aaplsmvxvE7FIfmIIo/lSl63r2/SJCq4Et07wCMwJCCEA1TQvz2sdYANuyfOALCHLLCniCKEkYsr5vPggSbDYbjScIuq7D8YMgUkphOB5dbpPLQkHOspAnYEJ0uGSDzRN0QiSoh2FCnB7jOMaApnFU2YKkabEAUI6TjJgHaFFE10rzKd+yBNK20W3eQZ7PzjunrtvS+3co8yzXb7xp3OjxGl+W/R16uT9y6toVH8vlJPsnuxF/MXFUx2nQnwcV/klRirAluk61Ogz3quOil7GoiqLYxflSVttrsFsFTfj/K/viKexbxBqu5gRVWQWqu4jP3W9sCxnRJWJdQQAAAABJRU5ErkJggg==";
-	container.appendChild(img);
+	var d=document.createElement("d");
+	d.className="loading";
+	container.appendChild(d);
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
@@ -329,10 +284,14 @@ function parseLinks(){
 function fadeCurrentFrag(onDone){
 	var f=I("fragment");
 	f.id=""; f.className="oldFragment";
-	f.addEventListener('animationend',function(){f.parentElement.removeChild(f);if(onDone)onDone();}.bind(this));
-	var d=document.createElement("div");
-	d.id="fragment";
-	I("page").appendChild(d);
+	f.addEventListener('animationend',function(){
+		f.parentElement.removeChild(f);
+		var d=document.createElement("div");
+		d.id="fragment";
+		I("page").appendChild(d);
+		if(onDone)onDone();
+	}.bind(this));
+	
 }
 function onFragUnload(){}
 var loading=false;
@@ -354,6 +313,7 @@ function loadFragment(url,pushState){
 			if(xhr.readyState==4){
 				if(xhr.status==200){
 					fadeCurrentFrag(function(){
+						loading=false;
 						var frag=I("fragment");
 						frag.innerHTML=xhr.responseText;
 						var scripts=frag.getElementsByTagName("script");
@@ -412,8 +372,7 @@ function loadFragment(url,pushState){
 						}
 					});
 					
-				}else showError(xhr.status);
-				loading=false;
+				}else{loading=false; showError(xhr.status);}
 			}
 		}
 		xhr.open("POST",url,true);
@@ -422,6 +381,7 @@ function loadFragment(url,pushState){
 }
 
 window.onpopstate = function(e){
+	if(loading) return;
     if(e.state){ loadFragment(e.state,false);}
 };
 
@@ -466,9 +426,7 @@ setInterval(function(){
 },100);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main_20160629.css"/>
-<link rel="stylesheet" type="text/css" href="comments.css"/>
-<link rel="stylesheet" type="text/css" href="lightbox.css"/>
+<link rel="stylesheet" type="text/css" href="main_20160701.css"/>
 <style type="text/css">
 .basic_only{
 	display:none;
