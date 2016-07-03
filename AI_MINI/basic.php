@@ -53,7 +53,7 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main_20160701.css" />
+<link rel="stylesheet" type="text/css" href="main.css?20160701" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -213,7 +213,7 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides_20160506.css" />
+<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160506" />
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
