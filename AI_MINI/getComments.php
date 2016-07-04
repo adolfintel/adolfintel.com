@@ -2,22 +2,16 @@
 	header("Cache-Control: no-store, no-cache, must-revalidate");
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
-	header('Content-type: application/xml; charset=utf-8');
-	require_once 'HTMLPurif/HTMLPurifier.standalone.php';
-	$config = HTMLPurifier_Config::createDefault();
-	$config->set('AutoFormat','AutoParagraph',true);
-	$config->set('Core','NormalizeNewlines',true);
-	$purifier = new HTMLPurifier($config);
+	header('Content-type: text/json; charset=utf-8');
 	include '_config.php';
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die("1");   
 	$q = $conn->prepare("select text from comment where idPage=?")  or die("1");
 	$q->bind_param("s",$_GET["id"]);
 	$q->execute() or die("1");
-	echo '<?xml version="1.0" encoding="UTF-8"?>';
-	echo '<comments>';
+	$comments=array();
 	$q->bind_result($text);
 	while($q->fetch()){
-		echo "<comment>".preg_replace('#<br />(\s*<br />)+#', '<br />', nl2br($purifier->purify($text)))."</comment>";
+		$comments[]=nl2br(htmlspecialchars($text,ENT_QUOTES));
 	}
-	echo '</comments>';
+	echo json_encode($comments);
 ?>

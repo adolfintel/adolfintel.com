@@ -20,46 +20,11 @@ String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
 window.I=function(i){return document.getElementById(i);};
-//check browser and redirect to basic mode if incompatible. browser check code is a modified version of https://browser-update.org/
+//check browser and redirect to basic mode if incompatible
 function gotoBasic(){
 	document.location.href="basic.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-function getBrowser() {
-    var n,v,ua=navigator.userAgent;
-    if (/Trident.*rv:(\d+\.\d+)/i.test(ua)) n="i";
-    else if (/Trident.(\d+\.\d+)/i.test(ua)) n="io";
-    else if (/MSIE.(\d+\.\d+)/i.test(ua)) n="i";
-    else if (/Edge.(\d+\.\d+)/i.test(ua)) n="i";
-    else if (/OPR.(\d+\.\d+)/i.test(ua)) n="o";
-    else if (/Chrome.(\d+\.\d+)/i.test(ua)) n="c";
-    else if (/Firefox.(\d+\.\d+)/i.test(ua)) n="f";
-    else if (/Version.(\d+.\d+).{0,10}Safari/i.test(ua))	n="s";
-    else if (/Safari.(\d+)/i.test(ua)) n="so";
-    else if (/Opera.*Version.(\d+\.\d+)/i.test(ua)) n="o";
-    else if (/Opera.(\d+\.?\d+)/i.test(ua)) n="o";
-    else return {n:"x",v:0};
-    
-	var v= parseFloat(RegExp.$1);
-    if (n=="so") {
-        v=((v<100) && 1.0) || ((v<130) && 1.2) || ((v<320) && 1.3) || ((v<520) && 2.0) || ((v<524) && 3.0) || ((v<526) && 3.2) ||4.0;
-        n="s";
-    }
-    if (n=="i" && v==7 && window.XDomainRequest) {
-        v=8;
-    }
-    if (n=="io") {
-        n="i";
-        if (v>6) v=11;
-        else if (v>5) v=10;
-        else if (v>4) v=9;
-        else if (v>3.1) v=8;
-        else if (v>3) v=7;
-        else v=9;
-    }	
-    return {n:n,v:v};
-}
-var b=getBrowser();
-if((b.n=="i" && b.v<10)||(b.n=="f" && b.v<12)||(b.n=="c" && b.v<30)||(b.n=="o" && b.v<17)||(b.n=="s"&&b.v<8)||(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer))){	//IE 10+; FF 12+; Chrome 30+; Opera 17+; Safari 8+; any browser with XHR, localStorage, Canvas, CSS Animation, XMLSerializer
+if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined)){	//any browser with XHR, localStorage, Canvas, CSS Animation
 	gotoBasic();
 }
 
@@ -220,14 +185,12 @@ function loadComments(id,container){
 					if(parseInt(xhr.responseText)==1){container.innerHTML="Server error"; return;}
 				}catch(e){}
 				try{
-					container.innerHTML="";
-					var comments=xhr.responseXML.documentElement.getElementsByTagName("comment");
-					while(comments.length>0){
-						var c=document.createElement("div");
-						c.className="comment";
-						var comment=document.adoptNode(comments[0]); //adoptNode will remove the current node from comments.childNodes
-						c.innerHTML=new XMLSerializer().serializeToString(comment);
-						container.appendChild(c);
+					var comments=JSON.parse(xhr.responseText);
+					for(var i=0;i<comments.length;i++){
+						var d=document.createElement("div");
+						d.className="comment";
+						d.innerHTML=comments[i];
+						container.appendChild(d);
 					}
 				}catch(e){
 					container.innerHTML="Couldn't load comments ("+e+")";
@@ -332,7 +295,9 @@ function loadFragment(url,pushState){
 						xhr2.send("random="+Math.random());
 						var shareArea=I("_share_");
 						if(shareArea) createShareLinks(document.location.href,shareArea);
-						var commentsArea=I("_comments_");
+						var oldC=I("_comments_");
+						if(oldC)oldC.id="article_comments";
+						var commentsArea=I("article_comments");
 						if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
 						var latest=I("_latestPost_");
 						if(latest){
@@ -404,8 +369,10 @@ function autoLoad(){
 
 function toggleNavExp(){
 	//in mobile view, toggles the menu
-	var nav=I("nav");
-	if(nav.className.isBlank()) nav.className='expanded'; else nav.className='';
+	if(isMobile){
+		var nav=I("nav");
+		if(nav.className.isBlank()) nav.className='expanded'; else nav.className='';
+	}
 }
 
 setInterval(function(){
@@ -419,7 +386,7 @@ setInterval(function(){
 },50);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160701"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160705"/>
 <style type="text/css">
 .basic_only{
 	display:none;

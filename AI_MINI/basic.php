@@ -53,7 +53,7 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20160701" />
+<link rel="stylesheet" type="text/css" href="main.css?20160705" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -69,46 +69,11 @@ if(!Function.prototype.bind){
   };
 }
 window.I=function(i){return document.getElementById(i);};
-//check browser and redirect to full mode if compatible. browser check code is a modified version of https://browser-update.org/
+//check browser and redirect to full mode if compatible
 function gotoFull(){
 	document.location.href="index.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-function getBrowser() {
-	var n,v,ua=navigator.userAgent;
-	if (/Trident.*rv:(\d+\.\d+)/i.test(ua)) n="i";
-	else if (/Trident.(\d+\.\d+)/i.test(ua)) n="io";
-	else if (/MSIE.(\d+\.\d+)/i.test(ua)) n="i";
-	else if (/Edge.(\d+\.\d+)/i.test(ua)) n="i";
-	else if (/OPR.(\d+\.\d+)/i.test(ua)) n="o";
-	else if (/Chrome.(\d+\.\d+)/i.test(ua)) n="c";
-	else if (/Firefox.(\d+\.\d+)/i.test(ua)) n="f";
-	else if (/Version.(\d+.\d+).{0,10}Safari/i.test(ua))	n="s";
-	else if (/Safari.(\d+)/i.test(ua)) n="so";
-	else if (/Opera.*Version.(\d+\.\d+)/i.test(ua)) n="o";
-	else if (/Opera.(\d+\.?\d+)/i.test(ua)) n="o";
-	else return {n:"x",v:0};
-	
-	var v= parseFloat(RegExp.$1);
-	if (n=="so") {
-		v=((v<100) && 1.0) || ((v<130) && 1.2) || ((v<320) && 1.3) || ((v<520) && 2.0) || ((v<524) && 3.0) || ((v<526) && 3.2) ||4.0;
-		n="s";
-	}
-	if (n=="i" && v==7 && window.XDomainRequest) {
-		v=8;
-	}
-	if (n=="io") {
-		n="i";
-		if (v>6) v=11;
-		else if (v>5) v=10;
-		else if (v>4) v=9;
-		else if (v>3.1) v=8;
-		else if (v>3) v=7;
-		else v=9;
-	}	
-	return {n:n,v:v};
-}
-var b=getBrowser();
-if(!((b.n=="i" && b.v<10)||(b.n=="f" && b.v<12)||(b.n=="c" && b.v<30)||(b.n=="o" && b.v<17)||(b.n=="s"&&b.v<8)||(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&window.XMLSerializer)))){	//IE 10+; FF 12+; Chrome 30+; Opera 17+; Safari 8+; any browser with XHR, localStorage, Canvas, CSS Animation, XMLSerializer
+if(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined){	//any browser with XHR, localStorage, Canvas, CSS Animation
 	gotoFull();
 }
 
@@ -168,6 +133,78 @@ function highlight(target,lang){
 	}
 	//hljs not applied, just basic styling
 }
+function createCommentsForm(id,container){
+	var f=document.createElement("form");
+	var t=document.createElement("textarea");
+	t.name="text";
+	t.rows=4;
+	t.setAttribute("placeholder","Type a comment here...");
+	f.appendChild(t);
+	var b=document.createElement("input");
+	b.type="button";
+	b.value="Post";
+	f.appendChild(b);
+	container.appendChild(f);
+	var c=document.createElement("div");
+	c.className="commentsArea";
+	container.appendChild(c);
+	b.onclick=function(){sendComment(id,t,c);};
+	loadComments(id,c);
+}
+function loadComments(id,container){
+	container.innerHTML="";
+	var d=document.createElement("d");
+	d.className="loading";
+	container.appendChild(d);
+	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4){
+			if(xhr.status==200){
+				container.innerHTML="";
+				try{
+					if(parseInt(xhr.responseText)==1){container.innerHTML="Server error"; return;}
+				}catch(e){}
+				try{
+					var comments=eval('('+xhr.responseText+')'); //JSON.parse did not exist in 2001
+					for(var i=0;i<comments.length;i++){
+						var d=document.createElement("div");
+						d.className="comment";
+						d.innerHTML=comments[i];
+						container.appendChild(d);
+					}
+				}catch(e){
+					container.innerHTML="Couldn't load comments ("+e+")";
+				}
+			}
+		}
+	}
+	xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
+	xhr.send();
+}
+function sendComment(id,t,commentsArea){
+	if(t.value.isBlank()){ return;}
+	var text=t.value;
+	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4){
+			if(xhr.status==200){
+				try{
+					if(parseInt(xhr.responseText)==1){return;}
+				}catch(e){alert("An error occurred, please try again"); return;}
+				t.value="";
+				loadComments(id,commentsArea);
+			}
+		}
+	}
+	var params="";
+	params+="id="+encodeURIComponent(id)+"&text="+encodeURIComponent(text)+"&r="+Math.random();
+	xhr.open("POST","postComment.php",true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-length", params.length);
+	xhr.setRequestHeader("Connection", "close");
+	xhr.send(params);
+}
+
 
 function showLoading(){
 	I("fragment").innerHTML="";
@@ -190,30 +227,34 @@ setInterval(function(){
 		}
 	}catch(e){}
 },50);
-if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
-	setInterval(function(){
-	//this apparently useless piece of code fixes image stretching on IE6/7
-		try{
-			var imgs=I("fragment").getElementsByTagName("img");
-			for(var i=0;i<imgs.length;i++){
-				var x=imgs[i];
-				if(!x.complete) continue;
-				var p=x.parentNode;
-				var d=document.createElement("div");
-				p.replaceChild(d,x);
-				p.replaceChild(x,d);
-			}
-		}catch(e){}
-	},1000);
-}
-
 </script>
+<!--[if lt IE 8]>
+<script type="text/javascript">
+setInterval(function(){
+//this apparently useless piece of code fixes image stretching on IE6/7
+	try{
+		var imgs=I("fragment").getElementsByTagName("img");
+		for(var i=0;i<imgs.length;i++){
+			var x=imgs[i];
+			if(!x.complete) continue;
+			var p=x.parentNode;
+			var d=document.createElement("div");
+			p.replaceChild(d,x);
+			p.replaceChild(x,d);
+		}
+	}catch(e){}
+},1000);
+</script>
+<![endif]-->
 <style type="text/css">
 .basic_hide{
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160506" />
+<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160705" />
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160705" />
+<![endif]-->
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
@@ -250,9 +291,11 @@ if(b.n=="i" && b.v<8){	//IE <8 requires image stretching fix
 		</div>
 	</div>
 	<script type="text/javascript">
-		var c=I("_comments_");
-		if(c)c.innerHTML="This function requires a modern browser";
-		var s=I("_share_");
+		var oldC=I("_comments_");
+		if(oldC)oldC.id="article_comments";
+		var c=I("article_comments");
+		if(c)createCommentsForm('<?=$_GET["p"]?>',c);
+		var s=I("share_");
 		if(s){
 			url=document.location.href;
 			s.innerHTML="";

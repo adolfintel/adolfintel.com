@@ -250,7 +250,7 @@ span.bold{
 	z-index:0;
 }
 
-#_comments_ textarea{
+#article_comments textarea{
 	background-color:rgba(255,255,255,0.7);
 	width:100%;
 	border:none;
@@ -260,42 +260,26 @@ span.bold{
 	overflow:auto;
 }
 
-#_comments_ textarea:focus, #_comments_ textarea:active{
+#article_comments textarea:focus, #article_comments textarea:active{
 	background-color:#FFFFFF;
 }
-#_comments_ input[type="button"]{
+#article_comments input[type="button"]{
 	display:block;
 	min-width:8em;
 	margin:0.5em 0 0 auto;
 }
-#_comments_ .loading{
+#article_comments .loading{
 	width:3em;
 	height:3em;
 }
-#_comments_ div.commentsArea{
+#article_comments div.commentsArea{
 	margin-top:0.2em;
 }
-#_comments_ div.comment{
+#article_comments div.comment{
 	border-bottom:1px solid rgba(255,255,255,0.12);
 	font-size:0.9em;
-	padding:0;
-	color:#FFFFFF;
-}
-#_comments_ div.comment:last-child{
-	border-bottom:none;
-}
-#_comments_ div.comment p{
-	margin:0.8em 0;
-	padding:0;
-}
-#_comments_ div.comment br{
-	display:block;
-	height:0;
-	padding:0;
-	margin:0;
-	line-height:0;
-	font-size:0;
-	content: "";
+	padding:0.6em 0;
+	margin-bottom:0.3em;
 }
 
 #lightbox{

@@ -130,12 +130,10 @@
 	}
 </script>
 </div>
-<div class="basic_hide">
 <div class="stripe">
 	<div class="content">
 		<h3>Comments</h3>
-		<div id="_comments_"></div>
+		<div id="article_comments"></div>
 	</div>
-</div>
 </div>
 </div>

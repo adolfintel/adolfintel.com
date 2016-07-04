@@ -35,7 +35,7 @@
 <div class="stripe">
 	<div class="content">
 		<h3>Comments</h3>
-		<div id="article_comments"></div>
+		<div id="_comments_"></div>
 	</div>
 </div>
 </div>

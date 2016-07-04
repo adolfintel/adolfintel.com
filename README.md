@@ -9,9 +9,9 @@ Made with love, really!
 [AdolfIntel.com](http://adolfintel.com/)
  
 ## Compatibility
-Full HTML5: Internet Explorer 10, Firefox 12, Chrome 30
+Full HTML5: IE10+, any modernish browser from 2012-2013
 
-Basic HTML: Internet Explorer 6, Firefox 1.0, Chrome 1.0
+Basic HTML: IE6+
 
 Server side, any recent version of PHP and MySQL should work.
 

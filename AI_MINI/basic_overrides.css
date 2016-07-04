@@ -18,19 +18,7 @@ div.stripe div.content{
 	padding-bottom:1.6em;
 	border-bottom: 0.1em solid #2e5869;
 }
-@font-face{
-	font-family: BebasNeue;
-	src:url('bebasneue_basic.eot');
-}
-@font-face {
-	font-family: 'Roboto';
-	font-style: normal;
-	font-weight: 300;
-	src: url("roboto300_basic.eot");
-}
-@font-face {
-	font-family: 'Roboto';
-	font-style: normal;
-	font-weight: 400;
-	src: url("roboto400_basic.eot");
+#article_comments div.comment{
+	border-bottom:1px solid #606060;
+	font-size:1em;
 }

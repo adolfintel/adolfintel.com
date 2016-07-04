@@ -1,0 +1,16 @@
+@font-face{
+	font-family: BebasNeue;
+	src:url('bebasneue_basic.eot');
+}
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 300;
+	src: url("roboto300_basic.eot");
+}
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: url("roboto400_basic.eot");
+}
