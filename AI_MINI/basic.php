@@ -53,7 +53,8 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20160705" />
+<meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160706" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -71,9 +72,10 @@ if(!Function.prototype.bind){
 window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to full mode if compatible
 function gotoFull(){
+	if(localStorage.noSwitch)return;
 	document.location.href="index.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-if(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined){	//any browser with XHR, localStorage, Canvas, CSS Animation
+if(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoFull();
 }
 
@@ -295,7 +297,7 @@ setInterval(function(){
 		if(oldC)oldC.id="article_comments";
 		var c=I("article_comments");
 		if(c)createCommentsForm('<?=$_GET["p"]?>',c);
-		var s=I("share_");
+		var s=I("_share_");
 		if(s){
 			url=document.location.href;
 			s.innerHTML="";
@@ -321,6 +323,37 @@ setInterval(function(){
 			a.value=url;
 			a.onclick=a.select;
 			s.appendChild(a);
+		}
+		var latest=I("_latestPost_");
+		if(latest){
+			var xlp=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			xlp.onreadystatechange=function(){
+				if(xlp.readyState==4){
+					if(xlp.status==200){
+						var resp=eval('('+xlp.responseText+')');
+						var d;
+						if(resp['icon']){
+							d=document.createElement("img");
+							d.className="icon clickable";
+							d.src=resp['icon'];
+							latest.appendChild(d);
+						}
+						d=document.createElement("h4");
+						d.innerHTML="<a href='/?p="+resp['frag']+"' style='text-decoration:none'>"+resp['title']+"</a>";
+						latest.appendChild(d);
+						latest.innerHTML+="<div style='display:inline-block'>"+resp['description']+"</div>";
+						d=document.createElement("div");
+						d.className="clear";
+						latest.appendChild(d);
+						d=document.createElement("a");
+						d.className="clickOverlay";
+						d.setAttribute('href',"/?p="+resp['frag']);
+						latest.appendChild(d);
+					}
+				}
+			}
+			xlp.open("GET","fetch_recentPosts.php?random="+Math.random());
+			xlp.send();
 		}
 	</script>
 	<div id="resp_test">&nbsp;</div>

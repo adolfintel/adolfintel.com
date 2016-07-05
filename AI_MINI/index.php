@@ -14,6 +14,7 @@
 <meta name="keywords" content="<?=$Site_Keywords?>" />
 <meta name="author" content="<?=$Site_Author?>" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
+<meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
 <link rel="icon" href="favicon.png" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -22,9 +23,12 @@ String.prototype.isBlank=function(){
 window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to basic mode if incompatible
 function gotoBasic(){
+	if(window.localStorage){
+		if(localStorage.noSwitch)return;
+	}
 	document.location.href="basic.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-if(!(window.XMLHttpRequest&&localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined)){	//any browser with XHR, localStorage, Canvas, CSS Animation
+if(!(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined)){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoBasic();
 }
 
@@ -301,39 +305,34 @@ function loadFragment(url,pushState){
 						if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
 						var latest=I("_latestPost_");
 						if(latest){
-							var xhr3=new XMLHttpRequest();
-							xhr3.onreadystatechange=function(){
-								if(xhr3.readyState==4){
-									if(xhr3.status==200){
-										if(xhr3.responseXML){
-											latest.innerHTML="";
-											var d;
-											var iconNode=xhr3.responseXML.getElementsByTagName("icon")[0].firstChild;
-											if(iconNode){
-												d=document.createElement("img");
-												d.className="icon clickable";
-												d.src=iconNode.nodeValue;
-												latest.appendChild(d);
-											}
-											d=document.createElement("h4");
-											var tfrag=xhr3.responseXML.getElementsByTagName("frag")[0].firstChild.nodeValue;
-											d.innerHTML="<ai_link frag='"+tfrag+"'style='text-decoration:none'>"+xhr3.responseXML.getElementsByTagName("title")[0].firstChild.nodeValue+"</ai_link>";
+							var xlp=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+							xlp.onreadystatechange=function(){
+								if(xlp.readyState==4){
+									if(xlp.status==200){
+										var resp=JSON.parse(xlp.responseText);
+										var d;
+										if(resp['icon']){
+											d=document.createElement("img");
+											d.className="icon clickable";
+											d.src=resp['icon'];
 											latest.appendChild(d);
-											latest.innerHTML+="<div style='display:inline-block'>"+xhr3.responseXML.getElementsByTagName("description")[0].firstChild.nodeValue+"</div>";
-											d=document.createElement("div");
-											d.className="clear";
-											latest.appendChild(d);
-											d=document.createElement("ai_link");
-											d.className="clickOverlay";
-											d.setAttribute('frag',tfrag);
-											latest.appendChild(d);
-											parseLinks();
 										}
+										d=document.createElement("h4");
+										d.innerHTML="<a href='/?p="+resp['frag']+"' style='text-decoration:none'>"+resp['title']+"</a>";
+										latest.appendChild(d);
+										latest.innerHTML+="<div style='display:inline-block'>"+resp['description']+"</div>";
+										d=document.createElement("div");
+										d.className="clear";
+										latest.appendChild(d);
+										d=document.createElement("a");
+										d.className="clickOverlay";
+										d.setAttribute('href',"/?p="+resp['frag']);
+										latest.appendChild(d);
 									}
 								}
 							}
-							xhr3.open("POST","fetch_recentPosts.php");
-							xhr3.send("random="+Math.random());
+							xlp.open("GET","fetch_recentPosts.php?random="+Math.random());
+							xlp.send();
 						}
 					});
 					
@@ -386,7 +385,7 @@ setInterval(function(){
 },50);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160705"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160706"/>
 <style type="text/css">
 .basic_only{
 	display:none;

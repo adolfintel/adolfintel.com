@@ -364,7 +364,7 @@ input[type="text"].share{
 		max-height:30em;
 	}
 	#fragment,.oldFragment{
-		margin-top:6em;
+		margin-top:4em;
 	}
 	#nav a, #logo{
 		width:100%;
@@ -402,6 +402,6 @@ input[type="text"].share{
 }
 @media all and (max-width: 30em){
 	#nav{
-		font-size:0.95em;
+		font-size:0.87em;
 	}
 }

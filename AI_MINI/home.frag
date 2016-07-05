@@ -38,6 +38,12 @@
 	</div>
 	
 </div>
+<div class="stripe">
+	<div class="content">
+		<h2>Last post</h2>
+		<div id="_latestPost_"></div>
+	</div>
+</div>
 <div class="basic_only">
 	<div class="stripe">
 		<div class="content">
@@ -46,14 +52,6 @@
 				You are using an old or unsupported browser, so the site is in Basic mode, which provides only limited functionality and doesn't look very good.<br/>
 				Consider updating it as soon as possible to something more modern like <ai_link ext="http://www.firefox.com">Mozilla Firefox</ai_link>.
 			</p>
-		</div>
-	</div>
-</div>
-<div class="basic_hide">
-	<div class="stripe">
-		<div class="content">
-			<h2>Last post</h2>
-			<div id="_latestPost_"></div>
 		</div>
 	</div>
 </div>

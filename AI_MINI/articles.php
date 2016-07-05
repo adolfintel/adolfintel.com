@@ -5,7 +5,7 @@
    header('Content-type: text/html; charset=utf-8');
 ?>
 <div>
-<link rel="stylesheet" type="text/css" href="articleList.css?20160506" />
+<link rel="stylesheet" type="text/css" href="articleList.css?20160706" />
 <?php 
 include '_config.php';
    

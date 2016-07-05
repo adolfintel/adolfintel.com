@@ -40,15 +40,6 @@ h2{
 		height:4em;
 		width:auto;
 	}
-	<!--[if lt IE 8]>
-		img.icon{
-			float:none !important;
-			display:block;
-			margin-left:auto;
-			margin-right:auto;
-			height:4em;
-		}
-	<![endif]-->
 	div.clickOverlay{
 		height:0 !important;
 	}
