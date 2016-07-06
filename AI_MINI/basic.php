@@ -287,7 +287,7 @@ setInterval(function(){
 						$_GET[$qstr_name]=$qstr_value;
 					}
 				}
-				include($phpinclude);
+				if(file_exists($phpinclude)) include($phpinclude); else { ?><script type="text/javascript">setTimeout(function(){showError(404);},100);</script><?php }
 				echo parseLinks(ob_get_clean());
 			?>
 		</div>
