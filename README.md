@@ -19,6 +19,7 @@ Server side, any recent version of PHP and MySQL should work.
 ![Screenshot](http://adolfintel.com/this/screen1.png)
 ![Screenshot](http://adolfintel.com/this/screen2.png)
 ![Screenshot](http://adolfintel.com/this/screen3.png)
+![Screenshot](http://adolfintel.com/this/screen4.png)
 
 ## License
 Copyright (C) 2016 Federico Dossena
