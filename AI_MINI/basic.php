@@ -53,6 +53,9 @@
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta property="og:site_name" content="<?=$Site_Title?>"/>
+<meta property="og:image" content="<?=(($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http").'://'. $_SERVER['HTTP_HOST'].'/'.($socialImg?$socialImg:'campaign-icon.png')?>" />
+<meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
+<meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
 <link rel="stylesheet" type="text/css" href="main.css?20160706" />
 <link rel="icon" href="favicon.ico" />
@@ -183,12 +186,15 @@ function loadComments(id,container){
 	xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
 	xhr.send();
 }
+var sending=false;
 function sendComment(id,t,commentsArea){
-	if(t.value.isBlank()){ return;}
+	if(t.value.isBlank()||sending){ return;}
+	sending=true;
 	var text=t.value;
 	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
+			sending=false;
 			if(xhr.status==200){
 				try{
 					if(parseInt(xhr.responseText)==1){return;}

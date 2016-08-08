@@ -15,6 +15,9 @@ div.description{
 h2{
 	margin-bottom:0.3em;
 }
+a{
+	text-decoration:none;
+}
 @media all and (max-width: 50em){
 	div.content{
 		width:100%;

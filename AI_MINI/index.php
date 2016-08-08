@@ -205,12 +205,15 @@ function loadComments(id,container){
 	xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
 	xhr.send();
 }
+var sending=false;
 function sendComment(id,t,commentsArea){
-	if(t.value.isBlank()){ return;}
+	if(t.value.isBlank()||sending){ return;}
+	sending=true;
 	var text=t.value;
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
+			sending=false;
 			if(xhr.status==200){
 				try{
 					if(parseInt(xhr.responseText)==1){return;}
@@ -327,6 +330,7 @@ function loadFragment(url,pushState){
 										d=document.createElement("a");
 										d.className="clickOverlay";
 										d.setAttribute('href',"/?p="+resp['frag']);
+										d.setAttribute('onclick',"loadFragment('"+resp['frag']+"');return false;");
 										latest.appendChild(d);
 									}
 								}
