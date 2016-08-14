@@ -24,8 +24,22 @@
 		</div>
 		<h4>Download</h4>
 		<div class="section">
-			Type 1: <a href="example_project/t1d1.7z">Download 1</a>&nbsp;|&nbsp;<a href="example_project/t1d2.7z">Download 2</a><br/>
-			Type 2: <a href="example_project/t2d1.7z">Download 1</a>&nbsp;|&nbsp;<a href="example_project/t2d2.7z">Download 2</a><br/>
+			<a class="downloadButton" href="example_project/t1d1.7z">
+				Download 1
+				<div class="small">For Windows XP and newer</div>
+			</a>
+			<a class="downloadButton" href="example_project/t1d2.7z">
+				Download 2
+				<div class="small">For Debian GNU/Linux</div>
+			</a><br/>
+			<a class="downloadButton" href="example_project/t2d1.7z">
+				Download 3
+				<div class="small">For Android devices</div>
+			</a>
+			<a class="downloadButton" href="example_project/t2d2.7z">
+				Download 4
+				<div class="small">For Windows Phone</div>
+			</a>
 		</div>
 		<h4>License</h4>
 		<div class="section">

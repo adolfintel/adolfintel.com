@@ -1,21 +1,11 @@
 <div>
-<link rel="stylesheet" href="home.css" />
-<div class="stripe">
-	<div class="content">
+<link rel="stylesheet" href="home.css?20160815" />
+<div id="greetsContainer" class="stripe" style="padding-top:0">
+	<div class="content" style="padding-bottom:1em">
 		<div id="bigass">Hello!</div>
-		<p id="intro">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dignissim tellus eget mauris facilisis, ut gravida leo lacinia. Fusce vel pulvinar ante. Nullam eget condimentum nisl, ut consequat ante. Integer faucibus ultricies eleifend. Vivamus laoreet id ipsum vitae viverra. Vivamus orci metus, iaculis egestas lobortis ac, tincidunt sit amet orci. Aliquam venenatis euismod aliquet. Suspendisse ornare faucibus magna, a facilisis nisi aliquet eget. Fusce sit amet fermentum ipsum. Duis sodales bibendum augue ut fringilla. In euismod turpis justo. Etiam luctus ipsum in fringilla consectetur. 
-		</p>
-		<div class="basic_hide">
-				<div id="buttons">
-					<ai_link frag="articles.php?s=1" class="button blue">Projects</ai_link>
-					<ai_link frag="articles.php?s=2" class="button red">Blog</ai_link>
-					<ai_link frag="about.frag" class="button green">About me</ai_link>
-				</div>
-		</div>
 		<script type="text/javascript">
 			if(!isBasicMode()){
-				window.greets=["Hello","Hi","Greetings","Welcome","Benvenuto","Ciao","Namaste","Hola","Salut","Hallo","God dag","Shalom","Love"];
+				window.greets=["Hello","Hi","Greetings","Welcome","Benvenuto","Ciao","Namaste","Hola","Salut","Hallo","God dag","Willkommen","Love"];
 				window.currentGreet=parseInt(Math.random()*greets.length);
 				window.areaText=greets[0];
 				window._home_t=setInterval(function(){
@@ -36,9 +26,29 @@
 			}
 		</script>
 	</div>
-	
 </div>
-<div class="stripe">
+<div class="stripe" style="padding-top:0;">
+	<div class="content">
+		<div id="leftPanel">
+			<div>
+				<div id="photo_mobile">&nbsp;</div>
+				<img id="photo_desktop" src="photo_small.jpg"/>
+			</div>
+			<div id="sections">
+				<ai_link frag="articles.php?s=1">Projects</ai_link>
+				<ai_link frag="articles.php?s=2">Blog</ai_link>
+				<ai_link frag="about.frag">About me</ai_link>
+			</div>
+		</div>
+		<div id="rightPanel">
+			<span id="intro">			
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dignissim tellus eget mauris facilisis, ut gravida leo lacinia. Fusce vel pulvinar ante. Nullam eget condimentum nisl, ut consequat ante. Integer faucibus ultricies eleifend. Vivamus laoreet id ipsum vitae viverra. Vivamus orci metus, iaculis egestas lobortis ac, tincidunt sit amet orci. Aliquam venenatis euismod aliquet. Suspendisse ornare faucibus magna, a facilisis nisi aliquet eget. Fusce sit amet fermentum ipsum. Duis sodales bibendum augue ut fringilla. In euismod turpis justo. Etiam luctus ipsum in fringilla consectetur.
+			</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="stripe" style="padding-top:0;">
 	<div class="content">
 		<h2>Last post</h2>
 		<div id="_latestPost_"></div>
@@ -51,20 +61,6 @@
 			<p>
 				You are using an old or unsupported browser, so the site is in Basic mode, which provides only limited functionality and doesn't look very good.<br/>
 				Consider updating it as soon as possible to something more modern like <ai_link ext="http://www.firefox.com">Mozilla Firefox</ai_link>.
-			</p>
-		</div>
-	</div>
-</div>
-<div class="basic_hide">
-	<div style="height:120vh">
-		<!-- space waster so the user can admire the background -->
-		&nbsp;
-	</div>
-	<div class="stripe">
-		<div class="content">
-			<h2>Enjoying the view?</h2>
-			<p>
-				You can <ai_link frag="muhTriangles.js/editor.frag">hide the page</ai_link> to enjoy the background. Press back to come back.
 			</p>
 		</div>
 	</div>

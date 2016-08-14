@@ -1,3 +1,6 @@
+/*
+	FONTS
+*/
 @font-face {
 	font-family: BebasNeue;
 	src: url("bebasneue.woff") format("woff");
@@ -14,6 +17,9 @@
 	font-weight: 400;
 	src: url("roboto400.woff") format('woff');
 }
+/*
+	HEADINGS, TITLES
+*/
 h1,h2,h3,h4,h5,h6{
 	font-family:'BebasNeue', sans-serif;
 	color:#FFFFFF;
@@ -39,6 +45,48 @@ h5{
 h6{
 	font-size:1.3em;
 }
+/*
+	UTILS
+*/
+div.clear{
+	clear:both;
+	margin:0;
+	padding:0;
+	border:none;
+	height:0 !important;
+	overflow:hidden;
+}
+iframe{
+	border:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+.clickOverlay{
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	color:rgba(0,0,0,0);
+	border:none;
+	margin:0;
+	padding:0;
+	cursor:pointer;
+	z-index:99;
+}
+span.bold{
+	font-weight:400;
+}
+#resp_test{
+	width:0;
+	position:fixed;
+	z-index:0;
+}
+/*
+	BASIC PAGE STYLING AND POSITIONING
+*/
 html,body{
 	border:none;
 	margin:0;
@@ -48,14 +96,7 @@ html,body{
 	font-family:'Roboto',sans-serif;
 	line-height:1.55;
 }
-div.clear{
-	clear:both;
-	margin:0;
-	padding:0;
-	border:none;
-	height:0 !important;
-	overflow:hidden;
-}
+
 #background{
 	position:fixed;
 	z-index:1;
@@ -63,12 +104,6 @@ div.clear{
 	left:0;
 	width:100%;
 	height:100%;
-	overflow:hidden;
-}
-iframe{
-	border:none;
-	margin:0;
-	padding:0;
 	overflow:hidden;
 }
 #page{
@@ -84,7 +119,27 @@ iframe{
 #fragment,.oldFragment{
 	position:absolute;
 	width:100%;
+	transform-origin:50vw 50vh;
 }
+#fragment{
+	animation:fadeIn 0.25s linear;
+}
+.oldFragment{
+	animation:fadeOut 0.25s linear;
+}
+@keyframes fadeIn{
+	0%{opacity:0; transform:translate(0,1.2em);}
+	60%{opacity:0.2; transform:translate(0,0.3em);}
+	100%{opacity:1; transform:translate(0,0);}
+}
+@keyframes fadeOut{
+	0%{opacity:1; transform:translate(0,0);}
+	60%{opacity:0.2; transform:translate(0,-0.9em);}
+	100%{opacity:0; transform:translate(0,-1.2em);}
+}
+/*
+	NAV MENU
+*/
 #nav{
 	background-color:#99cce3;
 	box-shadow:0 0 1em rgba(0,0,0,0.6);
@@ -132,7 +187,9 @@ iframe{
 #nav a:active{
 	background-color:rgba(0,5,20,0.4);
 }
-
+/*
+	PAGE CONTENT AND STYLE
+*/
 div.stripe{
 	width:100%;
 	display:block;
@@ -149,26 +206,10 @@ div.content{
 	clear:both;
 	position:relative;
 }
-#fragment,.oldFragment{
-	transform-origin:50vw 50vh;
+div.stripe > div.content{
+	padding-bottom:1.6em;
+	border-bottom: 0.15em solid rgba(89,168,201,0.3);
 }
-#fragment{
-	animation:fadeIn 0.25s linear;
-}
-.oldFragment{
-	animation:fadeOut 0.25s linear;
-}
-@keyframes fadeIn{
-	0%{opacity:0; transform:translate(0,1.2em);}
-	60%{opacity:0.2; transform:translate(0,0.3em);}
-	100%{opacity:1; transform:translate(0,0);}
-}
-@keyframes fadeOut{
-	0%{opacity:1; transform:translate(0,0);}
-	60%{opacity:0.2; transform:translate(0,-0.9em);}
-	100%{opacity:0; transform:translate(0,-1.2em);}
-}
-
 div.section{
 	margin-bottom:1.8em;
 	clear:both;
@@ -192,12 +233,41 @@ h2 a{
 h2 a:hover, h2 a:active{
 	text-decoration:underline;
 }
-
-div.stripe > div.content{
-	padding-bottom:1.6em;
-	border-bottom: 0.15em solid rgba(89,168,201,0.3);
+img.icon{
+	float:left;
+	display:inline-block;
+	width:6em;
+	height:auto;
+	margin:0 1em 0.1em 0;
+	cursor:pointer;
 }
-
+a.downloadButton{
+	display:inline-block;
+	font-size:1.32em;
+	padding:0.3em 0.75em;
+	margin:0.5em 0.8em 0.5em 0;
+	border:0.1em solid #FFFFFF;
+	border-radius:0.12em;
+	transition: all 0.2s;
+	text-decoration:none;
+	font-weight:400;
+}
+a.downloadButton:hover, a.downloadButton:focus, a.downloadButton:active{
+	color:#000000 !important;
+	background-color:#FFFFFF !important;
+	font-weight:400;
+}
+a.downloadButton > *{
+	margin-bottom:0.35rem;
+}
+a.downloadButton > div.small{
+	font-size:0.67em; 
+	line-height:1em;
+	font-weight:300;
+}
+/*
+	PAGE LOADING ANIMATION
+*/
 .loading {
 	animation: load 0.3s infinite linear;
 	color:#FFFFFF;
@@ -212,44 +282,9 @@ div.stripe > div.content{
 	from {transform: rotate(0deg);}
 	to   {transform: rotate(359deg);}
 }
-
-.clickOverlay{
-	display:block;
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	color:rgba(0,0,0,0);
-	border:none;
-	margin:0;
-	padding:0;
-	cursor:pointer;
-	z-index:99;
-}
-img.icon{
-	float:left;
-	display:inline-block;
-	width:6em;
-	height:auto;
-	margin:0 1em 0.1em 0;
-	cursor:pointer;
-}
-span.bold{
-	font-weight:400;
-}
-#loadStatus{
-	display:block;
-	width:100%;
-	color:rgba(255,255,255,0.5);
-	text-align:center;
-}
-#resp_test{
-	width:0;
-	position:fixed;
-	z-index:0;
-}
-
+/*
+	COMMENTS
+*/
 #article_comments textarea{
 	background-color:rgba(255,255,255,0.7);
 	width:100%;
@@ -259,7 +294,6 @@ span.bold{
 	resize: vertical;
 	overflow:auto;
 }
-
 #article_comments textarea:focus, #article_comments textarea:active{
 	background-color:#FFFFFF;
 }
@@ -281,7 +315,9 @@ span.bold{
 	padding:0.6em 0;
 	margin-bottom:0.3em;
 }
-
+/*
+	LIGHTBOX
+*/
 #lightbox{
 	background-color:rgba(0,0,0,0.4);
 	position:fixed;
@@ -307,7 +343,9 @@ span.bold{
 	width:auto;
 	height:100%;
 }
-
+/*
+	SHARE LINKS
+*/
 a.share{
 	display:inline-block;
 	width:2em;height:2em;
@@ -330,9 +368,9 @@ input[type="text"].share{
 	width:8em;
 	height:1.5em;
 }
-
-
-
+/*
+	MUH RESPONSIVE
+*/
 @media all and (max-width:72em) and (min-width:50em){
 	div.content{
 		width:95%;
@@ -358,6 +396,7 @@ input[type="text"].share{
 		transition:max-height 0.4s ease-out;
 	}
 	#nav a{
+		font-size:1.7em
 		display:block !important;
 	}
 	#nav.expanded{
@@ -394,14 +433,18 @@ input[type="text"].share{
 	#resp_test{
 		width:1em;
 	}
+	a.downloadButton{
+		display:block;
+		margin:0.5em;
+	}
 }
-@media all and (min-width:50em){
+@media all and (min-width: 50em){
 	.resp_only{
 		display:none !important;
 	}
 }
 @media all and (max-width: 30em){
-	#nav{
-		font-size:0.87em;
+	a.downloadButton{
+		font-size:1em;
 	}
 }

@@ -389,7 +389,7 @@ setInterval(function(){
 },50);
 </script>
 <script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160706"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160814"/>
 <style type="text/css">
 .basic_only{
 	display:none;
@@ -400,8 +400,8 @@ setInterval(function(){
 <div id="background">
 	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
 	<script type="text/javascript">
-		setBackgroundCfg(localStorage.aiv4&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
-		localStorage.aiv4=true;
+		setBackgroundCfg(localStorage.aiv411&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
+		localStorage.aiv411=true;
 	</script>
 </div>
 <div id="page">
