@@ -2,14 +2,15 @@
 <link rel="stylesheet" href="home.css" />
 <div class="stripe">
 	<div class="content" style="border:none">
-		<div id="bigass" style="color:#FF9999;text-shadow:0 0 1em #FFAAAA,0 0 0.2em #FFAAAA;">Error</div>
-		<p id="intro">You broke the Internet, now they're after you. Run!</p>
+		<div id="bigass" style="color:#FF9999;text-shadow:0 0 1em #FFAAAA,0 0 0.2em #FFAAAA;padding:0.5em 0;">Error</div>
+		<p style="text-align:center">You broke the Internet, now they're after you. Run!</p>
 	</div>
 	<script type="text/javascript">
 		var e=window._err?window._err:Number(location.search.substring(location.search.lastIndexOf("e=")+2));
 		if(isBasicMode()){
 			I("bigass").innerHTML+=" "+e;
 		}else{
+			warp.TARGET_SPEED=0;
 			window.greets=["Error "+e,"Error"," Error"];
 			window.currentGreet=parseInt(Math.random()*greets.length);
 			window.areaText=greets[0];

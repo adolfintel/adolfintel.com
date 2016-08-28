@@ -1,11 +1,12 @@
 body{
-	background-color:#061d26;
+	background-color:#0f0919;
 }
 #fragment{
 	font-size:0.9em;
+	animation:none;
 }
 #nav{
-	background-color:#99cce3;
+	background-color:#a3e2ff;
 }
 div.content{
 	width:95%;

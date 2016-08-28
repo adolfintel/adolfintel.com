@@ -1,5 +1,5 @@
 <div>
-<link rel="stylesheet" href="home.css?20160815" />
+<link rel="stylesheet" href="home.css?20160822" />
 <div id="greetsContainer" class="stripe" style="padding-top:0">
 	<div class="content" style="padding-bottom:1em">
 		<div id="bigass">Hello!</div>
@@ -41,9 +41,10 @@
 			</div>
 		</div>
 		<div id="rightPanel">
-			<span id="intro">			
+			<h4 id="intro_title">Greetings, stranger!</h4>
+			<p id="intro">			
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dignissim tellus eget mauris facilisis, ut gravida leo lacinia. Fusce vel pulvinar ante. Nullam eget condimentum nisl, ut consequat ante. Integer faucibus ultricies eleifend. Vivamus laoreet id ipsum vitae viverra. Vivamus orci metus, iaculis egestas lobortis ac, tincidunt sit amet orci. Aliquam venenatis euismod aliquet. Suspendisse ornare faucibus magna, a facilisis nisi aliquet eget. Fusce sit amet fermentum ipsum. Duis sodales bibendum augue ut fringilla. In euismod turpis justo. Etiam luctus ipsum in fringilla consectetur.
-			</span>
+			</p>
 		</div>
 		<div class="clear"></div>
 	</div>

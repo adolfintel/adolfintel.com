@@ -105,6 +105,7 @@ html,body{
 	width:100%;
 	height:100%;
 	overflow:hidden;
+	background-color:#0f0919;
 }
 #page{
 	position:fixed;
@@ -122,11 +123,21 @@ html,body{
 	transform-origin:50vw 50vh;
 }
 #fragment{
-	animation:fadeIn 0.25s linear;
+	animation:warpIn 0.35s ease-out;
 }
 .oldFragment{
-	animation:fadeOut 0.25s linear;
+	animation:warpOut 0.25s ease-in;
 }
+/*SHRINK animations used in desktop version*/
+@keyframes warpIn{
+	0%{opacity:0; transform:scale3d(0.8,0.8,1);}
+	100%{opacity:1; transform:scale3d(1,1,1);}
+}
+@keyframes warpOut{
+	0%{opacity:1; transform:scale3d(1,1,1);}
+	100%{opacity:0; transform:scale3d(1.2,1.2,1);}
+}
+/*FADE IN/OUT used in mobile version, because it's lighter*/
 @keyframes fadeIn{
 	0%{opacity:0; transform:translate(0,1.2em);}
 	60%{opacity:0.2; transform:translate(0,0.3em);}
@@ -141,7 +152,7 @@ html,body{
 	NAV MENU
 */
 #nav{
-	background-color:#99cce3;
+	background-color:#a3e2ff;
 	box-shadow:0 0 1em rgba(0,0,0,0.6);
 	width:100%;
 	margin-bottom:4em;
@@ -420,6 +431,12 @@ input[type="text"].share{
 		border-top:1px solid rgba(0,0,0,0.3);
 		clear:both;
 		line-height:2em;
+	}
+	#fragment{
+		animation:fadeIn 0.25s linear;
+	}
+	.oldFragment{
+		animation:fadeOut 0.25s linear;
 	}
 	div.content{
 		max-width:95%;

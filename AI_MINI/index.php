@@ -131,6 +131,11 @@ function showLoading(){
 function showError(err){
 	window._err=err;
 	loadFragment('error.frag',false);
+	warp.TARGET_SPEED=0;
+	if(warp_lowerComplexityWhileLoading){
+		warp.USE_CIRCLES=warp_useCircles;
+		warp.DEPTH_ALPHA=warp_depthAlpha;
+	}
 }
 function createCommentsForm(id,container){
 	var f=document.createElement("form");
@@ -268,6 +273,11 @@ var loading=false;
 function loadFragment(url,pushState){
 	if(loading) return;
 	loading=true;
+	if(warp_lowerComplexityWhileLoading){
+		warp.USE_CIRCLES=false;
+		warp.DEPTH_ALPHA=false;
+	}
+	warp.TARGET_SPEED=warp_loadingSpeed;
 	showNav();
 	showPage();
 	closeLightbox();
@@ -284,6 +294,11 @@ function loadFragment(url,pushState){
 				if(xhr.status==200){
 					fadeCurrentFrag(function(){
 						loading=false;
+						if(warp_lowerComplexityWhileLoading){
+							warp.USE_CIRCLES=warp_useCircles;
+							warp.DEPTH_ALPHA=warp_depthAlpha;
+						}
+						warp.TARGET_SPEED=warp_normalSpeed;
 						var frag=I("fragment");
 						frag.innerHTML=xhr.responseText;
 						var scripts=frag.getElementsByTagName("script");
@@ -353,9 +368,13 @@ window.onpopstate = function(e){
     if(e.state){ loadFragment(e.state,false);}
 };
 
+var warp, warp_normalSpeed, warp_loadingSpeed=<?=$Background_SpeedWhileLoading ?>, warp_lowerComplexityWhileLoading=<?=$Background_LowerComplexityWhileLoading ?>, warp_useCircles, warp_depthAlpha;
 function setBackgroundCfg(cfg){
 	localStorage.backgroundCfg=cfg;
-	new MuhTriangles("bkFrame",cfg);
+	warp=new WarpSpeed("bkFrame",cfg);
+	warp_normalSpeed=warp.TARGET_SPEED;
+	warp_useCircles=warp.USE_CIRCLES;
+	warp_depthAlpha=warp.DEPTH_ALPHA;
 }
 	
 function autoLoad(){
@@ -388,8 +407,8 @@ setInterval(function(){
 	}catch(e){}
 },50);
 </script>
-<script src="muhTriangles.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160814"/>
+<script src="warpspeed.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="main.css?20160901"/>
 <style type="text/css">
 .basic_only{
 	display:none;
@@ -400,8 +419,8 @@ setInterval(function(){
 <div id="background">
 	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
 	<script type="text/javascript">
-		setBackgroundCfg(localStorage.aiv411&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
-		localStorage.aiv411=true;
+		setBackgroundCfg(localStorage.aiv5&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
+		localStorage.aiv5=true;
 	</script>
 </div>
 <div id="page">

@@ -57,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20160814" />
+<link rel="stylesheet" type="text/css" href="main.css?20160901" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -259,9 +259,9 @@ setInterval(function(){
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160705" />
+<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160901" />
 <!--[if IE]>
-<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160705" />
+<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160901" />
 <![endif]-->
 </head>
 <body>
