@@ -57,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20160901" />
+<link rel="stylesheet" type="text/css" href="main.css?20160903" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -336,29 +336,11 @@ setInterval(function(){
 			xlp.onreadystatechange=function(){
 				if(xlp.readyState==4){
 					if(xlp.status==200){
-						var resp=eval('('+xlp.responseText+')');
-						var d;
-						if(resp['icon']){
-							d=document.createElement("img");
-							d.className="icon clickable";
-							d.src=resp['icon'];
-							latest.appendChild(d);
-						}
-						d=document.createElement("h4");
-						d.innerHTML="<a href='/?p="+resp['frag']+"' style='text-decoration:none'>"+resp['title']+"</a>";
-						latest.appendChild(d);
-						latest.innerHTML+="<div style='display:inline-block'>"+resp['description']+"</div>";
-						d=document.createElement("div");
-						d.className="clear";
-						latest.appendChild(d);
-						d=document.createElement("a");
-						d.className="clickOverlay";
-						d.setAttribute('href',"/?p="+resp['frag']);
-						latest.appendChild(d);
+						latest.innerHTML=xlp.responseText;
 					}
 				}
 			}
-			xlp.open("GET","fetch_recentPosts.php?random="+Math.random());
+			xlp.open("GET","articles.php?lastPost=true&random="+Math.random());
 			xlp.send();
 		}
 	</script>

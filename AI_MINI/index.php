@@ -323,34 +323,16 @@ function loadFragment(url,pushState){
 						if(commentsArea) createCommentsForm(document.location.search.substring(3),commentsArea);
 						var latest=I("_latestPost_");
 						if(latest){
-							var xlp=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+							var xlp=new XMLHttpRequest();
 							xlp.onreadystatechange=function(){
 								if(xlp.readyState==4){
 									if(xlp.status==200){
-										var resp=JSON.parse(xlp.responseText);
-										var d;
-										if(resp['icon']){
-											d=document.createElement("img");
-											d.className="icon clickable";
-											d.src=resp['icon'];
-											latest.appendChild(d);
-										}
-										d=document.createElement("h4");
-										d.innerHTML="<a href='/?p="+resp['frag']+"' style='text-decoration:none'>"+resp['title']+"</a>";
-										latest.appendChild(d);
-										latest.innerHTML+="<div style='display:inline-block'>"+resp['description']+"</div>";
-										d=document.createElement("div");
-										d.className="clear";
-										latest.appendChild(d);
-										d=document.createElement("a");
-										d.className="clickOverlay";
-										d.setAttribute('href',"/?p="+resp['frag']);
-										d.setAttribute('onclick',"loadFragment('"+resp['frag']+"');return false;");
-										latest.appendChild(d);
+										latest.innerHTML=xlp.responseText;
+										parseLinks();
 									}
 								}
 							}
-							xlp.open("GET","fetch_recentPosts.php?random="+Math.random());
+							xlp.open("GET","articles.php?lastPost=true&random="+Math.random());
 							xlp.send();
 						}
 					});
@@ -408,7 +390,7 @@ setInterval(function(){
 },50);
 </script>
 <script src="warpspeed.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160901"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160903"/>
 <style type="text/css">
 .basic_only{
 	display:none;

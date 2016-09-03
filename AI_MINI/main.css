@@ -244,7 +244,7 @@ h2 a{
 h2 a:hover, h2 a:active{
 	text-decoration:underline;
 }
-img.icon{
+img.icon, img.articleIcon{
 	float:left;
 	display:inline-block;
 	width:6em;
@@ -275,6 +275,50 @@ a.downloadButton > div.small{
 	font-size:0.67em; 
 	line-height:1em;
 	font-weight:300;
+}
+/*
+	ARTICLE LIST (articleEntry rules only apply to the full version)
+*/
+span.date{
+	margin-left:1em;
+	display:inline-block;
+	float:right;
+	color:#AAAAAA;
+}
+div.articleEntry{
+	position:relative;
+	height:30em;
+	overflow:hidden;
+}
+div.compactList div.stripe{
+	padding:0.4em 0;
+}
+div.articleEntry > div.background{
+	position:absolute;
+	top:0; left:0;
+	width:100%; height:100%;
+	z-index:1;
+	background-size:cover;
+	background-position:center center;
+}
+div.articleEntry > div.details{
+	z-index:2;
+	position:absolute;
+	left:0; bottom:0;
+	width:100%;
+	box-sizing:border-box;
+	padding:1.5em;
+	max-height:20em;
+	background-color:rgba(0,0,0,0.6);
+	overflow:hidden;
+}
+div.description{
+	display:inline;
+	width:auto;
+}
+div.articleEntry > div.details > div.description{
+	display:block;
+	width:100%;
 }
 /*
 	PAGE LOADING ANIMATION
@@ -444,6 +488,43 @@ input[type="text"].share{
 	#nav div.content{
 		max-width:100%;
 	}
+	div.content{
+		width:100%;
+		text-align:center;
+	}
+	span.date{
+		position:absolute;
+		float:none;
+		margin:0;
+		display:block;
+		font-size:0.8em;
+		top:1.2em;
+		right:0.5em;
+	}
+	div.articleEntry span.date{
+		font-size:1em;
+		top:0.5em;
+		right:0.5em;
+		color:#FFFFFF;
+		text-shadow:0 0 0.5em #000000,0 0 1em #000000,0 0 1em #000000,0 0 3em #000000,0 0 3em #000000;
+	}
+	img.articleIcon{
+		float:none !important;
+		display:block;
+		margin:0 auto;
+		height:4em;
+		width:auto;
+	}
+	div.articleEntry{
+		height:20em;
+	}
+	div.articleEntry > div.details{
+		max-height:12em;
+		padding:1em;
+	}
+	div.articleEntry > div.background{
+		box-shadow: inset 0 1em 4em -4em #000000;
+	}
 	.resp_hidden{
 		display:none !important;
 	}
@@ -463,5 +544,10 @@ input[type="text"].share{
 @media all and (max-width: 30em){
 	a.downloadButton{
 		font-size:1em;
+	}
+}
+@media all and (max-width: 23em){
+	div.articleEntry{
+		font-size:0.8em;
 	}
 }

@@ -121,7 +121,7 @@
 	if(!isBasicMode()){
 		var d=document.createElement("script");
 		d.type="text/javascript";
-		d.src="html5cool/smooth/smoothscroll.js";
+		d.src="example_article_3/smoothscroll.js";
 		I("fragment").appendChild(d);
 		var interval=setInterval(function(){if(smoothScroll){
 			smoothScroll(I("example1s")); 

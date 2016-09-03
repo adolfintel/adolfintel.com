@@ -52,7 +52,7 @@
 <div class="stripe" style="padding-top:0;">
 	<div class="content">
 		<h2>Last post</h2>
-		<div id="_latestPost_"></div>
+		<div id="_latestPost_" style="font-size:0.9em;"></div>
 	</div>
 </div>
 <div class="basic_only">
