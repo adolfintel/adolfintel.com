@@ -2,8 +2,6 @@
 Blog and Hosting for my Projects.
 
 Responsive, modern, cool looking, indexable, and compatible with browsers as old as Internet Explorer 6 (yes, SIX!).
-
-Made with love, really! 
  
 ## Take a look
 [AdolfIntel.com](http://adolfintel.com/)
