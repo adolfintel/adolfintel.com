@@ -138,22 +138,27 @@ function showError(err){
 	}
 }
 function createCommentsForm(id,container){
-	var f=document.createElement("form");
-	var t=document.createElement("textarea");
-	t.name="text";
-	t.rows=4;
-	t.setAttribute("placeholder","Type a comment here...");
-	f.appendChild(t);
-	var b=document.createElement("input");
-	b.type="button";
-	b.value="Post";
-	f.appendChild(b);
-	container.appendChild(f);
-	var c=document.createElement("div");
-	c.className="commentsArea";
-	container.appendChild(c);
-	b.onclick=function(){sendComment(id,t,c);};
-	loadComments(id,c);
+	<?php if($Disqus_Enabled){ ?>
+		loadComments(id,container);
+	<?php } else { ?>
+		var f=document.createElement("form");
+		var t=document.createElement("textarea");
+		t.name="text";
+		t.rows=4;
+		t.setAttribute("placeholder","Type a comment here...");
+		f.appendChild(t);
+		var b=document.createElement("input");
+		b.type="button";
+		b.value="Post";
+		f.appendChild(b);
+		container.appendChild(f);
+		var c=document.createElement("div");
+		c.className="commentsArea";
+		container.appendChild(c);
+		b.onclick=function(){sendComment(id,t,c);};
+		loadComments(id,c);
+	<?php } ?>
+	
 }
 function createShareLinks(url,container){
 	container.innerHTML="";
@@ -182,34 +187,67 @@ function createShareLinks(url,container){
 }
 function loadComments(id,container){
 	container.innerHTML="";
-	var d=document.createElement("d");
-	d.className="loading";
-	container.appendChild(d);
-	var xhr=new XMLHttpRequest();
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState==4){
-			if(xhr.status==200){
-				container.innerHTML="";
-				try{
-					if(parseInt(xhr.responseText)==1){container.innerHTML="Server error"; return;}
-				}catch(e){}
-				try{
-					var comments=JSON.parse(xhr.responseText);
-					for(var i=0;i<comments.length;i++){
-						var d=document.createElement("div");
-						d.className="comment";
-						d.innerHTML=comments[i];
-						container.appendChild(d);
+	<?php if($Disqus_Enabled){ ?>
+		var d=document.createElement("div");
+		d.id="disqus_thread";
+		container.appendChild(d);
+		try{
+			//IE<9 entirely not supported
+			var ua = navigator.userAgent.toLowerCase();
+			if(ua.indexOf('msie')!=-1&&parseInt(ua.split('msie')[1])<10){
+				d.innerHTML="Disqus not supported on this browser";
+				return;
+			}
+		}catch(e){}
+		try{
+			var disqus_config = function () {
+				this.page.url = location.href.replace("/index.php","/");
+				this.page.identifier = id;
+			};
+			if(typeof DISQUS !== "undefined"){ //disqus already loaded
+				DISQUS.reset({reload:true,config:disqus_config});
+			}else{
+				(function() {
+					var d = document, s = d.createElement('script');
+					s.src = '//<?=$Disqus_Shortname?>.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();
+			}			
+		}catch(e){
+			d.innerHTML="Disqus failed to load";
+		}
+	<?php } else { ?>
+		var d=document.createElement("d");
+		d.className="loading";
+		container.appendChild(d);
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4){
+				if(xhr.status==200){
+					container.innerHTML="";
+					try{
+						if(parseInt(xhr.responseText)==1){container.innerHTML="Server error"; return;}
+					}catch(e){}
+					try{
+						var comments=JSON.parse(xhr.responseText);
+						for(var i=0;i<comments.length;i++){
+							var d=document.createElement("div");
+							d.className="comment";
+							d.innerHTML=comments[i];
+							container.appendChild(d);
+						}
+					}catch(e){
+						container.innerHTML="Couldn't load comments ("+e+")";
 					}
-				}catch(e){
-					container.innerHTML="Couldn't load comments ("+e+")";
 				}
 			}
 		}
-	}
-	xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
-	xhr.send();
+		xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
+		xhr.send();
+	<?php } ?>
 }
+<?php if(!$Disqus_Enabled){ ?>
 var sending=false;
 function sendComment(id,t,commentsArea){
 	if(t.value.isBlank()||sending){ return;}
@@ -236,6 +274,7 @@ function sendComment(id,t,commentsArea){
 	xhr.setRequestHeader("Connection", "close");
 	xhr.send(params);
 }
+<?php } ?>
 function parseLinks(){
 	var d=document.getElementsByTagName("ai_link");
 	while(d.length>0){
@@ -390,7 +429,7 @@ setInterval(function(){
 },50);
 </script>
 <script src="warpspeed.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160903"/>
+<link rel="stylesheet" type="text/css" href="main.css?20160904"/>
 <style type="text/css">
 .basic_only{
 	display:none;

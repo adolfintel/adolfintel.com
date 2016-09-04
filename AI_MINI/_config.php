@@ -13,4 +13,6 @@
 	$Background_SpeedWhileLoading=18;
 	$Background_LowerComplexityWhileLoading=true;
 	$Chrome_TabColor="#144e66";
+	$Disqus_Enabled=false;
+	$Disqus_Shortname="EXAMPLE"; //register your site on disqus and put the shortname here
 ?>

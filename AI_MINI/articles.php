@@ -36,6 +36,7 @@ include '_config.php';
 		<div class="content">
 			<?php } ?>
 			<div class="basic_only">
+				<div class="basicArticleEntry">
 				<?php if(isset($_GET["lastPost"])){ //send already processed links instead of ai_link (for basic version)?>
 					<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="articleIcon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>')"><?=$a->title?></a></h2>
 					<div class="description"><?=$a->description?></div>
@@ -47,6 +48,7 @@ include '_config.php';
 					<div class="clear">&nbsp;</div>
 					<ai_link class="clickOverlay" frag="<?=$a->frag?>">&nbsp;</ai_link>
 				<?php } ?>
+				</div>
 			</div>
 			<?php if(isset($_GET["lastPost"])||!(strpos($_SERVER['PHP_SELF'],’basic.php’)!==false)){ ?>			
 				<div class="basic_hide">

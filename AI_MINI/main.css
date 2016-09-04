@@ -370,6 +370,11 @@ div.articleEntry > div.details > div.description{
 	padding:0.6em 0;
 	margin-bottom:0.3em;
 }
+#disqus_thread{
+	background-color:#FFFFFF;
+	color:#000000;
+	padding:1em;
+}
 /*
 	LIGHTBOX
 */
@@ -487,9 +492,9 @@ input[type="text"].share{
 	}
 	#nav div.content{
 		max-width:100%;
-	}
-	div.content{
 		width:100%;
+	}
+	div.basicArticleEntry{
 		text-align:center;
 	}
 	span.date{
