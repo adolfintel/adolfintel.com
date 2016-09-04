@@ -192,7 +192,7 @@ function loadComments(id,container){
 		d.id="disqus_thread";
 		container.appendChild(d);
 		try{
-			//IE<9 entirely not supported
+			//IE<10 not supported
 			var ua = navigator.userAgent.toLowerCase();
 			if(ua.indexOf('msie')!=-1&&parseInt(ua.split('msie')[1])<10){
 				d.innerHTML="Disqus not supported on this browser";

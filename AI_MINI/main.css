@@ -375,6 +375,9 @@ div.articleEntry > div.details > div.description{
 	color:#000000;
 	padding:1em;
 }
+#disqus_thread a{
+	color:#000000;
+}
 /*
 	LIGHTBOX
 */
