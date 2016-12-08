@@ -131,11 +131,6 @@ function showLoading(){
 function showError(err){
 	window._err=err;
 	loadFragment('error.frag',false);
-	warp.TARGET_SPEED=0;
-	if(warp_lowerComplexityWhileLoading){
-		warp.USE_CIRCLES=warp_useCircles;
-		warp.DEPTH_ALPHA=warp_depthAlpha;
-	}
 }
 function createCommentsForm(id,container){
 	<?php if($Disqus_Enabled){ ?>
@@ -312,11 +307,7 @@ var loading=false;
 function loadFragment(url,pushState){
 	if(loading) return;
 	loading=true;
-	if(warp_lowerComplexityWhileLoading){
-		warp.USE_CIRCLES=false;
-		warp.DEPTH_ALPHA=false;
-	}
-	warp.TARGET_SPEED=warp_loadingSpeed;
+	if(ai_background)ai_background.loadStart();
 	showNav();
 	showPage();
 	closeLightbox();
@@ -333,11 +324,7 @@ function loadFragment(url,pushState){
 				if(xhr.status==200){
 					fadeCurrentFrag(function(){
 						loading=false;
-						if(warp_lowerComplexityWhileLoading){
-							warp.USE_CIRCLES=warp_useCircles;
-							warp.DEPTH_ALPHA=warp_depthAlpha;
-						}
-						warp.TARGET_SPEED=warp_normalSpeed;
+						if(ai_background)ai_background.loadDone();
 						var frag=I("fragment");
 						frag.innerHTML=xhr.responseText;
 						var scripts=frag.getElementsByTagName("script");
@@ -388,15 +375,6 @@ window.onpopstate = function(e){
 	if(loading) return;
     if(e.state){ loadFragment(e.state,false);}
 };
-
-var warp, warp_normalSpeed, warp_loadingSpeed=<?=$Background_SpeedWhileLoading ?>, warp_lowerComplexityWhileLoading=<?=$Background_LowerComplexityWhileLoading ?>, warp_useCircles, warp_depthAlpha;
-function setBackgroundCfg(cfg){
-	localStorage.backgroundCfg=cfg;
-	warp=new WarpSpeed("bkFrame",cfg);
-	warp_normalSpeed=warp.TARGET_SPEED;
-	warp_useCircles=warp.USE_CIRCLES;
-	warp_depthAlpha=warp.DEPTH_ALPHA;
-}
 	
 function autoLoad(){
 	parseLinks();
@@ -427,8 +405,11 @@ setInterval(function(){
 		}
 	}catch(e){}
 },50);
+
+var ai_background;
+
 </script>
-<script src="warpspeed.min.js" type="text/javascript"></script>
+<script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="main.css?20160904"/>
 <style type="text/css">
 .basic_only{
@@ -440,8 +421,7 @@ setInterval(function(){
 <div id="background">
 	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
 	<script type="text/javascript">
-		setBackgroundCfg(localStorage.aiv5&&localStorage.backgroundCfg?localStorage.backgroundCfg:"<?=str_replace('"','\\"',$Background_DefaultConfig)?>");
-		localStorage.aiv5=true;
+		ai_background=new <?=$Background_ClassName?>("bkFrame",<?=$Background_Config?>);
 	</script>
 </div>
 <div id="page">

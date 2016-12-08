@@ -9,9 +9,9 @@
 	$Site_Author="Your name";
 	$NavFrag="nav.php";
 	$HomeFrag="home.frag";
-	$Background_DefaultConfig='{"targetSpeed":0.8, "speedAdjFactor":0.07, "shape":"square"}';
-	$Background_SpeedWhileLoading=18;
-	$Background_LowerComplexityWhileLoading=true;
+	$Background_JS="BACKGROUNDS/warpspeed.js";
+	$Background_ClassName="WarpSpeed";
+	$Background_Config='{targetSpeed:0.8, speedAdjFactor:0.07, shape:"circle", backgroundColor:"hsl(263,45%,8%)", speedWhileLoading:18}'; //optional params for the background. can be null.
 	$Chrome_TabColor="#144e66";
 	$Disqus_Enabled=false;
 	$Disqus_Shortname="EXAMPLE"; //register your site on disqus and put the shortname here
