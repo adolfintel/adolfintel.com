@@ -144,6 +144,7 @@ html,body{
 */
 #nav{
 	background-color:#a3e2ff;
+	background:linear-gradient(25deg, #a3fff6 0%, #a3e2ff 100%);
 	box-shadow:0 0 1em rgba(0,0,0,0.6);
 	width:100%;
 	margin-bottom:4em;
@@ -398,6 +399,24 @@ div.articleEntry > div.details > div.description{
 	height:100%;
 }
 /*
+	FLASH EFFECT
+*/
+div.flashFx{
+	position:fixed;
+	top:0;left:0;
+	width:100%;height:100%;
+	z-index:999;
+	background-color:#ffffff;
+	opacity:0;
+	animation:flash 0.4s linear;
+}
+@keyframes flash{
+	0%{opacity:0;}
+	10%{opacity:1;}
+	60%{opacity:0.2;}
+	100%{opacity:0;}
+}
+/*
 	SHARE LINKS
 */
 a.share{
@@ -499,7 +518,7 @@ input[type="text"].share{
 		top:0.5em;
 		right:0.5em;
 		color:#FFFFFF;
-		text-shadow:0 0 0.5em #000000,0 0 1em #000000,0 0 1em #000000,0 0 3em #000000,0 0 3em #000000;
+		text-shadow:0 0 1em #000000,0 0 3em #000000,0 0 3em #000000;
 	}
 	img.articleIcon{
 		float:none !important;

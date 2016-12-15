@@ -118,6 +118,16 @@ setInterval(function(){
 	}
 },20);
 
+function flash(color){
+	var f=document.createElement("div");
+	f.className="flashFx";
+	f.style.backgroundColor=color;
+	f.addEventListener('animationend',function(){
+		f.parentElement.removeChild(f);
+	}.bind(this));
+	document.body.appendChild(f);
+}
+
 function showLoading(){
 	var c=document.createElement("div");
 	c.className="loading";
@@ -410,7 +420,7 @@ var ai_background;
 
 </script>
 <script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20160904"/>
+<link rel="stylesheet" type="text/css" href="main.css?20161216"/>
 <style type="text/css">
 .basic_only{
 	display:none;

@@ -57,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20160904" />
+<link rel="stylesheet" type="text/css" href="main.css?20161216" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -113,6 +113,7 @@ function openLightbox(imgUrl){
 	window.open(imgUrl,"_blank");
 }
 function closeLightbox(){}
+function flash(color){}
 
 function loadText(target,url,onDone){
 	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
