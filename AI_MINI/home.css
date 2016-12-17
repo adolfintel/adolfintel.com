@@ -51,9 +51,11 @@
 	transform:translateZ(-5em);
 	animation:spin 50s infinite linear;
 	z-index:-1;
+	transition:font-size 0.35s;
 }
-.basic .cube{
-	display:none;
+
+.cubeContainer:hover .cube {
+	font-size:1.1em;
 }
 
 .cubeContainer > .cube > * {
