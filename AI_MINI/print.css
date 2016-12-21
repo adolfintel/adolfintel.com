@@ -1,0 +1,45 @@
+html,body{
+	background-color:#FFFFFF;
+}
+html,body,a,p,h1,h2,h3,h4,h5,h6{
+	color:#000000;
+}
+div.articleEntry > div.details *{
+	color:#FFFFFF;
+}
+#background,#nav,.oldFragment{
+	display:none;
+}
+#page{
+	position:relative;
+	height:auto;
+	overflow-y:auto;
+}
+#fragment{
+	position:relative;
+	animation:none;
+	margin-top:0;
+	opacity:1;
+}
+div.stripe > div.content{
+	border-bottom: 0.15em solid rgba(89,168,201,1);
+}
+div.content{
+	max-width:95%;
+}
+.code,div.code{
+	background-color:#CCCCCC;
+	color:#000000;
+	white-space:normal !important;
+}
+a.downloadButton{
+	border-color:#000000;
+}
+#lightbox,#lbimg{
+	position:relative;
+	height:auto;
+	background:none;
+}
+div.flashFx{
+	display:none;
+}

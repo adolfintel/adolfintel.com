@@ -144,7 +144,7 @@ html,body{
 */
 #nav{
 	background-color:#a3e2ff;
-	background:linear-gradient(25deg, #a3fff6 0%, #a3e2ff 100%);
+	background:linear-gradient(130deg, #a3fff0 0%, #a3e2ff 100%);
 	box-shadow:0 0 1em rgba(0,0,0,0.6);
 	width:100%;
 	margin-bottom:4em;

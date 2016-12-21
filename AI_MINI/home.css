@@ -19,6 +19,7 @@
 }
 #introText{
 	margin:1em;
+	color:#FFFFFF;
 }
 .cubeContainer {
 	width:10em; height:10em;
@@ -29,7 +30,6 @@
 }
 .cubeContainer a{text-decoration:none;}
 .cubeContainer > .text{
-	color:#FFFFFF;
 	z-index:1;
 	text-align:center;
 	font-size:2em;

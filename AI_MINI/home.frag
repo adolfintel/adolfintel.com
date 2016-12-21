@@ -1,5 +1,5 @@
 <div>
-<link rel="stylesheet" href="home.css?20161216" />
+<link rel="stylesheet" href="home.css?20161222" />
 
 <div class="stripe">
 	<div class="content">

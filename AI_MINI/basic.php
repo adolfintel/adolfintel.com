@@ -57,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20161216" />
+<link rel="stylesheet" type="text/css" href="main.css?20161222" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -297,6 +297,7 @@ setInterval(function(){
 <!--[if IE]>
 <link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160901" />
 <![endif]-->
+<link rel="stylesheet" type="text/css" href="print.css?20161222" media="print"/>
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
