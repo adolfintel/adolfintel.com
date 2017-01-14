@@ -61,11 +61,11 @@ function closeLightbox(){
 	I("lightbox").style.display='none';
 	I("lbimg").src="";
 }
-function loadText(target,url,onDone){
+function loadText(target,url,onDone,noEscape){
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4&&xhr.status==200){
-			target.innerHTML=xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+			target.innerHTML=noEscape?xhr.responseText:(xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;'));
 			if(onDone)onDone();
 		}
 	}.bind(this);
@@ -337,10 +337,14 @@ function loadFragment(url,pushState){
 						if(ai_background)ai_background.loadDone();
 						var frag=I("fragment");
 						frag.innerHTML=xhr.responseText;
+						var footer=document.createElement("div");
+						footer.id="footer";
+						frag.appendChild(footer);
+						loadText(footer,"<?=$FooterFrag?>",function(){parseLinks()},true);
+						document.title="<?=$Site_Title?>";
 						var scripts=frag.getElementsByTagName("script");
 						for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
 						parseLinks();
-						document.title="<?=$Site_Title?>";
 						var xhr2=new XMLHttpRequest();
 						xhr2.onreadystatechange=function(){
 							if(xhr2.readyState==4){
@@ -420,8 +424,8 @@ var ai_background;
 
 </script>
 <script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20161222"/>
-<link rel="stylesheet" type="text/css" href="print.css?20161222" media="print"/>
+<link rel="stylesheet" type="text/css" href="main.css?20170114"/>
+<link rel="stylesheet" type="text/css" href="print.css?20170114" media="print"/>
 <style type="text/css">
 .basic_only{
 	display:none;

@@ -2,7 +2,6 @@ body{
 	background-color:#0f0919;
 }
 #fragment{
-	font-size:0.9em;
 	animation:none;
 }
 #nav{
@@ -22,4 +21,7 @@ div.stripe div.content{
 #article_comments div.comment{
 	border-bottom:1px solid #606060;
 	font-size:1em;
+}
+#footer{
+	margin-top:10em;
 }

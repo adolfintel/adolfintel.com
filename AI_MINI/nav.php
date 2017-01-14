@@ -1,3 +1,4 @@
+<?php include '_config.php'; ?>
 <div class="content">
 	<div id="logo"><?=$Site_Title?></div>
 	<ai_link frag='<?=$HomeFrag?>'>Home</ai_link>

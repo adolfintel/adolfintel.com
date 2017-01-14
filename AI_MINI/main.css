@@ -191,6 +191,16 @@ html,body{
 	background-color:rgba(0,5,20,0.4);
 }
 /*
+	FOOTER
+*/
+#footer{
+	margin-top:100vh;
+	padding:2em 0;
+	background-color:#203b47;
+	box-shadow:0 0 1em rgba(0,0,0,0.6);
+	font-weight:400;
+}
+/*
 	PAGE CONTENT AND STYLE
 */
 div.stripe{

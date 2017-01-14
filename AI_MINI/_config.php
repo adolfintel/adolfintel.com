@@ -8,6 +8,7 @@
 	$Site_Keywords="blog,your,keywords here";
 	$Site_Author="Your name";
 	$NavFrag="nav.php";
+	$FooterFrag="footer.php";
 	$HomeFrag="home.frag";
 	$Background_JS="BACKGROUNDS/warpspeed.js";
 	$Background_ClassName="WarpSpeed";

@@ -57,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20161222" />
+<link rel="stylesheet" type="text/css" href="main.css?20170114" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -293,11 +293,11 @@ setInterval(function(){
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css?20160901" />
+<link rel="stylesheet" type="text/css" href="basic_overrides.css?20170114" />
 <!--[if IE]>
 <link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160901" />
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="print.css?20161222" media="print"/>
+<link rel="stylesheet" type="text/css" href="print.css?20170114" media="print"/>
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
@@ -331,6 +331,13 @@ setInterval(function(){
 				if(file_exists($phpinclude)) include($phpinclude); else { ?><script type="text/javascript">setTimeout(function(){showError(404);},100);</script><?php }
 				echo parseLinks(ob_get_clean());
 			?>
+			<div id="footer">
+			<?php
+					ob_start();
+					include($FooterFrag);
+					echo parseLinks(ob_get_clean());
+			?>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
