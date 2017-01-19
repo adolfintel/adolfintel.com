@@ -1,8 +1,16 @@
 <div>
-<link rel="stylesheet" href="home.css" />
+<style type="text/css">
+	#bigass{
+		font-size:5em;
+		text-align:center;
+		color:#FF9999;
+		text-shadow:0 0 1em #FFAAAA,0 0 0.2em #FFAAAA;
+		padding:0.5em 0;
+	}
+</style>
 <div class="stripe">
 	<div class="content" style="border:none">
-		<div id="bigass" style="color:#FF9999;text-shadow:0 0 1em #FFAAAA,0 0 0.2em #FFAAAA;padding:0.5em 0;">Error</div>
+		<div id="bigass">Error</div>
 		<p style="text-align:center">You broke the Internet, now they're after you. Run!</p>
 	</div>
 	<script type="text/javascript">

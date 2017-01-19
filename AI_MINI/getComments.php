@@ -14,4 +14,5 @@
 		$comments[]=nl2br(htmlspecialchars($text,ENT_QUOTES));
 	}
 	echo json_encode($comments);
+	$conn->close();
 ?>

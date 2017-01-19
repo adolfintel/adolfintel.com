@@ -8,4 +8,5 @@
 	$q->bind_param("ss",$_POST["text"],$_POST["id"]);
 	$q->execute() or die("1");
 	echo "0";
+	$conn->close();
 ?>

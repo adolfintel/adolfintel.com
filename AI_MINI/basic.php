@@ -45,7 +45,11 @@
 	$q->execute();
 	$q->bind_result($description, $title, $kwords,$socialImg);
 	$q->fetch();
-	$q->close();	
+	$q->close();
+	$q=$conn->prepare("update articles set views=views+1 where frag=?");
+	$q->bind_param("s",$_GET["p"]);
+	$q->execute();
+	$q->close();
 ?>
 <title><?=$title?($title." - ".$Site_Title):$Site_Title?></title>	
 <meta name="description" content="<?=$description?$description:$Site_Description?>" />
@@ -390,5 +394,6 @@ setInterval(function(){
 </body>
 </html>
 <?php 
+	$conn->close();
 	unlink('error_log'); //lol
 ?>

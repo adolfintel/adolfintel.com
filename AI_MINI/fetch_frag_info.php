@@ -1,0 +1,32 @@
+<?php
+	header("Cache-Control: no-store, no-cache, must-revalidate");
+	header("Cache-Control: post-check=0, pre-check=0", false);
+	header("Pragma: no-cache");
+	include '_config.php';
+	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename);
+	$q = $conn->prepare("select id,section,title,description,icon,date,relevance,kwords,updateFreq,campaignIcon,cover,views from articles where frag=?");
+	$q->bind_param("s",$_GET["p"]);
+	$q->execute();
+	$q->bind_result($id,$section,$title,$description,$icon,$date,$relevance,$kwords,$updateFreq,$campaignIcon,$cover,$views);
+	$q->fetch();
+	$q->close();
+	$ret=array();
+	$ret["id"]=$id;
+	$ret["section"]=$section;
+	$ret["title"]=$title;
+	$ret["description"]=$description;
+	$ret["icon"]=$icon;
+	$ret["date"]=$date;
+	$ret["relevance"]=$relevance;
+	$ret["kwords"]=$kwords;
+	$ret["updateFreq"]=$updateFreq;
+	$ret["campaignIcon"]=$campaignIcon;
+	$ret["cover"]=$cover;
+	$ret["views"]=$views;
+	echo json_encode($ret);
+	$q=$conn->prepare("update articles set views=views+1 where frag=?");
+	$q->bind_param("s",$_GET["p"]);
+	$q->execute();
+	$q->close();
+	$conn->close();
+?>

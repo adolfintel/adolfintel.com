@@ -46,7 +46,7 @@ include '_config.php';
 					<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="articleIcon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><ai_link frag="<?=$a->frag?>"><?=$a->title?></ai_link></h2>
 					<div class="description"><?=$a->description?></div>
 					<div class="clear">&nbsp;</div>
-					<ai_link class="clickOverlay" frag="<?=$a->frag?>">&nbsp;</ai_link>
+					<ai_link class="clickOverlay" frag="<?=$a->frag?>"></ai_link>
 				<?php } ?>
 				</div>
 			</div>
@@ -82,5 +82,6 @@ include '_config.php';
 	</div>
 <?php
    }
+   $conn->close();
 ?>
 </div>

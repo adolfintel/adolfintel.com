@@ -349,11 +349,12 @@ function loadFragment(url,pushState){
 						xhr2.onreadystatechange=function(){
 							if(xhr2.readyState==4){
 								if(xhr2.status==200){
-									if(!(xhr2.responseText.isBlank())) document.title=xhr2.responseText+" - <?=$Site_Title?>";
+									var fragInfo=JSON.parse(xhr2.responseText);
+									if(!!fragInfo.title) document.title=fragInfo.title+" - <?=$Site_Title?>";
 								}
 							}
 						}
-						xhr2.open("POST","fetch_frag_title.php?p="+url);
+						xhr2.open("POST","fetch_frag_info.php?p="+url);
 						xhr2.send("random="+Math.random());
 						var shareArea=I("_share_");
 						if(shareArea) createShareLinks(document.location.href,shareArea);

@@ -20,14 +20,15 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `relevance` decimal(3,2) NOT NULL DEFAULT '0.50',
   `kwords` text NOT NULL,
   `updateFreq` varchar(16) NOT NULL DEFAULT 'never',
+  `views` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 
-INSERT INTO `articles` (`id`, `section`, `frag`, `description`, `icon`,`campaignIcon`, `cover`, `title`, `date`, `relevance`, `kwords`, `updateFreq`) VALUES
-(1, 1, 'example_project/index.frag', 'Lorem ipsum dolor sit amet...', 'example_project/icon.png',NULL,'example_project/cover.png', 'Example Project', '2015-08-02', 0.9, 'example,app,keyword1,keyword2', 'never'),
-(4, 2, 'example_article_2/index.frag', 'Muh article 2 is goat', NULL,NULL,NULL, 'Example Article 2', '2015-08-02', 0.5, 'example,keyword1,keyword2', 'never'),
-(3, 2, 'example_article_3/i.frag', 'Smooth scrolling', 'example_article_3/icon.png',NULL,'example_article_3/cover.jpg', 'Example Article 3', '2015-08-02', 0.9, 'example,keyword1,keyword2', 'never');
+INSERT INTO `articles` (`id`, `section`, `frag`, `description`, `icon`,`campaignIcon`, `cover`, `title`, `date`, `relevance`, `kwords`, `updateFreq`, `views`) VALUES
+(1, 1, 'example_project/index.frag', 'Lorem ipsum dolor sit amet...', 'example_project/icon.png',NULL,'example_project/cover.png', 'Example Project', '2015-08-02', 0.9, 'example,app,keyword1,keyword2', 'never', 0),
+(4, 2, 'example_article_2/index.frag', 'Muh article 2 is goat', NULL,NULL,NULL, 'Example Article 2', '2015-08-02', 0.5, 'example,keyword1,keyword2', 'never', 0),
+(3, 2, 'example_article_3/i.frag', 'Smooth scrolling', 'example_article_3/icon.png',NULL,'example_article_3/cover.jpg', 'Example Article 3', '2015-08-02', 0.9, 'example,keyword1,keyword2', 'never', 0);
 
 
 CREATE TABLE IF NOT EXISTS `comment` (
