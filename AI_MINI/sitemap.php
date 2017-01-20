@@ -15,7 +15,7 @@
 ?>
 		<url>
 			<loc>http://<?=$_SERVER['SERVER_NAME']?>/?p=<?=$a->frag?></loc>
-			<lastmod><?=$a->date?></lastmod>
+			<?php if($a->date){?><lastmod><?=$a->date?></lastmod><?php }?>
 			<changefreq><?=$a->updateFreq?></changefreq>
 			<priority><?=$a->relevance<0?0:$a->relevance>1?1:$a->relevance?></priority>
 		</url>

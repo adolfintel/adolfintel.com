@@ -454,6 +454,28 @@ input[type="text"].share{
 /*
 	MUH RESPONSIVE
 */
+@media all and (min-width:76em){
+	div.compactList{
+		text-align:center;
+		width:100%;
+		max-width:80em;
+		margin:0 auto;
+	}
+	div.compactList div.stripe{
+		display:inline-block;
+		width:35em;
+		margin:0 1em;
+	}
+	div.compactList div.content{
+		border:none;
+	}
+	div.compactList div.articleEntry{
+		height:22em;
+	}
+	div.compactList div.articleEntry div.details{
+		text-align:left;
+	}
+}
 @media all and (max-width:72em) and (min-width:50em){
 	div.content{
 		width:95%;

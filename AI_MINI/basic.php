@@ -46,10 +46,6 @@
 	$q->bind_result($description, $title, $kwords,$socialImg);
 	$q->fetch();
 	$q->close();
-	$q=$conn->prepare("update articles set views=views+1 where frag=?");
-	$q->bind_param("s",$_GET["p"]);
-	$q->execute();
-	$q->close();
 ?>
 <title><?=$title?($title." - ".$Site_Title):$Site_Title?></title>	
 <meta name="description" content="<?=$description?$description:$Site_Description?>" />
@@ -61,7 +57,7 @@
 <meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
 <meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20170114" />
+<link rel="stylesheet" type="text/css" href="main.css?20170120" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -77,6 +73,18 @@ if(!Function.prototype.bind){
   };
 }
 window.I=function(i){return document.getElementById(i);};
+function loadText(target,url,onDone,noEscape){
+	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			target.innerHTML=noEscape?xhr.responseText:xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+			try{if(onDone)onDone();}catch(e){}
+		}
+	}.bind(this);
+	xhr.open("GET",url,true);
+	xhr.send();
+}
+
 //check browser and redirect to full mode if compatible
 function gotoFull(){
 	if(localStorage.noSwitch)return;
@@ -84,6 +92,8 @@ function gotoFull(){
 }
 if(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoFull();
+}else{
+	loadText(document.createElement("span"),"fetch_article_info.php?p=<?=$_GET["p"]?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
 }
 
 function isMobile(){
@@ -119,17 +129,6 @@ function openLightbox(imgUrl){
 function closeLightbox(){}
 function flash(color){}
 
-function loadText(target,url,onDone){
-	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
-	xhr.onreadystatechange=function(){
-		if(xhr.readyState==4&&xhr.status==200){
-			target.innerHTML=xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
-			try{if(onDone)onDone();}catch(e){}
-		}
-	}.bind(this);
-	xhr.open("GET",url,true);
-	xhr.send();
-}
 function highlight(target,lang){
 	target.className="code hljs lang-"+lang;
 	if(!I("hljs_load")){
@@ -297,7 +296,7 @@ setInterval(function(){
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css?20170114" />
+<link rel="stylesheet" type="text/css" href="basic_overrides.css?20170120" />
 <!--[if IE]>
 <link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160901" />
 <![endif]-->

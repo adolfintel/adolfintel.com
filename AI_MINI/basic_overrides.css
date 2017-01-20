@@ -26,3 +26,8 @@ div.stripe div.content{
 #footer{
 	margin-top:10em;
 }
+@media all and (min-width:76em){
+	div.compactList *{
+		text-align:left;
+	}
+}
