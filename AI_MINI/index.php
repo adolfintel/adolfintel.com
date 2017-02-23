@@ -8,12 +8,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><?=$Site_Title?></title>
+<title><?=htmlspecialchars($Site_Title)?></title>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-<meta name="description" content="<?=$Site_Description?>" />
+<meta name="description" content="<?=htmlspecialchars($Site_Description)?>" />
 <meta name="keywords" content="<?=$Site_Keywords?>" />
-<meta name="author" content="<?=$Site_Author?>" />
-<meta property="og:site_name" content="<?=$Site_Title?>"/>
+<meta name="author" content="<?=htmlspecialchars($Site_Author)?>" />
+<meta property="og:site_name" content="<?=htmlspecialchars($Site_Title)?>"/>
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
 <link rel="icon" href="favicon.png" />
 <script type="text/javascript">
@@ -28,8 +28,14 @@ function gotoBasic(){
 	}
 	document.location.href="basic.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-if(!(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined)){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
+if(!(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&document.createElement("div").style.flex!==undefined)){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation, Flex
 	gotoBasic();
+}
+<?php if($Safari_ForceBasic){ ?>{var ua=navigator.userAgent;if((/Safari.(\d+)/i.test(ua))&&!(/Chrome.(\d+)/i.test(ua))){gotoBasic();}}<?php } ?>
+
+//when going back/forward in history, do not store scroll position
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
 }
 
 function isMobile(){
@@ -53,11 +59,14 @@ function showPage(){
 function hidePage(){
 	I("fragment").style.display='none';
 }
+var viewport = document.querySelector("meta[name=viewport]");
 function openLightbox(imgUrl){
+	try{viewport.setAttribute('content','width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, user-scalable=yes');}catch(e){}
 	I("lbimg").src=imgUrl;
 	I("lightbox").style.display='';
 }
 function closeLightbox(){
+	try{viewport.setAttribute('content','width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no');}catch(e){}
 	I("lightbox").style.display='none';
 	I("lbimg").src="";
 }
@@ -118,12 +127,15 @@ setInterval(function(){
 	}
 },20);
 
+var flashing=false;
 function flash(color){
+	if(flashing) return; else flashing=true;
 	var f=document.createElement("div");
 	f.className="flashFx";
 	f.style.backgroundColor=color;
 	f.addEventListener('animationend',function(){
 		f.parentElement.removeChild(f);
+		flashing=false;
 	}.bind(this));
 	document.body.appendChild(f);
 }
@@ -317,6 +329,7 @@ var loading=false;
 function loadFragment(url,pushState){
 	if(loading) return;
 	loading=true;
+	flash("rgba(255,255,255,0.5)");
 	if(ai_background)ai_background.loadStart();
 	showNav();
 	showPage();
@@ -326,7 +339,16 @@ function loadFragment(url,pushState){
 	url=unescape(url);
 	if(typeof pushState == 'undefined') pushState=true;
 	try{if(pushState)window.history.pushState(url, document.title, '/?p='+url);}catch(e){}
+	if(isDesktop()){
+		//prevent the page from scrolling up when a loading is triggered (because fragment is removed and page becomes 0px tall). Mobile mode uses a different layout so it's not necessary.
+		I("page").style.height=I("page").scrollHeight+"px"; 
+	}
 	fadeCurrentFrag(function(){
+		if(isDesktop()){
+			//now it can scroll up
+			I("page").style.height="";
+			window.scrollBy(0,-9999999);
+		}
 		showLoading();
 		var xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=function(){
@@ -334,6 +356,7 @@ function loadFragment(url,pushState){
 				if(xhr.status==200){
 					fadeCurrentFrag(function(){
 						loading=false;
+						flash("rgba(255,255,255,0.5)");
 						if(ai_background)ai_background.loadDone();
 						var frag=I("fragment");
 						frag.innerHTML=xhr.responseText;
@@ -341,7 +364,7 @@ function loadFragment(url,pushState){
 						footer.id="footer";
 						frag.appendChild(footer);
 						loadText(footer,"<?=$FooterFrag?>",function(){parseLinks()},true);
-						document.title="<?=$Site_Title?>";
+						document.title="<?=htmlspecialchars($Site_Title)?>";
 						var scripts=frag.getElementsByTagName("script");
 						for(var i=0;i<scripts.length;i++) eval(scripts[i].innerHTML);
 						parseLinks();
@@ -350,7 +373,11 @@ function loadFragment(url,pushState){
 							if(xhr2.readyState==4){
 								if(xhr2.status==200){
 									var fragInfo=JSON.parse(xhr2.responseText);
-									if(!!fragInfo.title) document.title=fragInfo.title+" - <?=$Site_Title?>";
+									if(!!fragInfo.title) document.title=fragInfo.title+" - <?=htmlspecialchars($Site_Title)?>";
+									var aTitle=I("_articleTitle_");
+									if(aTitle)aTitle.id="article_title";
+									aTitle=I("article_title");
+									if(aTitle){aTitle.innerHTML=(!!fragInfo.title)?fragInfo.title:"";}
 								}
 							}
 						}
@@ -375,6 +402,20 @@ function loadFragment(url,pushState){
 							}
 							xlp.open("GET","articles.php?lastPost=true&random="+Math.random());
 							xlp.send();
+						}
+						var featured=I("_featuredPost_");
+						if(featured){
+							var xlp2=new XMLHttpRequest();
+							xlp2.onreadystatechange=function(){
+								if(xlp2.readyState==4){
+									if(xlp2.status==200){
+										featured.innerHTML=xlp2.responseText;
+										parseLinks();
+									}
+								}
+							}
+							xlp2.open("GET","articles.php?lastPost=featured&random="+Math.random());
+							xlp2.send();
 						}
 					});
 					
@@ -425,35 +466,35 @@ var ai_background;
 
 </script>
 <script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20170120"/>
-<link rel="stylesheet" type="text/css" href="print.css?20170114" media="print"/>
+<link rel="stylesheet" type="text/css" href="main.css?20170223"/>
+<link rel="stylesheet" type="text/css" href="print.css?20170223" media="print"/>
 <style type="text/css">
 .basic_only{
 	display:none;
 }
 </style>
+
 </head>
-<body onLoad="autoLoad()">
+<body onload="autoLoad()">
 <div id="background">
-	<canvas id="bkFrame" style="position:fixed; left:0; top:0; width:100%; height:100%"></canvas>
+	<canvas id="bkFrame"></canvas>
 	<script type="text/javascript">
 		ai_background=new <?=$Background_ClassName?>("bkFrame",<?=$Background_Config?>);
 	</script>
 </div>
+<div id="nav" onClick="toggleNavExp()">
+	<?php
+		ob_start();
+		include($NavFrag);
+		echo ob_get_clean();
+	?>
+</div>
 <div id="page">
-	<div id="nav" onClick="toggleNavExp()">
-		<?php
-			ob_start();
-			include($NavFrag);
-			echo ob_get_clean();
-		?>
-	</div>
 	<img id="campaign-icon" src="campaign-icon.png" />
 	<script type="text/javascript">
 		I("campaign-icon").style.display="none";
 	</script>
-	<div id="fragment">
-	</div>
+	<div id="fragment"></div>
 </div>
 <div id="lightbox" onClick="closeLightbox()">
 	<img id="lbimg" onClick="closeLightbox()" src="null.png"/>

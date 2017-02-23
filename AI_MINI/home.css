@@ -1,25 +1,66 @@
-#photoArea{
-	background:url('photo_small.jpg');
-	background-size:cover;
-	background-repeat:no-repeat;
-	background-position:50% 80%;
-}
 #basicPhoto{
 	width:25em; 
 	height:auto;
 	float:left;
 	margin:0 0.5em 0.5em 0;
 }
-#cubesArea{
+#basicLinks{
+	margin-top:0.5em;
 	text-align:center;
-	background-color:rgba(0,0,0,0.4);
-	background:linear-gradient(rgba(0,0,0,0.5)0%,rgba(0,0,0,0)300%);
-	margin-top:28em;
-	padding:1em 0;
 }
-#introText{
-	margin:1em;
-	color:#FFFFFF;
+#basicLinks a{
+	display:inline-block;
+	font-size:1.2em;
+	border-left:1px solid #2e5869;
+	border-right:1px solid #2e5869;
+	padding:0 0.5em;
+}
+
+#outerGradient,#innerGradient{
+	display:block;
+	margin:0;
+	border:none;
+}
+#outerGradient{
+	background:linear-gradient(135deg, #576bc7 0%, #64408a 100%);
+	padding:1em;
+	margin-bottom:4em;
+}
+#innerGradient{
+	background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	height:100%;
+	min-height:calc(100vh - 6.2em);
+	position:relative;
+	display:flex;
+	align-items: stretch;
+}
+#photoArea,#introArea{
+	position:relative;
+}
+#photoArea{
+	background:url('photo_home.jpg');
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:50% 10%;
+	top:0; right:0;
+	width:40%;
+}
+#introArea{
+	top:0; left:0;
+	width:60%; height:auto;
+	padding:1em;
+	box-sizing:border-box;
+
+}
+#bigAss{
+	font-family:'BebasNeue',sans-serif;
+	font-size:5.1em;
+	line-height:0.82em;
+	margin:0.75em 0 1.2em 0;
+}
+#cubesArea{
+	margin:4.5em 1em 2em 1em;
+	text-align:center;
 }
 .cubeContainer {
 	width:10em; height:10em;
@@ -79,23 +120,35 @@
 }
 
 .cubeContainer{
-	font-size:0.85em;
+	font-size:0.9em;
 	margin:2.5em 3.5em;
 	display:inline-block;
 }
 
-#basicLinks{
-	margin-top:0.5em;
-	text-align:center;
+@media all and (min-width:100em){
+	#introArea{
+		font-size:1.2em;
+	}
+	.cubeContainer{
+		font-size:0.9em;
+	}
 }
-#basicLinks a{
-	display:inline-block;
-	font-size:1.2em;
-	border-left:1px solid #2e5869;
-	border-right:1px solid #2e5869;
-	padding:0 0.5em;
+@media all and (min-width:80em){
+	#bigAss{
+		text-shadow:0 0.1em 0.5em rgba(0,0,0,0.2);
+	}
+	#introText{
+		text-shadow:0 0 0.3em rgba(0,0,0,0.4);
+	}
+	#photoArea{
+		box-shadow: 0 0 8em rgba(0,0,0,0.2);
+	}
 }
-
+@media all and (max-width:80em) and (min-aspect-ratio:1/1){
+	#cubesArea{
+		display:none;
+	}
+}
 @media all and (max-width:70em){
 	.cubeContainer{
 		font-size:0.8em;
@@ -103,26 +156,40 @@
 	}
 }
 @media all and (max-width:50em){
+	#outerGradient{
+
+	}
 	#basicPhoto{
 		width:15em;
 	}
-	#cubesArea{
-		margin-top:13em;
+	#innerGradient{
+		display:block;
+		min-height:auto;
 	}
-	.cubeContainer{
-		font-size:0.7em;
-		margin:1.5em;
+	#photoArea,#introArea{
+		width:auto; height:auto;
+		float:none;
 	}
-}
-@media all and (max-width:40em){
+	#photoArea{
+		height:23em;
+	}
+	
+	#bigAss{
+		font-size:5em;
+		margin:0.2em 0 0.5em 0;
+	}
 	.cubeContainer{
 		font-size:0.6em;
 	}
-	#introText{
-		font-size:0.85em;
+	#cubesArea{
+		display:block;
+		margin-top:3em;
 	}
 }
 @media all and (max-width:30em){
+	#bigAss{
+		font-size:4em;
+	}
 	.cubeContainer{
 		font-size:0.5em;
 	}

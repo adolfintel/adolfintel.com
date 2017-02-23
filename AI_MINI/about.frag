@@ -16,7 +16,7 @@
 		}
 	}
 </style>
-<div class="stripe">
+<div class="stripe" style="margin-top:2em">
 	<div class="basic_hide">
 		<div class="content">
 			<img src="photo_small.jpg" onclick="openLightbox('photo.jpg')" class="photo" />
@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<div class="content">
-		<h2 style="text-align:center;">That's me!</h2>
+		<h2 style="text-align:center; margin-top:0.2em">That's me!</h2>
 		<p>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra tempor dolor eu rutrum. Phasellus faucibus, nulla id congue pellentesque, nibh dui lacinia sapien, sit amet rhoncus eros dolor convallis nunc. Sed varius gravida erat, sit amet congue orci sagittis at. Aenean massa lectus, sodales id pulvinar quis, posuere nec nunc. Proin dapibus massa sit amet massa maximus, facilisis porta dolor auctor. Morbi arcu risus, dignissim ut interdum facilisis, placerat fringilla ex. Ut tincidunt iaculis nunc, vel sagittis tellus finibus non. Donec et leo ac augue bibendum ultricies volutpat eu sapien.
 		</p>

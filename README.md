@@ -11,18 +11,18 @@ Responsive, modern, cool looking, indexable, and compatible with browsers as old
 [MuhTriangles background](http://fdossena.com/?p=muhTriangles.js/index.frag)
  
 ## Compatibility
-Full HTML5: IE10+, any modernish browser from 2012-2013
+Full HTML5: IE11+, any modern browser from 2013-2014
 
 Basic HTML: IE6+
 
 Server side, any recent version of PHP and MySQL should work.
 
 ## Screenshots
-![Screenshot](http://fdossena.com/this/screen1.png)
-![Screenshot](http://fdossena.com/this/screen2.png)
-![Screenshot](http://fdossena.com/this/screen3.png)
-![Screenshot](http://fdossena.com/this/screen4.png)
-![Screenshot](http://fdossena.com/this/screen5.png)
+![Screenshot](http://fdossena.com/this/screen_v7_1.png)
+![Screenshot](http://fdossena.com/this/screen_v7_2.png)
+![Screenshot](http://fdossena.com/this/screen_v7_3.png)
+![Screenshot](http://fdossena.com/this/screen_v7_4.png)
+![Screenshot](http://fdossena.com/this/screen_v7_5.png)
 
 ## License
 Copyright (C) 2015-2017 Federico Dossena

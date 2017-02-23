@@ -47,17 +47,17 @@
 	$q->fetch();
 	$q->close();
 ?>
-<title><?=$title?($title." - ".$Site_Title):$Site_Title?></title>	
-<meta name="description" content="<?=$description?$description:$Site_Description?>" />
+<title><?=htmlspecialchars($title?($title." - ".$Site_Title):$Site_Title)?></title>	
+<meta name="description" content="<?=htmlspecialchars($description?$description:$Site_Description)?>" />
 <meta name="keywords" content="<?=$kwords?$kwords:$Site_Keywords ?>" />
 <meta name="author" content="<?=$Site_Author?>" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-<meta property="og:site_name" content="<?=$Site_Title?>"/>
+<meta property="og:site_name" content="<?=htmlspecialchars($Site_Title)?>"/>
 <meta property="og:image" content="<?=(($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http").'://'. $_SERVER['HTTP_HOST'].'/'.($socialImg?$socialImg:'campaign-icon.png')?>" />
-<meta property="og:title" content="<?=$title?$title:$Site_Title?>" />
-<meta property="og:description" content="<?=$description?$description:$Site_Description?>" />
+<meta property="og:title" content="<?=htmlspecialchars($title?$title:$Site_Title)?>" />
+<meta property="og:description" content="<?=htmlspecialchars($description?$description:$Site_Description)?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="main.css?20170120" />
+<link rel="stylesheet" type="text/css" href="basic.css?20170223" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -90,7 +90,7 @@ function gotoFull(){
 	if(localStorage.noSwitch)return;
 	document.location.href="index.php"+(document.location.search.isBlank()?"":document.location.search);
 }
-if(window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
+if(<?php if($Safari_ForceBasic){ ?>!(((/Safari.(\d+)/i.test(navigator.userAgent))&&!(/Chrome.(\d+)/i.test(navigator.userAgent))))&&<?php } ?>window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&document.createElement("div").style.flex!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoFull();
 }else{
 	loadText(document.createElement("span"),"fetch_article_info.php?p=<?=$_GET["p"]?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
@@ -296,11 +296,10 @@ setInterval(function(){
 	display:none;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="basic_overrides.css?20170120" />
-<!--[if IE]>
-<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20160901" />
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20170222" />
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="print.css?20170114" media="print"/>
+<link rel="stylesheet" type="text/css" href="print.css?20170223" media="print"/>
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
@@ -375,6 +374,12 @@ setInterval(function(){
 			a.onclick=a.select;
 			s.appendChild(a);
 		}
+		var aTitle=I("_articleTitle_");
+		if(aTitle)aTitle.id="article_title";
+		aTitle=I("article_title");
+		if(aTitle){
+			aTitle.innerHTML="<?=$title?nl2br(htmlspecialchars($title)):""?>";
+		}
 		var latest=I("_latestPost_");
 		if(latest){
 			var xlp=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
@@ -388,6 +393,19 @@ setInterval(function(){
 			xlp.open("GET","articles.php?lastPost=true&random="+Math.random());
 			xlp.send();
 		}
+		var featured=I("_featuredPost_");
+		if(featured){
+			var xlp2=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			xlp2.onreadystatechange=function(){
+				if(xlp2.readyState==4){
+					if(xlp2.status==200){
+						featured.innerHTML=xlp2.responseText;
+					}
+				}
+			}
+			xlp2.open("GET","articles.php?lastPost=featured&random="+Math.random());
+			xlp2.send();
+		}		
 	</script>
 	<div id="resp_test">&nbsp;</div>
 </body>

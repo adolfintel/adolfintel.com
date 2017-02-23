@@ -16,4 +16,5 @@
 	$Chrome_TabColor="#144e66";
 	$Disqus_Enabled=false;
 	$Disqus_Shortname="EXAMPLE"; //register your site on disqus and put the shortname here
+	$Safari_ForceBasic=false; //force safari into basic mode (it's literally worse than internet explorer)
 ?>

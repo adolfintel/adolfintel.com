@@ -1,14 +1,14 @@
 <div>
-<link rel="stylesheet" href="home.css?20170119" />
-
+<link rel="stylesheet" href="home.css?20170222" />
+<div class="basic_only">
 <div class="stripe">
 	<div class="content">
-	<div class="basic_only">
 		<!--INTRO FOR BASIC MODE-->
 		<div>
-			<img src="photo_small.jpg" id="basicPhoto"/>
+			<img src="photo_home.jpg" id="basicPhoto"/>
+			<h4 id="basicTitle" style="margin-top:0">Lorem Ipsum</h4>
 			<span id="basicIntro">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt porta metus, vel luctus lectus lobortis vitae. Mauris et massa a tellus venenatis facilisis sit amet id justo. Nam fringilla justo et odio sodales scelerisque. Nullam porttitor libero in ligula maximus, eget ornare urna luctus. Sed elementum erat a lorem molestie aliquam nec in arcu. Nunc nec metus rutrum, tristique nibh gravida, laoreet ligula. Praesent condimentum nulla purus, et tempus purus pellentesque dictum. Duis turpis elit, varius eget malesuada eget, malesuada vel sem. Duis eleifend, velit ut dictum vehicula, ex neque feugiat libero, vitae cursus leo enim ac purus. Vivamus blandit massa vel porttitor posuere. Sed blandit, lectus sed ultrices ornare, mauris sem aliquet libero, eget pharetra leo erat sit amet enim.
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam leo ligula, mollis iaculis quam sit amet, venenatis volutpat lacus. Curabitur vel tortor lorem. Curabitur libero nibh, convallis laoreet leo at, imperdiet hendrerit risus. In a mattis neque. Aliquam eget sem non massa mattis commodo. Vivamus non augue sem. Praesent semper gravida massa, quis malesuada ligula luctus eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut elementum sapien. Nullam ut libero ut sem efficitur commodo nec non enim. Sed nec enim ac tellus porttitor blandit. Cras tortor velit, elementum vitae accumsan at, pulvinar facilisis dolor. Aenean sit amet mollis leo, nec consequat nibh. Donec nec fringilla lorem.
 			</span>
 			<div class="clear"></div>
 		</div>
@@ -18,12 +18,18 @@
 			<span id="link3"><ai_link frag="about.frag">About me</ai_link></span>
 		</div>
 	</div>
-	<div class="basic_hide">
-		<!--INTRO FOR FULL MODE-->
-		<div id="photoArea">
-			<div class="clear"></div>
-			<div id="cubesArea">
+</div>
+</div>
+
+<div class="basic_hide">
+	<!--INTRO FOR FULL MODE (intro and text links are copied from the basic intro)-->
+	<div id="outerGradient">
+		<div id="innerGradient">
+			<div id="introArea" style="animation:fadeIn 0.6s linear;">
+				<div>&nbsp;</div>
+				<div id="bigAss"></div>
 				<div id="introText"></div>
+				<div id="cubesArea">
 				<div class="cubeContainer">
 				  <div class="cube" style="animation-delay:-15s;">
 					<div style="background-color:#3F51B5" alt="Front" ></div>
@@ -66,28 +72,42 @@
 				  </div>
 				</div>
 			</div>
-			<script type="text/javascript">
-				I("introText").innerHTML=I("basicIntro").innerHTML;
-				I("l1").innerHTML=I("link1").innerHTML;
-				I("l2").innerHTML=I("link2").innerHTML;
-				I("l3").innerHTML=I("link3").innerHTML;
-			</script>
+			</div>
+			<div id="photoArea">&nbsp;</div>
 			<div class="clear"></div>
 		</div>
 	</div>
 	
+	<script type="text/javascript">
+		I("introText").innerHTML=I("basicIntro").innerHTML;
+		I("bigAss").innerHTML=I("basicTitle").innerHTML;
+		I("l1").innerHTML=I("link1").innerHTML;
+		I("l2").innerHTML=I("link2").innerHTML;
+		I("l3").innerHTML=I("link3").innerHTML;
+		var ua=navigator.userAgent;
+		try{
+			if(11 == ua.match( /(MSIE |Trident.*rv[ :])([0-9]+)/ )[ 2 ] ){
+				//ie11 flexbox is broken, so we remove min-height as a workaround
+				I("innerGradient").style.minHeight="auto";
+			}
+		}catch(e){}
+		if((/Safari.(\d+)/i.test(ua))&&!(/Chrome.(\d+)/i.test(ua))){
+			//safari can't into cubes, hide them
+			I("cubesArea").style.display="none";
+		}
+	</script>
+</div>
 
-	</div>
-</div>
 <div class="stripe" style="padding-top:0">
-	<div class="content">
+	<div class="content" style="border-bottom:none">
 		<h2>Featured article</h2>
-		<div id="_latestPost_" style="font-size:0.9em;"></div>
+		<div id="_featuredPost_"></div>
 	</div>
 </div>
+
 <div class="basic_only">
 	<div class="stripe">
-		<div class="content">
+		<div class="content" style="border-bottom:none">
 			<h2>Unsupported browser!</h2>
 			<p>
 				You are using an old or unsupported browser, so the site is in Basic mode, which provides only limited functionality and doesn't look very good.<br/>

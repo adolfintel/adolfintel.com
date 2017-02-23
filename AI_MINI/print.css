@@ -14,15 +14,14 @@ div.articleEntry > div.details *{
 	position:relative;
 	height:auto;
 	overflow-y:auto;
+	margin-top:0;
+	top:0;
 }
 #fragment{
 	position:relative;
 	animation:none;
 	margin-top:0;
 	opacity:1;
-}
-div.stripe > div.content{
-	border-bottom: 0.15em solid rgba(89,168,201,1);
 }
 div.content{
 	max-width:95%;
@@ -31,6 +30,7 @@ div.content{
 	background-color:#CCCCCC;
 	color:#000000;
 	white-space:normal !important;
+	overflow:hidden !important;
 }
 a.downloadButton{
 	border-color:#000000;
@@ -45,4 +45,10 @@ div.flashFx{
 }
 #footer{
 	display:none;
+}
+#article_comments > form{
+	display:none;
+}
+#commentsArea *{
+	color:#000000;
 }
