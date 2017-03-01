@@ -59,16 +59,19 @@ function showPage(){
 function hidePage(){
 	I("fragment").style.display='none';
 }
+var inLightbox=true;
 var viewport = document.querySelector("meta[name=viewport]");
 function openLightbox(imgUrl){
 	try{viewport.setAttribute('content','width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, user-scalable=yes');}catch(e){}
 	I("lbimg").src=imgUrl;
 	I("lightbox").style.display='';
+	inLightbox=true;
 }
 function closeLightbox(){
 	try{viewport.setAttribute('content','width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no');}catch(e){}
 	I("lightbox").style.display='none';
 	I("lbimg").src="";
+	inLightbox=false;
 }
 function loadText(target,url,onDone,noEscape){
 	var xhr=new XMLHttpRequest();
@@ -325,7 +328,7 @@ function fadeCurrentFrag(onDone){
 	
 }
 function onFragUnload(){}
-var loading=false;
+var loading=false, currentFrag="";
 function loadFragment(url,pushState){
 	if(loading) return;
 	loading=true;
@@ -338,7 +341,7 @@ function loadFragment(url,pushState){
 	onFragUnload=function(){}
 	url=unescape(url);
 	if(typeof pushState == 'undefined') pushState=true;
-	try{if(pushState)window.history.pushState(url, document.title, '/?p='+url);}catch(e){}
+	try{if(pushState){currentFrag=url; window.history.pushState(url, document.title, '/?p='+url);}}catch(e){}
 	if(isDesktop()){
 		//prevent the page from scrolling up when a loading is triggered (because fragment is removed and page becomes 0px tall). Mobile mode uses a different layout so it's not necessary.
 		I("page").style.height=I("page").scrollHeight+"px"; 
@@ -429,6 +432,7 @@ function loadFragment(url,pushState){
 
 window.onpopstate = function(e){
 	if(loading) return;
+	if(inLightbox){closeLightbox(); window.history.pushState(currentFrag, document.title, '/?p='+currentFrag); return;}
     if(e.state){ loadFragment(e.state,false);}
 };
 	
