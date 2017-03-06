@@ -31,6 +31,11 @@
 		return preg_replace(array("/^\<\!DOCTYPE.*?<html><body>/si","!</body></html>$!si"),"",$dom->saveHTML($dom->documentElement));
 	}
 
+	function endsWith($str, $target){
+		$length=strlen($target);
+		if ($length == 0) return true;
+		return (substr($str, -$length) === $target);
+	}
 
 ?>
 <!DOCTYPE html>
@@ -39,6 +44,7 @@
 <?php
 	include '_config.php';
 	$_GET["p"]=urldecode($_GET["p"]);
+	if(endsWith(strtolower($_GET["p"]),".md")) $toLoad="md.php?p=".$_GET["p"]; else $toLoad=$_GET["p"];
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename);
 	$q = $conn->prepare("select description,title,kwords,campaignIcon from articles where frag=?");
 	$q->bind_param("s",$_GET["p"]);
@@ -73,11 +79,14 @@ if(!Function.prototype.bind){
   };
 }
 window.I=function(i){return document.getElementById(i);};
+function escapeCode(s){
+	return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+}
 function loadText(target,url,onDone,noEscape){
 	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4&&xhr.status==200){
-			target.innerHTML=noEscape?xhr.responseText:xhr.responseText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\t/g,'&emsp;&emsp;').replace(/\s/g,'&nbsp;');
+			target.innerHTML=noEscape?xhr.responseText:escapeCode(xhr.responseText);
 			try{if(onDone)onDone();}catch(e){}
 		}
 	}.bind(this);
@@ -129,7 +138,7 @@ function openLightbox(imgUrl){
 function closeLightbox(){}
 function flash(color){}
 
-function highlight(target,lang){
+function highlight(target,lang,escape){
 	target.className="code hljs lang-"+lang;
 	if(!I("hljs_load")){
 		setTimeout(function(){ //delay loading so ie6 doesn't crash
@@ -141,6 +150,7 @@ function highlight(target,lang){
 		,100);
 	}
 	//hljs not applied, just basic styling
+	if(escape)target.innerHTML=escapeCode(target.innerHTML);
 }
 function createCommentsForm(id,container){
 	<?php if($Disqus_Enabled){ ?>
@@ -299,7 +309,7 @@ setInterval(function(){
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20170222" />
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="print.css?20170223" media="print"/>
+<link rel="stylesheet" type="text/css" href="print.css?20170306" media="print"/>
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
@@ -316,7 +326,7 @@ setInterval(function(){
 	<div id="fragment">
 		<div class="basic">
 			<?php 
-				$phpinclude=($_GET["p"])?$_GET["p"]:$HomeFrag;
+				$phpinclude=($_GET["p"])?$toLoad:$HomeFrag;
 				ob_start();
 				$pos_incl = strpos($phpinclude, '?');
 				if ($pos_incl !== FALSE)

@@ -26,10 +26,11 @@ div.articleEntry > div.details *{
 div.content{
 	max-width:95%;
 }
-.code,div.code{
+code, .code, div.code{
 	background-color:#CCCCCC;
 	color:#000000;
 	white-space:normal !important;
+	word-wrap:break-word;
 	overflow:hidden !important;
 }
 a.downloadButton{
