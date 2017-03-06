@@ -474,7 +474,7 @@ var ai_background;
 
 </script>
 <script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20170223"/>
+<link rel="stylesheet" type="text/css" href="main.css?20170306"/>
 <link rel="stylesheet" type="text/css" href="print.css?20170306" media="print"/>
 <style type="text/css">
 .basic_only{

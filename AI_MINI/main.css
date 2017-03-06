@@ -433,7 +433,7 @@ div.articleEntry > div.details > div.description{
 	LIGHTBOX
 */
 #lightbox{
-	background-color:rgba(0,0,0,0.4);
+	background-color:rgba(0,0,0,0.7);
 	position:fixed;
 	z-index:999;
 	top:0;

@@ -4,9 +4,7 @@
    header("Pragma: no-cache");
    header('Content-type: text/html; charset=utf-8');
 ?>
-<?php if(file_exists($_GET["p"])){ 
-	$dir=dirname($_GET["p"]);
-?>
+<?php if(file_exists($_GET["p"])){ ?>
 <div>
 	<link rel="stylesheet" type="text/css" href="article_md.css?20170306" />
 	<div class="stripe">
@@ -18,7 +16,16 @@
 					//everything is fine, parse the md file
 					include_once 'Parsedown.php';
 					$pd=new ParseDown();
-					echo $pd->text(file_get_contents($_GET["p"]));
+					$text=$pd->text(file_get_contents($_GET["p"])); //parse markdown
+					//set target="_blank" for all links inside markdown document (does not affect ai_link elements)
+					$dom = new DOMDocument();
+					@$dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', "UTF-8"));
+					$nodes = $dom->getElementsByTagName("a");
+					foreach($nodes as $a){
+						$a->setAttribute("target","_blank");
+					}
+					//output document
+					echo preg_replace(array("/^\<\!DOCTYPE.*?<html><body>/si","!</body></html>$!si"),"",$dom->saveHTML($dom->documentElement));
 				}
 			?>
 		</div>
