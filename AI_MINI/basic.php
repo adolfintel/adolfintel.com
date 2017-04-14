@@ -102,7 +102,7 @@ function gotoFull(){
 if(<?php if($Safari_ForceBasic){ ?>!(((/Safari.(\d+)/i.test(navigator.userAgent))&&!(/Chrome.(\d+)/i.test(navigator.userAgent))))&&<?php } ?>window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&document.createElement("div").style.flex!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoFull();
 }else{
-	loadText(document.createElement("span"),"fetch_article_info.php?p=<?=$_GET["p"]?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
+	loadText(document.createElement("span"),"fetch_frag_info.php?p=<?=$_GET["p"]?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
 }
 
 function isMobile(){
