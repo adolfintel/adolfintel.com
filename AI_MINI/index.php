@@ -224,8 +224,8 @@ function loadComments(id,container){
 			}
 		}catch(e){}
 		try{
-			var disqus_config = function () {
-				this.page.url = location.href.replace("/index.php","/");
+			window.disqus_config = function () {
+				this.page.url = location.href.replace("/index.php","/").replace("https://","http://");
 				this.page.identifier = id;
 			};
 			if(typeof DISQUS !== "undefined"){ //disqus already loaded
@@ -236,6 +236,7 @@ function loadComments(id,container){
 					s.src = '//<?=$Disqus_Shortname?>.disqus.com/embed.js';
 					s.setAttribute('data-timestamp', +new Date());
 					(d.head || d.body).appendChild(s);
+					
 				})();
 			}			
 		}catch(e){
