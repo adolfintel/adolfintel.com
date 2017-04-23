@@ -1,8 +1,13 @@
 <?php
+	include '_config.php';
+	if($ForceHTTPS_full && !isset($_SERVER['HTTPS'])){
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Location: https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+		exit();
+	}
 	header("Cache-Control: no-store, no-cache, must-revalidate");
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
-	include '_config.php';
 	header('Content-Type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE html>
@@ -430,7 +435,7 @@ function loadFragment(url,pushState){
 				}else{loading=false; showError(xhr.status);}
 			}
 		}
-		xhr.open("POST",url.toLowerCase().endsWith(".md")?("md.php?p="+url):url,true);
+		xhr.open("POST",url.toLowerCase().substr(url.length-3)==".md"?("md.php?p="+url):url,true);
 		xhr.send("random="+Math.random());
 	});
 }

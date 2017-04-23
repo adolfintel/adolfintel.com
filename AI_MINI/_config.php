@@ -17,4 +17,6 @@
 	$Disqus_Enabled=false;
 	$Disqus_Shortname="EXAMPLE"; //register your site on disqus and put the shortname here
 	$Safari_ForceBasic=false; //force safari into basic mode (it's literally worse than internet explorer)
+	$ForceHTTPS_full=true; //force HTTPS in full mode
+	$ForceHTTPS_basic=false; //force HTTPS in basic mode
 ?>

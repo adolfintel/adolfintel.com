@@ -1,4 +1,10 @@
 <?php
+	include '_config.php';
+	if($ForceHTTPS_basic && !isset($_SERVER['HTTPS'])){
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Location: https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+		exit();
+	}
 	header("Cache-Control: no-store, no-cache, must-revalidate");
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
@@ -42,7 +48,6 @@
 <html>
 <head>
 <?php
-	include '_config.php';
 	$_GET["p"]=urldecode($_GET["p"]);
 	if(endsWith(strtolower($_GET["p"]),".md")) $toLoad="md.php?p=".$_GET["p"]; else $toLoad=$_GET["p"];
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename);
