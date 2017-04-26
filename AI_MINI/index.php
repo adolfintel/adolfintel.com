@@ -1,8 +1,7 @@
 <?php
 	include '_config.php';
-	if($ForceHTTPS_full && !isset($_SERVER['HTTPS'])){
-		header("HTTP/1.1 301 Moved Permanently");
-		header("Location: https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+	if($ForceHTTPS_full && $_SERVER["HTTPS"] != "on"){
+		header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
 		exit();
 	}
 	header("Cache-Control: no-store, no-cache, must-revalidate");
