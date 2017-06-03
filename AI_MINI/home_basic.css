@@ -1,0 +1,40 @@
+#bigAss{
+	font-family:'Lato',sans-serif;
+	font-size:2.5em;
+	line-height:0.82em;
+	margin:0.15em 0 0.5em 0;
+	text-transform:uppercase;
+}
+#basicImage{
+	float:right;
+	width:20em;
+	height:auto;
+	margin-left:0.5em;
+	margin-bottom:0.5em;
+}
+
+#sections{
+	margin-top:1.5em;
+	text-align:center;
+	padding:0.2em 0;
+}
+#sections a{
+	margin-right:0.3em;
+	display:inline-block;
+	font-size:1.23em;
+	font-family:'Lato';
+	transition:all 0.2s;
+}
+#sections a:hover{
+	text-shadow: 0 0 0.6em #ffffff;
+	transition:all 0.2s;
+}
+
+@media all and (max-width:50em){
+	#basicImage{
+		display:block;
+		float:none;
+		margin: 0 auto;
+	}
+
+}

@@ -18,10 +18,10 @@ Basic HTML: IE6+
 Server side, any recent version of PHP and MySQL should work.
 
 ## Screenshots
-![Screenshot](http://fdossena.com/this/screen_v7_1.png)
+![Screenshot](http://fdossena.com/this/screen_v8_1.png)
 ![Screenshot](http://fdossena.com/this/screen_v7_2.png)
 ![Screenshot](http://fdossena.com/this/screen_v7_3.png)
-![Screenshot](http://fdossena.com/this/screen_v7_4.png)
+![Screenshot](http://fdossena.com/this/screen_v8_4.png)
 ![Screenshot](http://fdossena.com/this/screen_v7_5.png)
 
 ## License
