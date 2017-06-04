@@ -1,5 +1,5 @@
 <div>
-<link rel="stylesheet" id="cssref" href="home_basic.css?20170603" />
+<link rel="stylesheet" id="cssref" href="home_basic.css?20170604" />
 <div class="stripe">		
 	<div id="outerGradient">
 		<div class="content">
@@ -22,12 +22,20 @@
 				<div id="photoArea">&nbsp;</div>
 				<div class="clear"></div>
 			</div>
-			<div id="featArea">
-				<h2>Featured article</h2>
-				<div id="_featuredPost_"></div>
-			</div>
 		</div>
 	</div>
+</div>
+<div class="stripe">
+	<div class="content">
+		<div id="featArea">
+			<h2>Featured article</h2>
+			<div id="_featuredPost_"></div>
+		</div>
+	</div>
+</div>
+
+	
+	
 
 	<script type="text/javascript">
 		var ua=navigator.userAgent;

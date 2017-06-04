@@ -6,7 +6,7 @@
 #outerGradient{
 	background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 100%); 
 	animation:boxShadowFade 0.8s ease-out;
-	padding:0.6em;
+	padding:1.6em 0;
 }
 #innerGradient{
 	/*background:linear-gradient(135deg, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 100%);*/
@@ -70,10 +70,9 @@
 }
 
 #featArea{
-	background: linear-gradient(135deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);
+	/*background: linear-gradient(135deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);*/
 }
 #featArea > h2{
-	margin-top:0;
 	padding-top:0.6em;
 	text-align:center;
 }
