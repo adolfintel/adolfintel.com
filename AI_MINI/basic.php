@@ -106,7 +106,7 @@ function gotoFull(){
 if(<?php if($Safari_ForceBasic){ ?>!(((/Safari.(\d+)/i.test(navigator.userAgent))&&!(/Chrome.(\d+)/i.test(navigator.userAgent))))&&<?php } ?>window.XMLHttpRequest&&window.JSON&&window.localStorage&&!!window.HTMLCanvasElement&&document.createElement("div").style.animationName!==undefined&&document.createElement("div").style.flex!==undefined){	//any browser with XHR, JSON, localStorage, Canvas, CSS Animation
 	gotoFull();
 }else{
-	loadText(document.createElement("span"),"fetch_frag_info.php?p=<?=$_GET["p"]?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
+	loadText(document.createElement("span"),"fetch_frag_info.php?p=<?=htmlspecialchars($_GET["p"], ENT_QUOTES, 'UTF-8')?>&random="+Math.random(),null,true);<?php /* useless, used only to increase view counter on page ONLY if the site is actually in basic mode */ ?>
 }
 
 function isMobile(){
@@ -360,7 +360,7 @@ setInterval(function(){
 		var oldC=I("_comments_");
 		if(oldC)oldC.id="article_comments";
 		var c=I("article_comments");
-		if(c)createCommentsForm('<?=$_GET["p"]?>',c);
+		if(c)createCommentsForm('<?=htmlspecialchars($_GET["p"], ENT_QUOTES, 'UTF-8')?>',c);
 		var s=I("_share_");
 		if(s){
 			url=document.location.href;
