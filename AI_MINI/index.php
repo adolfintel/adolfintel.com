@@ -334,12 +334,14 @@ function fadeCurrentFrag(onDone){
 		I("page").appendChild(d);
 		if(onDone)onDone();
 	}.bind(this));
-	
 }
 function onFragUnload(){}
 var loading=false, currentFrag="";
+var loadLater=[];
 function loadFragment(url,pushState){
-	if(loading) return;
+	if(loading){
+		loadLater.push([url,pushState]);
+	}
 	loading=true;
 	flash("rgba(255,255,255,0.5)");
 	if(ai_background)ai_background.loadStart();
@@ -438,9 +440,15 @@ function loadFragment(url,pushState){
 		xhr.send("random="+Math.random());
 	});
 }
+setInterval(function(){
+	if(loading) return;
+	if(loadLater.length>0){
+		var data=loadLater.shift();
+		loadFragment(data[0],data[1]);
+	}
+},100);
 
 window.onpopstate = function(e){
-	if(loading) return;
 	if(inLightbox){closeLightbox(); window.history.pushState(currentFrag, document.title, '/?p='+currentFrag); return;}
     if(e.state){ loadFragment(e.state,false);}
 };
