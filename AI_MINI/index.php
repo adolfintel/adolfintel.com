@@ -24,6 +24,17 @@
 String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
+function parseLocationSearchToJSON(){
+	var r={};
+	if(document.location.search.isBlank()) return r;
+	var parts=document.location.search.split("&");
+	if(parts[0].indexOf("?")==0) parts[0]=parts[0].substring(1);
+	for(var i=0;i<parts.length;i++){
+		var p=parts[i].split("=");
+		r[p[0]]=p.length==1?null:p[1];
+	}
+	return r;
+}
 window.I=function(i){return document.getElementById(i);};
 //check browser and redirect to basic mode if incompatible
 function gotoBasic(){
@@ -457,9 +468,9 @@ function autoLoad(){
 	parseLinks();
 	closeLightbox();
 	try{
-		var req=window.location.search;
-		if(req.isBlank()) throw("");
-		loadFragment(req.substring(3),true);
+		var req=parseLocationSearchToJSON();
+		if(typeof req["p"] === "undefined") throw("");
+		loadFragment(req["p"],true);
 	}catch(e){
 		loadFragment("<?=$HomeFrag?>",true);
 	}
