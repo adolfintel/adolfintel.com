@@ -3,6 +3,7 @@
    header("Cache-Control: post-check=0, pre-check=0", false);
    header("Pragma: no-cache");
    header('Content-type: text/html; charset=utf-8');
+   if(isset($_GET["forceBasicMode"])) $ai_basicMode=true;
 ?>
 <div class="<?=(!isset($_GET["lastPost"]))?'compactList':''?>">
 <?php if(!isset($_GET["lastPost"])){?><div class="content"><h1 id="_articleTitle_" style="margin-top:0.8em">&nbsp;</h1></div><?php } ?>
@@ -29,6 +30,7 @@ include '_config.php';
 	<div class="stripe">
 		<div class="content">
 			<?php } ?>
+			<?php if(isset($ai_basicMode)){ ?>
 			<div class="basic_only">
 				<div class="basicArticleEntry">
 					<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="articleIcon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>')"><?=nl2br(htmlspecialchars($a->title))?></a></h2>
@@ -37,10 +39,11 @@ include '_config.php';
 					<a class="clickOverlay" onClick="loadFragment('<?=$a->frag?>')">&nbsp;</a>
 				</div>
 			</div>
-			<?php if(isset($_GET["lastPost"])||!(strpos($_SERVER['PHP_SELF'],’basic.php’)!==false)){ ?>			
+			<?php } ?>
+			<?php if(!isset($ai_basicMode)){ ?>			
 				<div class="basic_hide">
-					<div class="articleEntry">
-						<div class="background" style="background-image:url('<?=$a->cover?$a->cover:"nocover.png"?>')">
+					<div class="articleEntry" lazyLoadBkUrl="<?=$a->cover?$a->cover:"nocover.png"?>">
+						<div class="background">
 							<div class="resp_only">
 								<span class="date"><?=$a->date?></span>
 							</div>

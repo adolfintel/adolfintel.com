@@ -25,12 +25,14 @@ String.prototype.isBlank=function(){
 	return !this || /^\s*$/.test(this);
 }
 function parseLocationSearchToJSON(){
-	var r={};
+	var r=[];
 	if(document.location.search.isBlank()) return r;
 	var parts=document.location.search.split("&");
 	if(parts[0].indexOf("?")==0) parts[0]=parts[0].substring(1);
 	for(var i=0;i<parts.length;i++){
-		var p=parts[i].split("=");
+		var eq=parts[i].indexOf("=");
+		var p;
+		if(eq==-1) p=[parts[i]]; else p=[parts[i].substr(0,eq),parts[i].substr(eq+1,parts[i].length)];
 		r[p[0]]=p.length==1?null:p[1];
 	}
 	return r;
@@ -493,6 +495,16 @@ setInterval(function(){
 		}
 	}catch(e){}
 },50);
+
+setInterval(function(){
+	var articleEntries=document.getElementsByClassName("articleEntry");
+	for(var i=0;i<articleEntries.length;i++){
+		if(!articleEntries[i].lazyLoadDone&&isVisible(articleEntries[i])){
+			articleEntries[i].lazyLoadDone=true;
+			articleEntries[i].getElementsByClassName("background")[0].style.backgroundImage="url('"+articleEntries[i].getAttribute("lazyLoadBkUrl")+"')";
+		}
+	}
+},100);
 
 var ai_background;
 

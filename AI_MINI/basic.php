@@ -318,6 +318,7 @@ setInterval(function(){
 <body>
 	<div id="nav" onClick="toggleNavExp()">
 		<?php
+			extract(array('ai_basicMode'=>true));
 			ob_start();
 			include($NavFrag);
 			echo parseLinks(ob_get_clean());
@@ -417,7 +418,7 @@ setInterval(function(){
 					}
 				}
 			}
-			xlp2.open("GET","articles.php?lastPost=featured&random="+Math.random());
+			xlp2.open("GET","articles.php?lastPost=featured&forceBasicMode=true&random="+Math.random());
 			xlp2.send();
 		}		
 	</script>

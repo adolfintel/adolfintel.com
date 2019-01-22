@@ -25,7 +25,7 @@ Server side, any recent version of PHP and MySQL should work.
 ![Screenshot](http://fdossena.com/this/screen_v7_5.png)
 
 ## License
-Copyright (C) 2015-2018 Federico Dossena
+Copyright (C) 2015-2019 Federico Dossena
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
