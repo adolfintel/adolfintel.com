@@ -31,30 +31,26 @@ include '_config.php';
 		<div class="content">
 			<?php } ?>
 			<?php if(isset($ai_basicMode)){ ?>
-			<div class="basic_only">
 				<div class="basicArticleEntry">
 					<img src="<?=$a->icon?$a->icon:"noicon.png"?>" class="articleIcon" onClick="loadFragment('<?=$a->frag?>')"/><span class="date"><?=$a->date?></span><h2><a onClick="loadFragment('<?=$a->frag?>')"><?=nl2br(htmlspecialchars($a->title))?></a></h2>
 					<div class="description"><?=nl2br(htmlspecialchars($a->description))?></div>
 					<div class="clear">&nbsp;</div>
 					<a class="clickOverlay" onClick="loadFragment('<?=$a->frag?>')">&nbsp;</a>
 				</div>
-			</div>
 			<?php } ?>
 			<?php if(!isset($ai_basicMode)){ ?>			
-				<div class="basic_hide">
-					<div class="articleEntry" lazyLoadBkUrl="<?=$a->cover?$a->cover:"nocover.png"?>">
-						<div class="background">
-							<div class="resp_only">
-								<span class="date"><?=$a->date?></span>
-							</div>
+				<div class="articleEntry" lazyLoadBkUrl="<?=$a->cover?$a->cover:"nocover.png"?>">
+					<div class="background">
+						<div class="resp_only">
+							<span class="date"><?=$a->date?></span>
 						</div>
-						<div class="details">
-							<span class="date resp_hidden"><?=$a->date?></span><h2><ai_link frag="<?=$a->frag?>"><?=nl2br(htmlspecialchars($a->title))?></ai_link></h2>
-							<div class="description"><?=nl2br(htmlspecialchars($a->description))?></div>
-							<div class="clear">&nbsp;</div>
-						</div>
-						<ai_link class="clickOverlay" frag="<?=$a->frag?>">&nbsp;</ai_link>
 					</div>
+					<div class="details">
+						<span class="date resp_hidden"><?=$a->date?></span><h2><ai_link frag="<?=$a->frag?>"><?=nl2br(htmlspecialchars($a->title))?></ai_link></h2>
+						<div class="description"><?=nl2br(htmlspecialchars($a->description))?></div>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<ai_link class="clickOverlay" frag="<?=$a->frag?>">&nbsp;</ai_link>
 				</div>
 			<?php  } ?>
 	<?php if(!isset($_GET["lastPost"])){ ?>

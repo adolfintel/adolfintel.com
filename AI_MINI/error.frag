@@ -15,8 +15,8 @@
 		<p style="text-align:center">You broke the Internet, now they're after you. Run!</p>
 	</div>
 	<script type="text/javascript">
-		var e=window._err?window._err:Number(location.search.substring(location.search.lastIndexOf("e=")+2));
-		I("bigass").innerHTML+=" "+e;
+		var e=((typeof window._err)!=="undefined")?window._err:Number(location.search.substring(location.search.lastIndexOf("e=")+2));
+		if(e!="0") I("bigass").innerHTML+=" "+e;
 	</script>
 </div>
 </div>
