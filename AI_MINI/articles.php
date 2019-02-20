@@ -9,21 +9,20 @@
 <?php if(!isset($_GET["lastPost"])){?><div class="content"><h1 id="_articleTitle_" style="margin-top:0.8em">&nbsp;</h1></div><?php } ?>
 <?php 
 include '_config.php';
-	$conn = mysql_connect ($MySql_hostname, $MySql_username, $MySql_password) or die ("1");
-	$db = mysql_select_db ($MySql_databasename, $conn) or die ("1");
+	$conn = mysqli_connect ($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die ("1");
 	if(isset($_GET["lastPost"])){
 		if($_GET["lastPost"]=="featured"){
-			$qqq=mysql_query("select * from articles order by featured desc,id desc limit 1") or die("1");
+			$qqq=mysqli_query($conn,"select * from articles order by featured desc,id desc limit 1") or die("1");
 		}else{
-			$qqq=mysql_query("select * from articles where id=(select max(id) from articles)") or die("1");
+			$qqq=mysqli_query($conn,"select * from articles where id=(select max(id) from articles)") or die("1");
 		}
 	}else{
 		$pid=(int)$_GET["s"];
-		$qqq=mysql_query("select * from articles where section=".$pid." order by relevance desc, date desc") or die("1");  
+		$qqq=mysqli_query($conn,"select * from articles where section=".$pid." order by relevance desc, date desc") or die("1");  
 	}
    
    $n=0;
-   while ($a = mysql_fetch_object ($qqq)) {
+   while ($a = mysqli_fetch_object ($qqq)) {
 	   $n++;
 ?>
 	<?php if(!isset($_GET["lastPost"])){ ?>
