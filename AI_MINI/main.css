@@ -339,14 +339,23 @@ div.compactList{
 div.compactList div.stripe{
 	padding:0.4em 0;
 }
+div.compactList div.content{
+	width:100% !important;
+}
 div.articleEntry > div.background{
 	position:absolute;
-	top:0; left:0;
+	top:0%; left:0%;
 	width:100%; height:100%;
 	z-index:1;
 	background-color:#404040;
 	background-size:cover;
 	background-position:center center;
+	transition:all 0.3s ease-out;
+}
+div.articleEntry:hover > div.background{
+	top:-5%; left:-5%;
+	width:110%; height:110%;
+	transition:all 0.3s ease-out;
 }
 div.articleEntry > div.details{
 	z-index:2;
@@ -513,7 +522,7 @@ input[type="text"].share{
 		font-size:0.65vw;
 	}
 }
-@media all and (min-width:76em){
+@media all and (min-width:65em){
 	div.compactList{
 		text-align:center;
 		width:100%;
@@ -522,7 +531,7 @@ input[type="text"].share{
 	}
 	div.compactList div.stripe{
 		display:inline-block;
-		width:36em;
+		width:45%;
 		margin:0 0.3em;
 	}
 	div.compactList div.content{
