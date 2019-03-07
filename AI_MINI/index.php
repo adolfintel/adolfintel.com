@@ -322,7 +322,7 @@ function parseLinks(){
 	while(d.length>0){
 		var n=document.createElement("a");
 		for(var j=0;j<d[0].attributes.length;j++){
-			try{n.setAttribute(d[0].attributes.item(j).nodeName,d[0].attributes.item(j).nodeValue);}catch(e){}
+			try{n.setAttribute(d[0].attributes.item(j).nodeName,d[0].attributes.item(j).value);}catch(e){}
 		}
 		n.innerHTML=d[0].innerHTML;
 		if(n.hasAttribute("frag")){
