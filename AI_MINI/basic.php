@@ -67,7 +67,7 @@
 <meta property="og:title" content="<?=htmlspecialchars($title?$title:$Site_Title)?>" />
 <meta property="og:description" content="<?=htmlspecialchars($description?$description:$Site_Description)?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="basic.css?20170223" />
+<link rel="stylesheet" type="text/css" href="basic.css?20190711" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -157,10 +157,17 @@ function highlight(target,lang,escape){
 	if(escape)target.innerHTML=escapeCode(target.innerHTML);
 }
 function createCommentsForm(id,container){
-	<?php if($Disqus_Enabled){ ?>
+	<?php if($Comment_System!="builtin"){ ?>
 		loadComments(id,container);
 	<?php } else { ?>
 		var f=document.createElement("form");
+		var e=document.createElement("input");
+		e.name="email";
+		e.type="text";
+		e.value="Email (optional, private)";
+		var eclick=function(){if(e.clicked) return; e.value=""; e.clicked=true;}
+		e.addEventListener('click',eclick);
+		f.appendChild(e);
 		var t=document.createElement("textarea");
 		t.name="text";
 		t.rows=4;
@@ -174,13 +181,13 @@ function createCommentsForm(id,container){
 		var c=document.createElement("div");
 		c.className="commentsArea";
 		container.appendChild(c);
-		b.onclick=function(){sendComment(id,t,c);};
+		b.onclick=function(){sendComment(id,t,e,c);};
 		loadComments(id,c);
 	<?php } ?>
 }
 function loadComments(id,container){
 	container.innerHTML="";
-	<?php if($Disqus_Enabled){ ?>
+	<?php if($Comment_System=="disqus"){ ?>
 		var d=document.createElement("div");
 		d.id="disqus_thread";
 		container.appendChild(d);
@@ -206,7 +213,7 @@ function loadComments(id,container){
 		}catch(e){
 			d.innerHTML="Disqus failed to load";
 		}
-	<?php } else { ?>
+	<?php } else if($Comment_System=="builtin") { ?>
 		var d=document.createElement("d");
 		d.className="loading";
 		container.appendChild(d);
@@ -234,14 +241,20 @@ function loadComments(id,container){
 		}
 		xhr.open("GET","getComments.php?id="+id+"&r="+Math.random(),true);
 		xhr.send();
-	<?php } ?>
+	<?php } else if($Comment_System=="commentoio"){ ?>
+        var d=document.createElement("div");
+        d.innerText="Commento.io not supported on this browser";
+        container.appendChild(d);
+    <?php } ?>
 }
 var sending=false;
-<?php if(!$Disqus_Enabled){ ?>
-function sendComment(id,t,commentsArea){
+<?php if($Comment_System=="builtin"){ ?>
+function sendComment(id,t,e,commentsArea){
 	if(t.value.isBlank()||sending){ return;}
 	sending=true;
 	var text=t.value;
+	var email="";
+	if(e.clicked) email=e.value;
 	var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
@@ -256,7 +269,7 @@ function sendComment(id,t,commentsArea){
 		}
 	}
 	var params="";
-	params+="id="+encodeURIComponent(id)+"&text="+encodeURIComponent(text)+"&r="+Math.random();
+	params+="id="+encodeURIComponent(id)+"&text="+encodeURIComponent(text)+"&email="+encodeURIComponent(email)+"&r="+Math.random();
 	xhr.open("POST","postComment.php",true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.setRequestHeader("Content-length", params.length);

@@ -4,8 +4,8 @@
 	header("Pragma: no-cache");
 	include '_config.php';
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die("1");   
-	$q = $conn->prepare("insert into comment(text,idPage) values(?,?)")  or die("1");
-	$q->bind_param("ss",$_POST["text"],$_POST["id"]);
+	$q = $conn->prepare("insert into comment(text,email,idPage) values(?,?,?)")  or die("1");
+	$q->bind_param("sss",$_POST["text"],$_POST["email"],$_POST["id"]);
 	$q->execute() or die("1");
 	echo "0";
 	$conn->close();

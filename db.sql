@@ -63,15 +63,10 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idPage` text NOT NULL,
   `text` text NOT NULL,
+  `email` text NOT NULL,
+  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
-
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `idPage`, `text`) VALUES
-(1, 'example_article_1/index.frag', 'Very useful');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

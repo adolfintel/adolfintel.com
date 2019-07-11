@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^(.*)$ commento.php [L,QSA]

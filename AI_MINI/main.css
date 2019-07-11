@@ -409,7 +409,13 @@ div.articleEntry > div.details > div.description{
 	resize: vertical;
 	overflow:auto;
 }
-#article_comments textarea:focus, #article_comments textarea:active{
+#article_comments input[type="text"]{
+    background-color:rgba(255,255,255,0.7);
+    display:block;
+    border:none;
+    margin-bottom:0.5em;
+}
+#article_comments textarea:focus, #article_comments textarea:active, #article_comments input[type="text"]:focus, #article_comments input[type="text"]:active{
 	background-color:#FFFFFF;
 }
 #article_comments input[type="button"]{

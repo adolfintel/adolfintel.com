@@ -14,8 +14,8 @@
 	$Background_ClassName="WarpSpeed";
 	$Background_Config='{targetSpeed:0.8, speedAdjFactor:0.07, shape:"circle", backgroundColor:"hsl(263,45%,8%)", speedWhileLoading:18}'; //optional params for the background. can be null.
 	$Chrome_TabColor="#144e66";
-	$Disqus_Enabled=false;
-	$Disqus_Shortname="EXAMPLE"; //register your site on disqus and put the shortname here
+	$Comment_System="builtin"; //builtin, disqus, commentoio
+	$Disqus_Shortname="EXAMPLE"; //if you want to use disqus, register your site on disqus and put the shortname here
 	$Safari_ForceBasic=false; //force safari into basic mode (it's literally worse than internet explorer)
 	$ForceHTTPS_full=true; //force HTTPS in full mode
 	$ForceHTTPS_basic=false; //force HTTPS in basic mode
