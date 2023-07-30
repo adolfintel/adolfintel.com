@@ -1,42 +1,20 @@
-@font-face{
-	font-family: BebasNeue;
-	src:url('bebasneue_basic.eot');
-}
 @font-face {
-    font-family: 'Lato';
-    src: url('lato-black.eot');
-    font-weight: 900;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Lato';
-    src: url('lato-bold.eot');
+    font-family: 'Titillium';
+    src: url('titillium700.eot');
     font-weight: 700;
     font-style: normal;
 }
-/*@font-face {
-    font-family: 'Lato';
-    src: url('lato-light.eot');
-    font-weight: 300;
-    font-style: normal;
-}
 @font-face {
-    font-family: 'Lato';
-    src: url('lato-regular.eot');
-    font-weight: 400;
-    font-style: normal;
-}*/
-@font-face {
-	font-family: 'Roboto';
+	font-family: 'Nunito';
 	font-style: normal;
 	font-weight: 300;
-	src: url("roboto300.eot");
+	src: url("nunito300.eot");
 }
 @font-face {
-	font-family: 'Roboto';
+	font-family: 'Nunito';
 	font-style: normal;
 	font-weight: 400;
-	src: url("roboto400.eot");
+	src: url("nunito400.eot");
 }
 #nav{
 	position:relative;

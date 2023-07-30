@@ -4,22 +4,24 @@
 	header("Pragma: no-cache");
 	header('Content-type: application/xml; charset=utf-8');
 	include '_config.php';
-	$conn = mysql_connect ($MySql_hostname, $MySql_username, $MySql_password) or die ("");
-	$db = mysql_select_db ($MySql_databasename, $conn) or die ("");
-	$qqq=mysql_query("select frag,date,updateFreq,relevance from articles order by relevance desc, date desc") or die("1");
+	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die("1"); 
+	$qqq = $conn->prepare("select frag,date,updateFreq,relevance from articles order by relevance desc, date desc")  or die("1");
+	$qqq->execute() or die("1");
 	echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php
-	while ($a = mysql_fetch_object ($qqq)) {
+	$qqq->bind_result($frag,$date,$updateFreq,$relevance);
+	while ($qqq->fetch()) {
 ?>
 		<url>
-			<loc>http://<?=$_SERVER['SERVER_NAME']?>/?p=<?=$a->frag?></loc>
-			<?php if($a->date){?><lastmod><?=$a->date?></lastmod><?php }?>
-			<changefreq><?=$a->updateFreq?></changefreq>
-			<priority><?=$a->relevance<0?0:$a->relevance>1?1:$a->relevance?></priority>
+			<loc>https://<?=$_SERVER['SERVER_NAME']?>/?p=<?=$frag?></loc>
+			<?php if($date){?><lastmod><?=$date?></lastmod><?php }?>
+			<changefreq><?=$updateFreq?></changefreq>
+			<priority><?=$relevance<0?0:$relevance>1?1:$relevance?></priority>
 		</url>
 <?php
 	}
+	$conn->close();
 ?>
 </urlset>

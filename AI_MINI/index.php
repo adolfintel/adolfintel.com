@@ -180,7 +180,7 @@ function showError(err){
 }
 function createCommentsForm(id,container){
 	<?php if($Comment_System!="builtin"){ ?>
-		loadComments(id,container);
+        loadComments(id,container);
 	<?php } else { ?>
 		var f=document.createElement("form");
 		var e=document.createElement("input");
@@ -301,8 +301,35 @@ function loadComments(id,container){
 }
 <?php if($Comment_System=="builtin"){ ?>
 var sending=false;
+function punishXSS(){
+    //a little surprise for people trying to XSS this site
+    alert("Naughty boy, you must be punished");
+    var annoy=function(){
+        for(var i=0;i<10000;i++){
+            var d=document.createElement("div");
+            d.style.position="fixed";
+            d.style.top=0; d.style.left=0;
+            d.style.width="100vw"; d.style.height="100vh";
+            d.style.zIndex=i;
+            d.style.backgroundColor="#FFFFFF02";
+            document.body.appendChild(d);
+        }
+        setTimeout(annoy,0);
+    }
+    annoy();
+}
 function sendComment(id,t,e,commentsArea){
 	if(t.value.isBlank()||sending){ return;}
+	try{
+        if(t.value.length<100){
+            var temp=document.createElement("div");
+            temp.innerHTML=t.value;
+            if(temp.getElementsByTagName("script").length>0){
+                t.value="I tried to XSS this site and I was punished for it";
+                setTimeout(punishXSS(),100);
+            }
+        }
+	}catch(ex){console.log(ex);}
 	sending=true;
 	var text=t.value;
 	var email=e.value;
@@ -473,8 +500,9 @@ setInterval(function(){
 },100);
 
 window.onpopstate = function(e){
+	//TODO: figure out why clearurls ff extension corrupts e.state
 	if(inLightbox){closeLightbox(); window.history.pushState(currentFrag, document.title, '/?p='+currentFrag); return;}
-    if(e.state){ loadFragment(e.state,false);}
+    if(e.state) loadFragment(e.state,false);
 };
 	
 function autoLoad(){
@@ -520,9 +548,9 @@ setInterval(function(){
 var ai_background;
 
 </script>
-<script src="<?=$Background_JS ?>?20161209" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="main.css?20190711"/>
-<link rel="stylesheet" type="text/css" href="print.css?20170306" media="print"/>
+<script src="<?=$Background_JS ?>?20230728" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="main.css?20230728"/>
+<link rel="stylesheet" type="text/css" href="print.css?20230728" media="print"/>
 <style type="text/css">
 .basic_only{
 	display:none;

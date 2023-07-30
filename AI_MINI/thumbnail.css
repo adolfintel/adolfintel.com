@@ -11,10 +11,10 @@ div.gallery{
 }
 img.thumbnail{
 	display:inline-block;
-	height:6em;
+	height:6.5em;
 	width:auto;
 	margin:0 0.35em 0 0;
-	border:0.15em solid rgba(89,168,201,0.3);
+	border:0.05em solid rgba(89,168,201,0.3);
 	cursor:pointer;
 }
 img.thumbnail:hover, img.thumbnail:active{

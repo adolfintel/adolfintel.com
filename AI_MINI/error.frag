@@ -1,8 +1,9 @@
 <div>
 <style type="text/css">
 	#bigass{
-		font-family:"Lato";
+		font-family:"Titillium";
 		font-size:5em;
+		font-weight:700;
 		text-align:center;
 		color:#FFFFFA;
 		text-shadow:0 0 1em #FFAAAA,0 0 0.2em #FFAAAA;

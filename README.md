@@ -1,10 +1,12 @@
 # fdossena.com (formerly AdolfIntel.com)
 Blog and Hosting for my Projects.
 
-Responsive, modern, cool looking, indexable, and compatible with browsers as old as Internet Explorer 6 (yes, SIX!).
+Responsive, <del>modern</del>, cool looking, indexable, and compatible with browsers as old as Internet Explorer 6 (yes, SIX!).
  
 ## Take a look
 [fdossena.com](http://fdossena.com/)
+
+[Alien Aurora background](http://fdossena.com/?p=alienaurora/i.frag)
 
 [WarpSpeed background](http://fdossena.com/?p=warpspeed/i.frag)
 
@@ -18,14 +20,14 @@ Basic HTML: IE6+
 Server side, any recent version of PHP and MySQL should work.
 
 ## Screenshots
-![Screenshot](http://fdossena.com/this/screen_v9_1.png)
-![Screenshot](http://fdossena.com/this/screen_v7_2.png)
-![Screenshot](http://fdossena.com/this/screen_v7_3.png)
-![Screenshot](http://fdossena.com/this/screen_v8_4.png)
-![Screenshot](http://fdossena.com/this/screen_v7_5.png)
+![Screenshot](http://fdossena.com/this/screen_v10_1.png)
+![Screenshot](http://fdossena.com/this/screen_v10_2.png)
+![Screenshot](http://fdossena.com/this/screen_v10_3.png)
+![Screenshot](http://fdossena.com/this/screen_v10_4.png)
+![Screenshot](http://fdossena.com/this/screen_v10_5.png)
 
 ## License
-Copyright (C) 2015-2019 Federico Dossena
+Copyright (C) 2015-2023 Federico Dossena
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -6,7 +6,7 @@
 		margin-right:auto;
 		width:40em;
 		height:auto;
-		border:0.3em solid #FFFFFF;
+		border:0.175em solid #FFFFFF;
 	}
 	
 	@media all and (max-width:50em){

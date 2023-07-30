@@ -10,10 +10,10 @@
 	$NavFrag="nav.php";
 	$FooterFrag="footer.php";
 	$HomeFrag="home.frag";
-	$Background_JS="BACKGROUNDS/warpspeed.js";
-	$Background_ClassName="WarpSpeed";
-	$Background_Config='{targetSpeed:0.8, speedAdjFactor:0.07, shape:"circle", backgroundColor:"hsl(263,45%,8%)", speedWhileLoading:18}'; //optional params for the background. can be null.
-	$Chrome_TabColor="#144e66";
+	$Background_JS="BACKGROUNDS/fd23.js";
+	$Background_ClassName="FD23";
+	$Background_Config='{"maxFps":"60"}'; //optional params for the background. can be null.
+	$Chrome_TabColor="#2d248f";
 	$Comment_System="builtin"; //builtin, disqus, commentoio
 	$Disqus_Shortname="EXAMPLE"; //if you want to use disqus, register your site on disqus and put the shortname here
 	$Safari_ForceBasic=false; //force safari into basic mode (it's literally worse than internet explorer)

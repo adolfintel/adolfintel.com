@@ -6,7 +6,7 @@
 ?>
 <?php if(file_exists($_GET["p"])){ ?>
 <div>
-	<link rel="stylesheet" type="text/css" href="article_md.css?20170306" />
+	<link rel="stylesheet" type="text/css" href="article_md.css?20230728" />
 	<div class="stripe">
 		<div class="content">
 		<div id="mdArticle">

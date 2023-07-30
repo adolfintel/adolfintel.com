@@ -5,6 +5,7 @@
 }
 #outerGradient{
 	background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 100%); 
+	backdrop-filter:blur(1rem);
 	animation:boxShadowFade 0.8s ease-out;
 	padding:1.6em 0;
 }
@@ -45,10 +46,12 @@
 
 }
 #bigAss{
-	font-family:'BebasNeue',sans-serif;
+	font-family:'Titillium',sans-serif;
 	font-size:5.1em;
+	font-weight:700;
 	line-height:0.82em;
 	margin:0.15em 0 1.2em 0;
+	text-shadow: 0.02em 0.02em 0.07em rgba(0,0,0,0.3);
 }
 
 #sections{
@@ -61,11 +64,11 @@
 	margin-right:0.3em;
 	display:inline-block;
 	font-size:1.23em;
-	font-family:'Lato';
+	font-family:'Titillium';
 	transition:all 0.2s;
 }
 #sections a:hover{
-	text-shadow: 0 0 0.6em #ffffff;
+	text-shadow: 0 0 0.4em #ffffff;
 	transition:all 0.2s;
 }
 

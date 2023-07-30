@@ -5,7 +5,7 @@
 	header('Content-type: text/json; charset=utf-8');
 	include '_config.php';
 	$conn = new mysqli($MySql_hostname, $MySql_username, $MySql_password, $MySql_databasename) or die("1");   
-	$q = $conn->prepare("select text from comment where idPage=?")  or die("1");
+	$q = $conn->prepare("select text from comment where idPage=? order by id desc")  or die("1");
 	$q->bind_param("s",$_GET["id"]);
 	$q->execute() or die("1");
 	$comments=array();

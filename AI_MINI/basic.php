@@ -67,7 +67,7 @@
 <meta property="og:title" content="<?=htmlspecialchars($title?$title:$Site_Title)?>" />
 <meta property="og:description" content="<?=htmlspecialchars($description?$description:$Site_Description)?>" />
 <meta name="theme-color" content="<?=$Chrome_TabColor?>"/>
-<link rel="stylesheet" type="text/css" href="basic.css?20190711" />
+<link rel="stylesheet" type="text/css" href="basic.css?20230728" />
 <link rel="icon" href="favicon.ico" />
 <script type="text/javascript">
 String.prototype.isBlank=function(){
@@ -214,7 +214,7 @@ function loadComments(id,container){
 			d.innerHTML="Disqus failed to load";
 		}
 	<?php } else if($Comment_System=="builtin") { ?>
-		var d=document.createElement("d");
+        var d=document.createElement("d");
 		d.className="loading";
 		container.appendChild(d);
 		var xhr=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
@@ -324,9 +324,9 @@ setInterval(function(){
 }
 </style>
 <!--[if lt IE 9]>
-<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20170222" />
+<link rel="stylesheet" type="text/css" href="basic_overrides_ie.css?20230728" />
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="print.css?20170306" media="print"/>
+<link rel="stylesheet" type="text/css" href="print.css?20230728" media="print"/>
 </head>
 <body>
 	<div id="nav" onClick="toggleNavExp()">
