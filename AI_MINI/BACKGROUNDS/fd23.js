@@ -27,11 +27,11 @@ function FD23(target,config){
     //Config variables, these can be changed directly at any time
     this.targetHue=assignOrDefault(config.targetHue,245);
     this.targetSaturation=assignOrDefault(config.targetSaturation,75);config.targetSaturation||75;
-    this.targetLuminance=assignOrDefault(config.targetLuminance,56);
+    this.targetLightness=assignOrDefault(config.targetLightness,56);
     this.targetAlpha=assignOrDefault(config.targetAlpha,40);
     this.targetHueVariance=assignOrDefault(config.targetHueVariance,43);
     this.targetSaturationVariance=assignOrDefault(config.targetSaturationVariance,0);
-    this.targetLuminanceVariance=assignOrDefault(config.targetLuminanceVariance,0);
+    this.targetLightnessVariance=assignOrDefault(config.targetLightnessVariance,0);
     this.colorAdjustmentSpeed=assignOrDefault(config.colorAdjustmentSpeed,1);
     this.hueCyclePeriod=assignOrDefault(config.hueCyclePeriod,0);
     this.compensatePerceivedBrightness=assignOrDefault(config.compensatePerceivedBrightness,false);
@@ -55,11 +55,11 @@ function FD23(target,config){
     //Internal variables, do not touch
     this._hue=this.targetHue;
     this._saturation=this.targetSaturation;
-    this._luminance=this.targetLuminance;
+    this._lightness=this.targetLightness;
     this._alpha=this.targetAlpha;
     this._hueVariance=this.targetHueVariance;
     this._saturationVariance=this.targetSaturationVariance;
-    this._luminanceVariance=this.targetLuminanceVariance;
+    this._lightnessVariance=this.targetLightnessVariance;
     this._gradientBias=this.targetGradientBias;
     this._ringDistortionIntensity=this.targetRingDistortionIntensity;
     this._speed=this.targetSpeed;
@@ -101,22 +101,22 @@ FD23.prototype={
                 tempHue+=(Date.now()/this.hueCyclePeriod)%360;
             }
             this._saturation-=(this._ts-this._prevTs)*0.003*this.colorAdjustmentSpeed*(this._saturation-this.targetSaturation);
-            this._luminance-=(this._ts-this._prevTs)*0.003*this.colorAdjustmentSpeed*(this._luminance-this.targetLuminance);
-            var tempLuminance=this._luminance;
+            this._lightness-=(this._ts-this._prevTs)*0.003*this.colorAdjustmentSpeed*(this._lightness-this.targetLightness);
+            var tempLightness=this._lightness;
             if(this.compensatePerceivedBrightness){
-                tempLuminance*=0.6+0.4*(0.5*(Math.cos(2*Math.PI*tempHue/360+Math.PI/2)+1));
+                tempLightness*=0.6+0.4*(0.5*(Math.cos(2*Math.PI*tempHue/360+Math.PI/2)+1));
             }
             this._alpha-=(this._ts-this._prevTs)*0.003*this.colorAdjustmentSpeed*(this._alpha-this.targetAlpha);
             this._hueVariance-=(this._ts-this._prevTs)*0.002*this.colorAdjustmentSpeed*(this._hueVariance-this.targetHueVariance);
             this._saturationVariance-=(this._ts-this._prevTs)*0.002*this.colorAdjustmentSpeed*(this._saturationVariance-this.targetSaturationVariance);
-            this._luminanceVariance-=(this._ts-this._prevTs)*0.002*this.colorAdjustmentSpeed*(this._luminanceVariance-this.targetLuminanceVariance);
+            this._lightnessVariance-=(this._ts-this._prevTs)*0.002*this.colorAdjustmentSpeed*(this._lightnessVariance-this.targetLightnessVariance);
             this._speed-=(this._ts-this._prevTs)*0.0025*this.speedAdjustmentSpeed*(this._speed-this.targetSpeed);
             this._gradientBias-=(this._ts-this._prevTs)*0.0025*this.speedAdjustmentSpeed*(this._gradientBias-this.targetGradientBias);
             this._animationIntensity-=(this._ts-this._prevTs)*0.0015*this.speedAdjustmentSpeed*(this._animationIntensity-this.targetAnimationIntensity);
             this._ringDistortionIntensity-=(this._ts-this._prevTs)*0.0025*this.speedAdjustmentSpeed*(this._ringDistortionIntensity-this.targetRingDistortionIntensity);
             var context=canvas.getContext("2d");
             context.globalCompositeOperation="source-over";
-            context.fillStyle="hsl("+tempHue+","+this._saturation+"%,"+tempLuminance*0.25+"%)";
+            context.fillStyle="hsl("+tempHue+","+this._saturation+"%,"+tempLightness*0.25+"%)";
             context.fillRect(0,0,canvas.width,canvas.height);
             var cx=canvas.width/2, cy=canvas.height/2;
             var dist=Math.max(canvas.width,canvas.height)*0.35;
@@ -130,7 +130,7 @@ FD23.prototype={
                 var color="hsla(";
                 color+=tempHue+(i*this._hueVariance/this.nParticles)*(i%2==0?1:-1)+",";
                 color+=this._saturation+(i*this._saturationVariance/this.nParticles)*(i%2==0?1:-1)+"%,";
-                color+=tempLuminance+(i*this._luminanceVariance/this.nParticles)*(i%2==0?1:-1)+"%,";
+                color+=tempLightness+(i*this._lightnessVariance/this.nParticles)*(i%2==0?1:-1)+"%,";
                 color+=this._alpha+"%)";
                 for(var j=0;j<this.ringsPerParticle;j++){
                     gradient.addColorStop(Math.pow((2*j)/(this.ringsPerParticle*2),this._gradientBias),"#00000000");
